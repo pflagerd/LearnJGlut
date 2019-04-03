@@ -1,0 +1,9 @@
+/bin/
+/test/bin/
+*.class
+*.pkc
+.recommenders/
+**/.directory
+
+
+
