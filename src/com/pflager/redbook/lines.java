@@ -87,7 +87,6 @@ public class lines extends glut implements glut.DisplayFunc, glut.ReshapeFunc, g
 		}
 	}
 
-	@Override
 	public int main(int argc, String[] argv) {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);

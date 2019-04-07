@@ -137,7 +137,6 @@ public class template3D extends glut {
 		}
 	}
 
-	@Override
 	public int main(int argc, String[] argv) {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);

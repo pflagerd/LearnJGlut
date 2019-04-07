@@ -1,0 +1,16 @@
+<project default="select-swt">
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>		
+	
+	<target name="select-swt" depends="swt-win, swt-lin"/>
+	
+	<target name="swt-win" if="isWindows">
+		<copy overwrite="true" file="lib/swt_win_64.jar" tofile="lib/swt.jar"/>
+	</target>
+	
+	<target name="swt-lin" unless="isWindows">
+		<copy overwrite="true" file="lib/swt_lin_64.jar" tofile="lib/swt.jar"/>
+	</target>
+
+</project>

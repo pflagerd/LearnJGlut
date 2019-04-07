@@ -4,7 +4,6 @@
  */
 package com.pflager.redbook.swt;
 
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.opengl.GLCanvas;
@@ -14,7 +13,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.pflager.glut;
 
-public class hello extends glut{
+public class hello extends glut {
 
 	static GLCanvas canvas;
 
@@ -85,7 +84,7 @@ public class hello extends glut{
 		}
 		display.dispose();
 	}
-	
+
 	public static void main(String[] args) {
 		new hello().main();
 	}

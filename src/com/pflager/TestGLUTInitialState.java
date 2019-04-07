@@ -30,10 +30,10 @@ class TestGLUTInitialState extends glut {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+		glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
 		
 		float[] projectionMatrixStack = glGetFloatv(GL_PROJECTION_MATRIX);
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < projectionMatrixStack.length / 16; i++) {
 			for (int j = 0; j < 4; j++) {
 				System.out.print("[");
 				for (int k = 0; k < 4; k++) {
@@ -58,7 +58,7 @@ class TestGLUTInitialState extends glut {
 		glutCreateWindow("TestGLUTInitial");
 		
 		float[] projectionMatrixStack = glGetFloatv(GL_PROJECTION_MATRIX);
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < projectionMatrixStack.length / 16; i++) {
 			for (int j = 0; j < 4; j++) {
 				System.out.print("[");
 				for (int k = 0; k < 4; k++) {

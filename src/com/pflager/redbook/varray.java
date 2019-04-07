@@ -105,7 +105,6 @@ public class varray extends glut {
 		}
 	}
 
-	@Override
 	public int main(int argc, String[] argv) {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
