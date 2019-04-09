@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 
-public class Java_com_pflager_gl_glRectiv extends glutTest {
+public class Test_com_pflager_gl_glRectiv extends glutTest {
 
 	@Test
 	void testFullyCoveredCanvas_II_II() throws IOException, InterruptedException {
@@ -27,7 +27,7 @@ public class Java_com_pflager_gl_glRectiv extends glutTest {
 	}
 
 	@Test
-	void testPartiallyCoveredBottomLeftTheCanvas_II_II() throws IOException, InterruptedException {
+	void testPartiallyCoveredBottomLeftOfTheCanvas_II_II() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
