@@ -7,20 +7,23 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import java.lang.Math;
 
-class Java_com_pflager_gl_glVertex2fv__3F extends glutTest {
+class Test_com_pflager_gl_glVertex2fv__3F extends glutTest {
 
 	@Test
 	void testDrawSpiralStartingAtTheExactCenter_II_II() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 			float x,y,z = -50,angle;
+			gluOrtho2D(-100, 100, -100, 100);
 		    glBegin(GL_POINTS);
 
 		    for(angle = 0; angle < 360; angle += 1)
 		    {   
+		    	glColor3f(0f, 0f, 1f);
 		        x = (float) (50 * Math.cos(angle));
 		        y = (float) (50 * Math.sin(angle));
-		       // glVertex2fv(x, y);
+		        glPointSize(2);
+		        glVertex2f(x, y);
 		       // glVertex2fv(x,y,z);
 		        z+=1;
 		    }
