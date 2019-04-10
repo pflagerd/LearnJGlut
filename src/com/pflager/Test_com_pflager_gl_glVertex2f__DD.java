@@ -15,7 +15,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
 			glBegin(GL_POINTS);
-			for (double radius = 0.1; radius < 1; radius = radius + 0.1) {
+			for (double radius = 0.111; (radius <= 1); radius = radius + 0.111) {
 				double k = 0;
 				for (double i = 0; i < circle_points; i++) {
 					k = k + 2.8125;
@@ -40,7 +40,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
 			glBegin(GL_POINTS);
-			for (double radius = 0.1; radius < 1; radius = radius + 0.1) {
+			for (double radius = 0.111; (radius <= 1); radius = radius + 0.111) {
 				double k = 0;
 				for (double i = 0; i < circle_points; i++) {
 					k = k + 2.8125;
@@ -65,7 +65,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
 			glBegin(GL_POINTS);
-			for (double radius = 0.1; radius < 1; radius = radius + 0.1) {
+			for (double radius = 0.111; (radius <= 1); radius = radius + 0.111) {
 				double k = 0;
 				for (double i = 0; i < circle_points; i++) {
 					k = k + 2.8125;
@@ -90,7 +90,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
-			for (double radius = 0.1; radius < 1; radius = radius + 0.1) {
+			for (double radius = 0.111; (radius <= 1); radius = radius + 0.111) {
 				glBegin(GL_LINE_LOOP);
 				double k = 0;
 				for (double i = 0; i < circle_points; i++) {
