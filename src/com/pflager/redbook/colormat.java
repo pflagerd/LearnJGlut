@@ -78,7 +78,6 @@ public class colormat  extends glut{
 	         break;
 	   }
 	}
-
 	public int main(int argc, String[] argv)
 	{
 	   glutInit(argc, argv);
