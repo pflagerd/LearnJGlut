@@ -1,10 +1,8 @@
 package com.pflager;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-import java.lang.Math;
+
+import org.junit.jupiter.api.Test;
 
 class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 	final float PI = (float) 3.1415926535898;
