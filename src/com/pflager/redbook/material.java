@@ -12,7 +12,6 @@ public class material extends glut{
 		   float position[] = { 0.0f, 3.0f, 2.0f, 0.0f };
 		   float lmodel_ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
 		   float local_view[] = { 0.0f };
-
 		   glClearColor(0.0, 0.1, 0.1, 0.0);
 		   glEnable(GL_DEPTH_TEST);
 		   glShadeModel(GL_SMOOTH);
