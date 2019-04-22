@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 	Test_com_pflager_gl_glRectiv.class,
 	Test_com_pflager_gl_glVertex2f__DD.class,
 	Test_com_pflager_gl_glVertex2fv__3F.class,
+	Test_com_pflager_gl_glRectd.class,
 	})
 public class AllTests {
 }
