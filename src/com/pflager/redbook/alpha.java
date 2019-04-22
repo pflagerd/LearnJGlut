@@ -7,7 +7,7 @@ public class alpha  extends glut{
 	boolean leftFirst = true;
 
 	/* Initialize alpha blending function. */
-	static   void init()
+	   void init()
 	{
 		
 		glEnable (GL_BLEND);
