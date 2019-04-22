@@ -1,0 +1,10 @@
+bin_PROGRAMS = bezcurve bezsurf cube double hello lines polys unproject varray
+bezcurve_SOURCES = bezcurve.c
+bezsurf_SOURCES = bezsurf.c
+cube_SOURCES = cube.c
+double_SOURCES = double.c
+hello_SOURCES = hello.c
+lines_SOURCES = lines.c
+polys_SOURCES = polys.c
+unproject_SOURCES = unproject.c
+varray_SOURCES = varray.c
