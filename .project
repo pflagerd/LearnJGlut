@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TestJGlut</name>
+	<name>LearnJGlut</name>
 	<comment></comment>
 	<projects>
 		<project>JGlut</project>
