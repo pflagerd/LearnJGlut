@@ -105,5 +105,6 @@ public class colormat extends glut{
 	}
 	public static void main(String[] args) {
 		System.exit(new colormat().main(args.length, args));
+		
 	}
 }
