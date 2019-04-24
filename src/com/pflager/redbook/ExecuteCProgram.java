@@ -1,4 +1,4 @@
-package ImageCompare;
+package package com.pflager.redbook;
 
 import java.io.IOException;
 
