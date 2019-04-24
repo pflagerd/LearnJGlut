@@ -1,4 +1,4 @@
-package package com.pflager.redbook;
+ package com.pflager.redbook;
 
 import java.io.IOException;
 
