@@ -29,8 +29,14 @@ public class ImageCompareJNA extends JFrame {
 	BufferedImage image;
 	final String ExportPath = "C:\\Users\\sa463e\\Desktop\\Geoduck2\\temp\\";
 	public String ImageName ;
+	private HWND hWnd;
 
-	public BufferedImage capture(HWND hWnd) {
+	public boolean capture() {
+		
+		if (hWnd == null) {
+			System.out.print("Window not found!");
+			return false;
+		}
 		
 		HDC hdcWindow = User32.INSTANCE.GetDC(hWnd);
 		HDC hdcMemDC = GDI32.INSTANCE.CreateCompatibleDC(hdcWindow);
@@ -73,19 +79,16 @@ public class ImageCompareJNA extends JFrame {
 		GDI32.INSTANCE.DeleteObject(hBitmap);
 		User32.INSTANCE.ReleaseDC(hWnd, hdcWindow);
 
-		return image;
+		return true;
 	}
 
-	public static boolean IdenticalImage() {
+	public static boolean IdenticalImage(File FirstFile, File SecondFile) {
 		try {
 
-			File fileA = new File("C:\\Users\\sa463e\\Desktop\\Geoduck2\\Tst\\A.png");
-			File fileB = new File("C:\\Users\\sa463e\\Desktop\\Geoduck2\\Tst\\ACopy.png");
-
-			BufferedImage biA = ImageIO.read(fileA);
+			BufferedImage biA = ImageIO.read(FirstFile);
 			DataBuffer dbA = biA.getData().getDataBuffer();
 			int sizeA = dbA.getSize();
-			BufferedImage biB = ImageIO.read(fileB);
+			BufferedImage biB = ImageIO.read(SecondFile);
 			DataBuffer dbB = biB.getData().getDataBuffer();
 			int sizeB = dbB.getSize();
 			if (sizeA == sizeB) {
@@ -105,7 +108,9 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		if (IdenticalImage()) {
+		File	FirstFile = new File("C:\\Users\\sa463e\\Desktop\\Geoduck2\\Tst\\A.png");
+		File	 SecondFile = new File("C:\\Users\\sa463e\\Desktop\\Geoduck2\\Tst\\ACopy.png");
+		if (IdenticalImage(FirstFile,SecondFile)) {
 			System.out.println("Identical Image");
 
 		} else {
@@ -115,14 +120,9 @@ public class ImageCompareJNA extends JFrame {
 		//new ImageCompareJNA("");
 	}
 
-	public ImageCompareJNA(String[] args) {
-		HWND hWnd = User32.INSTANCE.FindWindow(null, args[0]);
-		if (hWnd != null) {
-			ImageName =  args[0];
-			this.image = capture(hWnd);
-		} else {
-			System.out.print("Window not found!");
-		}
+	public ImageCompareJNA(String WindowName) {
+		ImageName = WindowName;
+		hWnd = User32.INSTANCE.FindWindow(null, WindowName);
 	}
 
 }
