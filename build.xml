@@ -1,7 +1,17 @@
-<project default="select-swt">
+<project default="get-dependencies">
     <condition property="isWindows">
         <os family="windows" />
-    </condition>		
+    </condition>
+	
+	<target name="get-dependencies" depends="select-swt, unzip-mingw64, unzip-freeglut"/>
+
+	<target name="unzip-mingw64" if="isWindows">
+		<unzip src="x86_64-8.1.0-release-posix-seh-rt_v6-rev0.zip" dest="." overwrite="false"/>
+	</target>	
+	
+	<target name="unzip-freeglut" if="isWindows">
+		<unzip src="freeglut-MinGW-2.8.1-1.mp.zip" dest="." overwrite="false"/>
+	</target>	
 	
 	<target name="select-swt" depends="swt-win, swt-lin"/>
 	
@@ -12,5 +22,5 @@
 	<target name="swt-lin" unless="isWindows">
 		<copy overwrite="true" file="lib/swt_lin_64.jar" tofile="lib/swt.jar"/>
 	</target>
-
+	
 </project>
