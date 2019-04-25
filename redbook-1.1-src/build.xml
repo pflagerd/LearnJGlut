@@ -1,21 +1,16 @@
 <project default="build-all">
 	
-	<target name="build-all" depends="build-hello"/>
-	
-	<target name="build-hello">
-		<exec executable="../x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/bin/gcc">
-			<arg value="-DFREEGLUT_STATIC"/>
-			<arg value="-I../freeglut/include"/>
-			<arg value="hello.c"/>
-			<arg value="-o"/>
-			<arg value="hello"/>
-			<arg value="-L../freeglut/lib/x64"/>
-			<arg value="-lfreeglut_static"/>
-			<arg value="-lopengl32"/>
-			<arg value="-lglu32"/>
-			<arg value="-lwinmm"/>
-			<arg value="-lgdi32"/>
-			<arg value="-Wl,--subsystem,windows"/>
+	<target name="build-all">
+		<exec executable="C:\Program Files\Git\bin\bash.exe" dir="src">
+			<arg value="-c"/>
+			<arg value="./build.sh"/>
 		</exec>
 	</target>
+	
+	<target name="clean">
+		<delete>
+			<fileset dir="src" includes="*.exe"/>
+		</delete>
+	</target>
+	
 </project>
