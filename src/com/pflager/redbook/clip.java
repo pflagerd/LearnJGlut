@@ -3,7 +3,7 @@ package com.pflager.redbook;
 import com.pflager.glut;
 
 public class clip extends glut{
-
+	private boolean Drawn = false;
 	void init() 
 	{
 	   glClearColor (0.0, 0.0, 0.0, 0.0);
@@ -31,8 +31,8 @@ public class clip extends glut{
 	   glRotatef (90.0, 1.0, 0.0, 0.0);
 	   glutWireSphere(1.0, 20, 16);
 	   glPopMatrix();
-
 	   glFlush ();
+	   Drawn = true;
 	}
 
 	void reshape (int w, int h)
@@ -62,14 +62,31 @@ public class clip extends glut{
 	   glutInitWindowPosition (100, 100);
 	   glutCreateWindow ("clip");
 	   init ();
-	   glutDisplayFunc(this::display); 
+	   Test("clip");
+	   glutDisplayFunc(this::display);
 	   glutReshapeFunc(this::reshape);
 	   glutKeyboardFunc(this::keyboard);
 	   glutMainLoop();
+
 	   return 0;
 	}
 	
 	public static void main(String[] args) {
 		System.exit(new clip().main(args.length, args));
+	}
+	
+	public void Test(String WindowName) {
+		   new Thread(() -> {
+			   try {
+				    while(! Drawn) {
+				    	Thread.sleep(100);
+				   }
+				   ImageCompareJNA ImageCompareJNAObj = new ImageCompareJNA();
+				   ImageCompareJNAObj.CompareImage(WindowName);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}).start();
 	}
 }

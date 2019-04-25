@@ -27,17 +27,20 @@ public class ImageCompareJNA extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	BufferedImage image;
-	final String ExportPath = "C:\\Users\\sa463e\\Desktop\\Geoduck2\\temp\\";
-	public String ImageName ;
+	private String ImageName;
+	private String fileformat = "jpg";
 	private HWND hWnd;
+	private double MaxWaitTime = 10000; //Milliseconds 
+	Process PS = null;
+	private static String AppWindowName;
 
-	public boolean capture() {
-		
+	public boolean capture(String ExportPath) {
+
 		if (hWnd == null) {
 			System.out.print("Window not found!");
 			return false;
 		}
-		
+
 		HDC hdcWindow = User32.INSTANCE.GetDC(hWnd);
 		HDC hdcMemDC = GDI32.INSTANCE.CreateCompatibleDC(hdcWindow);
 
@@ -71,20 +74,19 @@ public class ImageCompareJNA extends JFrame {
 		File outputfile = new File(ExportPath + ImageName);
 
 		try {
-			ImageIO.write(image, "jpg", outputfile);
+			ImageIO.write(image, fileformat, outputfile);
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 
 		GDI32.INSTANCE.DeleteObject(hBitmap);
 		User32.INSTANCE.ReleaseDC(hWnd, hdcWindow);
-
 		return true;
 	}
 
 	public static boolean IdenticalImage(File FirstFile, File SecondFile) {
 		try {
-
 			BufferedImage biA = ImageIO.read(FirstFile);
 			DataBuffer dbA = biA.getData().getDataBuffer();
 			int sizeA = dbA.getSize();
@@ -108,21 +110,73 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		File	FirstFile = new File("C:\\Users\\sa463e\\Desktop\\Geoduck2\\Tst\\A.png");
-		File	 SecondFile = new File("C:\\Users\\sa463e\\Desktop\\Geoduck2\\Tst\\ACopy.png");
-		if (IdenticalImage(FirstFile,SecondFile)) {
-			System.out.println("Identical Image");
 
-		} else {
-
-			System.out.println("Different Image");
-		}
-		//new ImageCompareJNA("");
 	}
 
-	public ImageCompareJNA(String WindowName) {
+	private boolean ExecuteEXE(String CFileName) {
+
+		try {
+			PS = new ProcessBuilder("redbook-1.1-src/src/" + CFileName + ".exe").start();
+			AppWindowName = "redbook-1.1-src\\src\\" + CFileName + ".exe";
+			hWnd = null;
+			hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+			double waitTime = 0;
+		    while((hWnd ==null) & (waitTime< MaxWaitTime )) {
+		    	waitTime = waitTime + 100;
+		    	try {
+					Thread.sleep(100);
+					hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		   }
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+//		InputStream is = PS.getInputStream();
+//		InputStreamReader isr = new InputStreamReader(is);
+//		BufferedReader br = new BufferedReader(isr);
+//		String line;
+		return true;
+
+	}
+
+	/**
+	 * 
+	 * @param WindowName Name Name of the active Jglut window, this also used for
+	 *                   running the C program
+	 * @return Returns true if the image are identical
+	 */
+	public boolean CompareImage(String WindowName) {
 		ImageName = WindowName;
-		hWnd = User32.INSTANCE.FindWindow(null, WindowName);
+		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
+			if (ExecuteEXE(WindowName)) {// Running c application with window name
+				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+				ImageName = WindowName + "CImage";
+				if (capture("redbook-1.1-src/src/")) { // Capturing c application window
+					PS.destroy(); // Ending C executable process
+					File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
+					File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+					if (IdenticalImage(FirstFile, SecondFile)) {
+						FirstFile.delete();
+						SecondFile.delete();
+						System.out.println("Identical Image");
+						return true;
+					} else {
+						FirstFile.delete();
+						SecondFile.delete();
+						System.out.println("Different Image");
+						return false;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }

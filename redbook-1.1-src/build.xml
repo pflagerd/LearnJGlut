@@ -1,0 +1,16 @@
+<project default="build-all">
+	
+	<target name="build-all">
+		<exec executable="C:\Program Files\Git\bin\bash.exe" dir="src">
+			<arg value="-c"/>
+			<arg value="./build.sh"/>
+		</exec>
+	</target>
+	
+	<target name="clean">
+		<delete>
+			<fileset dir="src" includes="*.exe"/>
+		</delete>
+	</target>
+	
+</project>
