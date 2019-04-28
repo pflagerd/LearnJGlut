@@ -54,6 +54,8 @@ public class alpha6_1 extends glut {
 			gluOrtho2D(0.0, 1.0, 0.0, 1.0 * h / w);
 		else
 			gluOrtho2D(0.0, 1.0 * w / h, 0.0, 1.0);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 	}
 
 	void keyboard(char key, int x, int y) {
