@@ -3,52 +3,46 @@ package com.pflager.redbook;
 import com.pflager.glut;
 
 public class aargb extends glut{
-	static float rotAngle = 0.;
+	static float rotAngle = 0;
 	/* Initialize antialiasing for RGBA mode, including alpha
 	* blending, hint, and line width. Print out implementation
 	* specific info on line width granularity and width. */
 	
 	   void init()
 	{
-		
-		glEnable (GL_BLEND);
-		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glShadeModel (GL_FLAT);
-		glClearColor (0.0, 0.0, 0.0, 0.0);
+		   float values[] = new float [2];
+		   glGetFloatv (GL_LINE_WIDTH_GRANULARITY, values);
+		   System.out.println("GL_LINE_WIDTH_GRANULARITY value is " + values[0] + ".1f\n");
+		   glGetFloatv (GL_LINE_WIDTH_RANGE, values);
+		   System.out.println ("GL_LINE_WIDTH_RANGE values are "+values[0] +".1f "+values[1]+".1f\n");
+		   glEnable (GL_LINE_SMOOTH);
+		   glEnable (GL_BLEND);
+		   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		   glHint (GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+		   glLineWidth (1.5);
+		   glClearColor(0.0, 0.0, 0.0, 0.0);
 	}
 
-	 void drawLeftTriangle()
-	{
-	/* draw yellow triangle on LHS of screen */
-		 glBegin (GL_TRIANGLES);
-			 glColor4f(1.0, 1.0, 0.0, 0.75);
-			 glVertex3f(0.1, 0.9, 0.0);
-			 glVertex3f(0.1, 0.1, 0.0);
-			 glVertex3f(0.7, 0.5, 0.0);
-		 glEnd();
-	}
-	 void drawRightTriangle()
-	 {
-	 /* draw cyan triangle on RHS of screen */
-		 glBegin (GL_TRIANGLES);
-			 glColor4f(0.0, 1.0, 1.0, 0.75);
-			 glVertex3f(0.9, 0.9, 0.0);
-			 glVertex3f(0.3, 0.5, 0.0);
-			 glVertex3f(0.9, 0.1, 0.0);
-		 glEnd();
-	 }
 	 
 	 void display()
 	 {
 		 glClear(GL_COLOR_BUFFER_BIT);
-		 if (leftFirst) {
-			 drawLeftTriangle();
-			 drawRightTriangle();
-		 }
-		 else {
-			 drawRightTriangle();
-			 drawLeftTriangle();
-		 }
+		 glColor3f (0.0, 1.0, 0.0);
+		 glPushMatrix();
+		 glRotatef(-rotAngle, 0.0, 0.0, 0.1);
+		 glBegin (GL_LINES);
+		 glVertex2f (-0.5, 0.5);
+		 glVertex2f (0.5, -0.5);
+		 glEnd ();
+		 glPopMatrix();
+		 glColor3f (0.0, 0.0, 1.0);
+		 glPushMatrix();
+		 glRotatef(rotAngle, 0.0, 0.0, 0.1);
+		 glBegin (GL_LINES);
+		 glVertex2f (0.5, 0.5);
+		 glVertex2f (-0.5, -0.5);
+		 glEnd ();
+		 glPopMatrix();
 		 glFlush();
 	 }
 	 
