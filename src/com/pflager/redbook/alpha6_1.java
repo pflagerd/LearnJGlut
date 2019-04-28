@@ -14,6 +14,7 @@ public class alpha6_1 extends glut {
 		glShadeModel(GL_FLAT);
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 	}
+
 	void drawLeftTriangle() {
 		/* draw yellow triangle on LHS of screen */
 		glBegin(GL_TRIANGLES);
@@ -58,6 +59,7 @@ public class alpha6_1 extends glut {
 		glLoadIdentity();
 	}
 
+	
 	void keyboard(char key, int x, int y) {
 		switch (key) {
 		case 't':
