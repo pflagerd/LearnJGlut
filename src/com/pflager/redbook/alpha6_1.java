@@ -5,7 +5,6 @@ import com.pflager.glut;
 public class alpha6_1 extends glut {
 
 	boolean leftFirst = true;
-
 	/* Initialize alpha blending function. */
 	void init() {
 
