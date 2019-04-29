@@ -22,6 +22,7 @@ import com.sun.jna.platform.win32.WinDef.RECT;
 import com.sun.jna.platform.win32.WinGDI;
 import com.sun.jna.platform.win32.WinGDI.BITMAPINFO;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
+import com.sun.jna.platform.win32.WinUser;
 
 public class ImageCompareJNA extends JFrame {
 
@@ -30,7 +31,7 @@ public class ImageCompareJNA extends JFrame {
 	private String ImageName;
 	private String fileformat = "jpg";
 	private HWND hWnd;
-	private double MaxWaitTime = 10000; //Milliseconds 
+	private double MaxWaitTime = 10000; // Milliseconds
 	Process PS = null;
 	private static String AppWindowName;
 
@@ -109,29 +110,25 @@ public class ImageCompareJNA extends JFrame {
 		}
 	}
 
-	public static void main(String[] args) {
-
-	}
-
 	private boolean ExecuteEXE(String CFileName) {
 
 		try {
 			PS = new ProcessBuilder("redbook-1.1-src/src/" + CFileName + ".exe").start();
 			AppWindowName = "redbook-1.1-src\\src\\" + CFileName + ".exe";
 			hWnd = null;
-			hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+			hWnd = User32.INSTANCE.FindWindow(null, CFileName);
 			double waitTime = 0;
-		    while((hWnd ==null) & (waitTime< MaxWaitTime )) {
-		    	waitTime = waitTime + 100;
-		    	try {
+			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
+				waitTime = waitTime + 100;
+				try {
 					Thread.sleep(100);
-					hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+					hWnd = User32.INSTANCE.FindWindow(null, CFileName);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		   }
-			
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,6 +142,18 @@ public class ImageCompareJNA extends JFrame {
 
 	}
 
+	public boolean CaptureCImage(String WindowName) {
+		if (ExecuteEXE(WindowName)) {// Running c application with window name
+			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
+			ImageName = WindowName + "CImage";
+			if (capture("redbook-1.1-src/src/")) { // Capturing c application window
+				PS.destroy(); // Ending C executable process
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * 
 	 * @param WindowName Name Name of the active Jglut window, this also used for
@@ -154,6 +163,7 @@ public class ImageCompareJNA extends JFrame {
 	public boolean CompareImage(String WindowName) {
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+		User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			if (ExecuteEXE(WindowName)) {// Running c application with window name
 				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
@@ -174,6 +184,28 @@ public class ImageCompareJNA extends JFrame {
 						return false;
 					}
 				}
+			}
+		}
+		return false;
+	}
+
+	public boolean CompareImage2(String WindowName) {
+		ImageName = WindowName;
+		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+		//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
+		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
+			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
+			File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+			if (IdenticalImage(FirstFile, SecondFile)) {
+				FirstFile.delete();
+				SecondFile.delete();
+				System.out.println("Identical Image");
+				return true;
+			} else {
+				FirstFile.delete();
+				SecondFile.delete();
+				System.out.println("Different Image");
+				return false;
 			}
 		}
 		return false;
