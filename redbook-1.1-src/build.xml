@@ -1,16 +1,36 @@
 <project default="build-all">
-	
-	<target name="build-all">
-		<exec executable="C:\Program Files\Git\bin\bash.exe" dir="src">
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+	<target name="build-all" depends="build-linux,build-windows"/>
+
+	<target name="build-linux" unless="isWindows">
+		<exec executable="bash" dir="src">
 			<arg value="-c"/>
-			<arg value="./build.sh"/>
+			<arg value="./build-linux.sh"/>
 		</exec>
 	</target>
-	
-	<target name="clean">
+
+	<target name="build-windows" if="isWindows">
+		<exec executable="C:\Program Files\Git\bin\bash.exe" dir="src">
+			<arg value="-c"/>
+			<arg value="./build-windows.sh"/>
+		</exec>
+	</target>
+
+	<target name="clean-windows">
 		<delete>
 			<fileset dir="src" includes="*.exe"/>
 		</delete>
 	</target>
-	
+
+	<target name="clean-linux">
+		<exec executable="bash" dir="src">
+			<arg value="-c"/>
+			<arg value="for program in `ls`; do rm ${program%.c}; done"/>
+		</exec>
+	</target>
+
+
 </project>
