@@ -11,7 +11,6 @@ public class alpha3D extends glut {
 	static float solidZ = (float) MAXZ;
 	static float transparentZ = (float) MINZ;
 	static int sphereList, cubeList;
-
 	/* Initialize alpha blending function. */
 	void init() {
 		float mat_specular[] = { 1.0f, 1.0f, 1.0f, 0.15f };
@@ -98,7 +97,7 @@ public class alpha3D extends glut {
 		}
 	}
 
-	void  animate() {
+	void animate() {
 		if (solidZ <= MINZ || transparentZ >= MAXZ)
 			glutIdleFunc(null);
 		else {
