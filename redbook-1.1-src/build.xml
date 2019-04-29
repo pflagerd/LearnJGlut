@@ -28,7 +28,7 @@
 	<target name="clean-linux">
 		<exec executable="bash" dir="src">
 			<arg value="-c"/>
-			<arg value="for program in `ls`; do rm ${program%.c}; done"/>
+			<arg value="for program in `ls *.c`; do rm ${program%.c}; done"/>
 		</exec>
 	</target>
 
