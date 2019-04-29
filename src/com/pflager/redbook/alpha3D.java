@@ -80,7 +80,7 @@ public class alpha3D extends glut {
 		case 'A':
 			solidZ = (float) MAXZ;
 			transparentZ = (float) MINZ;
-			glutIdleFunc(animate());
+			glutIdleFunc(this::animate);
 			glutPostRedisplay();
 			break;
 		case 'r':
