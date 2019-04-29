@@ -1,9 +1,9 @@
-<project default="build-all">
+<project default="build">
     <condition property="isWindows">
         <os family="windows" />
     </condition>
 
-	<target name="build-all" depends="build-linux,build-windows"/>
+	<target name="build" depends="build-linux,build-windows"/>
 
 	<target name="build-linux" unless="isWindows">
 		<exec executable="bash" dir="src">
@@ -19,16 +19,18 @@
 		</exec>
 	</target>
 
-	<target name="clean-windows">
+	<target name="clean" depends="clean-linux,clean-windows"/>
+
+	<target name="clean-windows" if="isWindows">
 		<delete>
 			<fileset dir="src" includes="*.exe"/>
 		</delete>
 	</target>
 
-	<target name="clean-linux">
+	<target name="clean-linux" unless="isWindows">
 		<exec executable="bash" dir="src">
 			<arg value="-c"/>
-			<arg value="for program in `ls *.c`; do rm ${program%.c}; done"/>
+			<arg value="for program in `ls *.c`; do rm -f ${program%.c}; done"/>
 		</exec>
 	</target>
 
