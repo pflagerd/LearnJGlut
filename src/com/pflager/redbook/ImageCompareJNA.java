@@ -145,10 +145,15 @@ public class ImageCompareJNA extends JFrame {
 	public boolean CaptureCImage(String WindowName) {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
-			ImageName = WindowName + "CImage";
-			if (capture("redbook-1.1-src/src/")) { // Capturing c application window
-				PS.destroy(); // Ending C executable process
-				return true;
+			if (hWnd == null) {
+				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+			}
+			if (hWnd != null) {
+				ImageName = WindowName + "CImage";
+				if (capture("redbook-1.1-src/src/")) { // Capturing c application window
+					PS.destroy(); // Ending C executable process
+					return true;
+				}
 			}
 		}
 		return false;
@@ -189,10 +194,11 @@ public class ImageCompareJNA extends JFrame {
 		return false;
 	}
 
-	public boolean CompareImage2(String WindowName) {
+	public boolean CompareImageSec(String WindowName) {
+		System.out.println("CompareImageSec");
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
-		//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
+		// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
 			File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
