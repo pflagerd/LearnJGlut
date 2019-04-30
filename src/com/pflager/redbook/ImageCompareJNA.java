@@ -198,6 +198,18 @@ public class ImageCompareJNA extends JFrame {
 		System.out.println("CompareImageSec");
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+		double waitTime = 0;
+		while ((hWnd == null) && (waitTime < MaxWaitTime)) {
+			waitTime = waitTime + 1000;
+			try {
+				Thread.sleep(1000);
+				hWnd =User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);

@@ -15,13 +15,6 @@ class Test_com_pflager_redbook_hello  extends ImageCompareJNA{
 			String argv[] = new String[0];
 			helloObject.main(0, argv);
 			}).start();
-		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		assertTrue(CompareImageSec("hello"));
 		
 	}
