@@ -1,4 +1,4 @@
-package com.pflager.redbook;
+package com.pflager.redbook.vtrg;
 
 import com.pflager.glut;
 
