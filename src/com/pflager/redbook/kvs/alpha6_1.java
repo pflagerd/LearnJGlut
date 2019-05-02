@@ -1,4 +1,4 @@
-package com.pflager.redbook;
+package com.pflager.redbook.kvs;
 
 import com.pflager.glut;
 
