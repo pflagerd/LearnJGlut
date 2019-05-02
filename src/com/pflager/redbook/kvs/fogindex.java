@@ -1,37 +1,36 @@
-
-package com.pflager.redbook;
+package com.pflager.redbook.kvs;
 
 import com.pflager.glut;
 
 public class fogindex extends glut {
 
-	/* Initialize color map and fog. Set screen clear color
-	* to end of color ramp.
-	*/
-	final static int  NUMCOLORS  = 32;
-	final static int RAMPSTART =  16;
+	/*
+	 * Initialize color map and fog. Set screen clear color to end of color ramp.
+	 */
+	final static int NUMCOLORS = 32;
+	final static int RAMPSTART = 16;
 
 	void init() {
 		int i;
 		glEnable(GL_DEPTH_TEST);
 		for (i = 0; i < NUMCOLORS; i++) {
-		float shade;
-		shade = (float) (NUMCOLORS-i)/(float) NUMCOLORS;
-		glutSetColor (RAMPSTART + i, shade, shade, shade);
+			float shade;
+			shade = (float) (NUMCOLORS - i) / (float) NUMCOLORS;
+			glutSetColor(RAMPSTART + i, shade, shade, shade);
 		}
 		glEnable(GL_FOG);
-		glFogi (GL_FOG_MODE, GL_LINEAR);
-		glFogi (GL_FOG_INDEX, NUMCOLORS);
-		glFogf (GL_FOG_START, 1.0);
-		glFogf (GL_FOG_END, 6.0);
-		glHint (GL_FOG_HINT, GL_NICEST);
-		glClearIndex((float) (NUMCOLORS+RAMPSTART-1));
-			}
+		glFogi(GL_FOG_MODE, GL_LINEAR);
+		glFogi(GL_FOG_INDEX, NUMCOLORS);
+		glFogf(GL_FOG_START, 1.0);
+		glFogf(GL_FOG_END, 6.0);
+		glHint(GL_FOG_HINT, GL_NICEST);
+		glClearIndex((float) (NUMCOLORS + RAMPSTART - 1));
+	}
 
 	void renderSphere(double x, double y, double z) {
 		glPushMatrix();
 		glTranslatef(x, y, z);
-		glutSolidSphere(0.4, 16, 16);
+		glutWireSphere(0.4, 16, 16);
 		glPopMatrix();
 	}
 	/*
@@ -40,12 +39,12 @@ public class fogindex extends glut {
 
 	void display() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glIndexi (RAMPSTART);
-		renderSphere (-2., -0.5, -1.0);
-		renderSphere (-1., -0.5, -2.0);
-		renderSphere (0., -0.5, -3.0);
-		renderSphere (1., -0.5, -4.0);
-		renderSphere (2., -0.5, -5.0);
+		glIndexi(RAMPSTART);
+		renderSphere(-2., -0.5, -1.0);
+		renderSphere(-1., -0.5, -2.0);
+		renderSphere(0., -0.5, -3.0);
+		renderSphere(1., -0.5, -4.0);
+		renderSphere(2., -0.5, -5.0);
 		glFlush();
 	}
 
@@ -70,7 +69,7 @@ public class fogindex extends glut {
 
 	int main(int argc, String[] argv) {
 		glutInit(argc, argv);
-		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_INDEX | GLUT_DEPTH);
 		glutInitWindowSize(500, 500);
 		glutCreateWindow("fogindex");
 		init();
