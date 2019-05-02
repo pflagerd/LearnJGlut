@@ -13,6 +13,7 @@ class Test_com_pflager_redbook_alpha extends ImageCompareJNA {
 		new Thread(() -> {
 			String argv[] = new String[0];
 			alphaObject.main(0, argv);
+			alphaObject.glutMainLoop();
 		}).start();
 		assertTrue(CompareImageSec("alpha"));
 		alphaObject.glutLeaveMainLoop();

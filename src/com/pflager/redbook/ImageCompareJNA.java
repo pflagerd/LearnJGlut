@@ -4,9 +4,15 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 
 import jna.extra.GDI32Extra;
 import jna.extra.User32Extra;
@@ -202,6 +208,30 @@ public class ImageCompareJNA extends JFrame {
 		}
 		return false;
 	}
+	
+	
+	/*
+	 * public static void CreateJavaImage(String WindowName) { JavaCompiler compiler
+	 * = ToolProvider.getSystemJavaCompiler(); DiagnosticCollector<JavaFileObject>
+	 * diagnostics = new DiagnosticCollector<>(); StandardJavaFileManager
+	 * fileManager = compiler.getStandardFileManager(diagnostics, null, null);
+	 * Iterable<? extends JavaFileObject> compilationUnits =
+	 * fileManager.getJavaFileObjectsFromStrings(Arrays.asList( WindowName +
+	 * ".java")); JavaCompiler.CompilationTask task = compiler.getTask(null,
+	 * fileManager, diagnostics, null,null, compilationUnits); boolean success =
+	 * task.call(); try { fileManager.close(); } catch (IOException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * }
+	 */
+
+
+	/*
+	 * public static void main(String args[]) { CreateJavaImage("hello");
+	 * 
+	 * 
+	 * }
+	 */
 
 	public boolean CompareImageSec(String WindowName) {
 		System.out.println("CompareImageSec");

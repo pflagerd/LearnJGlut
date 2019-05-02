@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
 @SuiteDisplayName("JGlut AllTests Suite")
 @SelectClasses({
 	Test_com_pflager_redbook_alpha.class,
-	Test_com_pflager_redbook_bezsurf.class,
 	Test_com_pflager_redbook_bezcurve.class,
+	Test_com_pflager_redbook_bezsurf.class,
 	Test_com_pflager_redbook_clip.class,
 	Test_com_pflager_redbook_colormat.class,
 	Test_com_pflager_redbook_cube.class,
