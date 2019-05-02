@@ -1,31 +1,35 @@
-package com.pflager.redbook;
+package com.pflager.redbook.vtrg;
 
 import com.pflager.glut;
 
 public class alpha3D extends glut {
 
-	final static double MAXZ = 8.0;
-	final static double MINZ = -8.0;
-	final double ZINC = 0.4;
+	static final double MAXZ = 8.0f;
+	static final double MINZ = -8.0f;
+	static final double ZINC = 4.0f;
 
-	static float solidZ = (float) MAXZ;
-	static float transparentZ = (float) MINZ;
+	static double solidZ = 8.0;
+	static double transparentZ = -8.0;
 	static int sphereList, cubeList;
-	/* Initialize alpha blending function. */
+
 	void init() {
-		float mat_specular[] = { 1.0f, 1.0f, 1.0f, 0.15f };
-		float mat_shininess[] = { 100.0f };
-		float position[] = { 0.5f, 0.5f, 1.0f, 0.0f };
+		double mat_specular[] = { 1.0, 1.0, 1.0, 0.15 };
+		double mat_shininess[] = { 100.0 };
+		double position[] = { 0.5, 0.5, 1.0, 0.0 };
+
 		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 		glLightfv(GL_LIGHT0, GL_POSITION, position);
+
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glEnable(GL_DEPTH_TEST);
+
 		sphereList = glGenLists(1);
 		glNewList(sphereList, GL_COMPILE);
 		glutSolidSphere(0.4, 16, 16);
 		glEndList();
+
 		cubeList = glGenLists(1);
 		glNewList(cubeList, GL_COMPILE);
 		glutSolidCube(0.6);
@@ -33,11 +37,13 @@ public class alpha3D extends glut {
 	}
 
 	void display() {
-		float mat_solid[] = { 0.75f, 0.75f, 0.0f, 1.0f };
-		float mat_zero[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-		float mat_transparent[] = { 0.0f, 0.8f, 0.8f, 0.6f };
-		float mat_emission[] = { 0.0f, 0.3f, 0.3f, 0.6f };
+		double mat_solid[] = { 0.75, 0.75, 0.0, 1.0 };
+		double mat_zero[] = { 0.0, 0.0, 0.0, 1.0 };
+		double mat_transparent[] = { 0.0, 0.8, 0.8, 0.6 };
+		double mat_emission[] = { 0.0, 0.3, 0.3, 0.6 };
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		glPushMatrix();
 		glTranslatef(-0.15, -0.15, solidZ);
 		glMaterialfv(GL_FRONT, GL_EMISSION, mat_zero);
@@ -58,8 +64,8 @@ public class alpha3D extends glut {
 		glDepthMask(GL_TRUE);
 		glDisable(GL_BLEND);
 		glPopMatrix();
-		glutSwapBuffers();
 
+		glutSwapBuffers();
 	}
 
 	void reshape(int w, int h) {
@@ -74,29 +80,6 @@ public class alpha3D extends glut {
 		glLoadIdentity();
 	}
 
-	void keyboard(char key, int x, int y) {
-		switch (key) {
-		case 'a':
-		case 'A':
-			solidZ = (float) MAXZ;
-			transparentZ = (float) MINZ;
-			glutIdleFunc(this::animate);
-			glutPostRedisplay();
-			break;
-		case 'r':
-		case 'R':
-			solidZ = (float) MAXZ;
-			transparentZ = (float) MINZ;
-			glutPostRedisplay();
-			break;
-		case 27: /* Escape key */
-			System.exit(0);
-			break;
-		default:
-			break;
-		}
-	}
-
 	void animate() {
 		if (solidZ <= MINZ || transparentZ >= MAXZ)
 			glutIdleFunc(null);
@@ -107,10 +90,29 @@ public class alpha3D extends glut {
 		}
 	}
 
+	void keyboard(char key, int x, int y) {
+		switch (key) {
+		case 'a':
+		case 'A':
+			solidZ = MAXZ;
+			transparentZ = MINZ;
+			glutIdleFunc(this::animate);
+			break;
+		case 'r':
+		case 'R':
+			solidZ = MAXZ;
+			transparentZ = MINZ;
+			glutPostRedisplay();
+			break;
+		case 27:
+			System.exit(0);
+		}
+	}
+
 	int main(int argc, String[] argv) {
 		glutInit(argc, argv);
-		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-		glutInitWindowSize(200, 200);
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+		glutInitWindowSize(500, 500);
 		glutCreateWindow("alpha3D");
 		init();
 		glutReshapeFunc(this::reshape);
