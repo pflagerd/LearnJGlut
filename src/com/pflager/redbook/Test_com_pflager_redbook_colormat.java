@@ -18,4 +18,5 @@ class Test_com_pflager_redbook_colormat extends ImageCompareJNA {
 		colormatObject.glutLeaveMainLoop();
 	}
 
+	
 }
