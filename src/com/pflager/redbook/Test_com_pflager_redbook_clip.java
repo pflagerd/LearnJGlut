@@ -9,13 +9,13 @@ class Test_com_pflager_redbook_clip extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("clip"));
+		clip clipObject = new clip();
 		new Thread(() -> {
-			clip clipObject = new clip();
 			String argv[] = new String[0];
 			clipObject.main(0, argv);
 		}).start();
 		assertTrue(CompareImageSec("clip"));
-
+		clipObject.glutLeaveMainLoop();
 	}
 
 }

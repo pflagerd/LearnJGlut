@@ -9,13 +9,13 @@ class Test_com_pflager_redbook_light extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("light"));
+		light lightObject = new light();
 		new Thread(() -> {
-			light lightObject = new light();
 			String argv[] = new String[0];
 			lightObject.main(0, argv);
 		}).start();
 		assertTrue(CompareImageSec("light"));
-
+		lightObject.glutLeaveMainLoop();
 	}
 
 }

@@ -9,13 +9,13 @@ class Test_com_pflager_redbook_cube extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("cube"));
+		cube cubeObject = new cube();
 		new Thread(() -> {
-			cube cubeObject = new cube();
 			String argv[] = new String[0];
 			cubeObject.main(0, argv);
 		}).start();
 		assertTrue(CompareImageSec("cube"));
-
+		cubeObject.glutLeaveMainLoop();
 	}
 
 }

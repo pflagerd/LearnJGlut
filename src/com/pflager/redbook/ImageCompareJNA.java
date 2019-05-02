@@ -117,12 +117,19 @@ public class ImageCompareJNA extends JFrame {
 			AppWindowName = "redbook-1.1-src\\src\\" + CFileName + ".exe";
 			hWnd = null;
 			hWnd = User32.INSTANCE.FindWindow(null, CFileName);
+			if (hWnd == null) {
+				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+			}
 			double waitTime = 0;
 			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
 				waitTime = waitTime + 100;
 				try {
 					Thread.sleep(100);
+					System.out.println("Wait time" +  waitTime);
 					hWnd = User32.INSTANCE.FindWindow(null, CFileName);
+					if (hWnd == null) {
+						hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -145,8 +152,10 @@ public class ImageCompareJNA extends JFrame {
 	public boolean CaptureCImage(String WindowName) {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
+			System.out.println("Windowname" +  WindowName);
 			if (hWnd == null) {
 				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+				System.out.println("AppWindowName" +  AppWindowName);
 			}
 			if (hWnd != null) {
 				ImageName = WindowName + "CImage";
@@ -198,6 +207,7 @@ public class ImageCompareJNA extends JFrame {
 		System.out.println("CompareImageSec");
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+
 		double waitTime = 0;
 		while ((hWnd == null) && (waitTime < MaxWaitTime)) {
 			waitTime = waitTime + 1000;
@@ -218,14 +228,17 @@ public class ImageCompareJNA extends JFrame {
 				FirstFile.delete();
 				SecondFile.delete();
 				System.out.println("Identical Image");
+				//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 				return true;
 			} else {
 				FirstFile.delete();
 				SecondFile.delete();
 				System.out.println("Different Image");
+				//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 				return false;
 			}
 		}
+		//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		return false;
 	}
 

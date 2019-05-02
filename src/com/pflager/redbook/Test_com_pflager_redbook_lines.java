@@ -9,13 +9,13 @@ class Test_com_pflager_redbook_lines extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("lines"));
+		lines linesObject = new lines();
 		new Thread(() -> {
-			lines linesObject = new lines();
 			String argv[] = new String[0];
 			linesObject.main(0, argv);
 		}).start();
 		assertTrue(CompareImageSec("lines"));
-
+		linesObject.glutLeaveMainLoop();
 	}
 
 }

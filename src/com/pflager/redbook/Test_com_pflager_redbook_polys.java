@@ -9,13 +9,13 @@ class Test_com_pflager_redbook_polys extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("polys"));
+		polys polysObject = new polys();
 		new Thread(() -> {
-			polys polysObject = new polys();
 			String argv[] = new String[0];
 			polysObject.main(0, argv);
 		}).start();
 		assertTrue(CompareImageSec("polys"));
-
+		polysObject.glutLeaveMainLoop();
 	}
 
 }

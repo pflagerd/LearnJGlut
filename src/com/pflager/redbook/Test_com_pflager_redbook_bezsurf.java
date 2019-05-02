@@ -9,13 +9,13 @@ class Test_com_pflager_redbook_bezsurf extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("bezsurf"));
+		bezsurf bezsurfObject = new bezsurf();
 		new Thread(() -> {
-			bezsurf bezsurfObject = new bezsurf();
 			String argv[] = new String[0];
 			bezsurfObject.main(0, argv);
 		}).start();
 		assertTrue(CompareImageSec("bezsurf"));
-
+		bezsurfObject.glutLeaveMainLoop();
 	}
 
 }
