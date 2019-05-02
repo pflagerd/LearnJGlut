@@ -5,7 +5,6 @@ import com.pflager.glut;
 public class fog extends glut {
 
 	static int fogMode;
-
 	void init() {
 		float position[] = { 0.5f, 0.5f, 3.0f, 0.0f };
 		glEnable(GL_DEPTH_TEST);
