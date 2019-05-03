@@ -9,14 +9,29 @@ class Test_com_pflager_redbook_alpha extends ImageCompareJNA {
 	@Test
 	void test() {
 		assertTrue(CaptureCImage("alpha"));
+		//alpha alphaObject = new alpha();
+		/*
+		 * new Thread(() -> { String argv[] = new String[0]; alphaObject.main(0, argv);
+		 * alphaObject.glutMainLoop(); }).start();
+		 */
+		
 		alpha alphaObject = new alpha();
-		new Thread(() -> {
-			String argv[] = new String[0];
-			alphaObject.main(0, argv);
-			alphaObject.glutMainLoop();
-		}).start();
+		Thread thread = new Thread() {
+			public void run() {
+				String argv[] = new String[0];
+				alphaObject.main(0, argv);
+				alphaObject.glutMainLoop();
+			}
+		};
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(CompareImageSec("alpha"));
-		alphaObject.glutLeaveMainLoop();
+		//alphaObject.glutLeaveMainLoop();
 	}
 
 }
