@@ -60,20 +60,20 @@ public class aapoly extends glut {
 	final int NVERT = 8;
 
 	void drawCube(double x0, double x1, double y0, double y1, double z0, double z1) {
-		double v[][] = new double[8][3];
-		double c[][] = { { 0.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0, 1.0 }, { 1.0, 1.0, 0.0, 1.0 },
-				{ 0.0, 0.0, 1.0, 1.0 }, { 1.0, 0.0, 1.0, 1.0 }, { 0.0, 1.0, 1.0, 1.0 }, { 1.0, 1.0, 1.0, 1.0 } };
+		double v[] = new double[24];
+		double c[] = { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0,
+				0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
 
 		/* indices of front, top, left, bottom, right, back faces */
-		byte indices[][] = { { 4, 5, 6, 7 }, { 2, 3, 7, 6 }, { 0, 4, 7, 3 }, { 0, 1, 5, 4 }, { 1, 5, 6, 2 },
-				{ 0, 3, 2, 1 } };
+		byte indices[] = { 4, 5, 6, 7, 2, 3, 7, 6, 0, 4, 7, 3, 0, 1, 5, 4, 1, 5, 6, 2,
+				0, 3, 2, 1 };
 
-		v[0][0] = v[3][0] = v[4][0] = v[7][0] = x0;
-		v[1][0] = v[2][0] = v[5][0] = v[6][0] = x1;
-		v[0][1] = v[1][1] = v[4][1] = v[5][1] = y0;
-		v[2][1] = v[3][1] = v[6][1] = v[7][1] = y1;
-		v[0][2] = v[1][2] = v[2][2] = v[3][2] = z0;
-		v[4][2] = v[5][2] = v[6][2] = v[7][2] = z1;
+		v[0] = v[9] = v[12] = v[21] = x0;
+		v[3] = v[6] = v[15] = v[18] = x1;
+		v[1] = v[4] = v[13] = v[16] = y0;
+		v[7] = v[10] = v[19] = v[22] = y1;
+		v[2] = v[5] = v[8] = v[11] = z0;
+		v[14] = v[17] = v[20] = v[23] = z1;
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
@@ -138,7 +138,7 @@ public class aapoly extends glut {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_ALPHA | GLUT_DEPTH);
 		glutInitWindowSize(200, 200);
-		glutCreateWindow(argv[0]);
+		glutCreateWindow("aapoly");
 		init();
 		glutReshapeFunc(this::reshape);
 		glutKeyboardFunc(this::keyboard);
