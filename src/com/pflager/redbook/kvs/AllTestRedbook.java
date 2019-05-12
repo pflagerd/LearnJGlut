@@ -1,4 +1,4 @@
-package com.pflager.redbook;
+package com.pflager.redbook.kvs;
 
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;

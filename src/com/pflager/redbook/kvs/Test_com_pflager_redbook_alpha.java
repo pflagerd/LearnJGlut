@@ -1,11 +1,10 @@
-package com.pflager.redbook;
+package com.pflager.redbook.kvs;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
+
+import com.pflager.redbook.alpha;
 
 class Test_com_pflager_redbook_alpha extends ImageCompareJNA {
 
