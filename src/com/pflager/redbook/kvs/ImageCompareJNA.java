@@ -172,7 +172,7 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean CaptureCImage(String WindowName) throws InterruptedException {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
-			Thread.sleep(2000);
+			Thread.sleep(5000);
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
 			System.out.println("Windowname" + WindowName);
 			if (hWnd == null) {
