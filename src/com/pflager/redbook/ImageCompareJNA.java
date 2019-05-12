@@ -1,5 +1,6 @@
 package com.pflager.redbook;
 
+import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.io.File;
@@ -30,7 +31,21 @@ import com.sun.jna.platform.win32.WinGDI.BITMAPINFO;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
 import com.sun.jna.platform.win32.WinUser;
 
-public class ImageCompareJNA extends JFrame {
+public class ImageCompareJNA  extends JFrame   {
+ public String javaHome;
+ public String javaBin;
+ public String classpath;
+ private Process process;
+	public ImageCompareJNA() throws HeadlessException {
+		 javaHome = System.getProperty("java.home");
+		 javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+		 classpath = System.getProperty("java.class.path");
+	}
+	 protected void finalize( ) throws Throwable   
+	  {
+		 process.destroy();
+	  }
+
 
 	private static final long serialVersionUID = 1L;
 	BufferedImage image;
@@ -155,8 +170,9 @@ public class ImageCompareJNA extends JFrame {
 
 	}
 
-	public boolean CaptureCImage(String WindowName) {
+	public boolean CaptureCImage(String WindowName) throws InterruptedException {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
+			Thread.sleep(1000);
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
 			System.out.println("Windowname" +  WindowName);
 			if (hWnd == null) {
@@ -271,5 +287,10 @@ public class ImageCompareJNA extends JFrame {
 		//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		return false;
 	}
-
+public void RunNewProcess(String classname ) throws IOException {
+	ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classpath, classname);
+	 process = builder.inheritIO().start();
+}
+	
+	
 }

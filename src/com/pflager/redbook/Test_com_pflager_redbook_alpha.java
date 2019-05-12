@@ -2,36 +2,19 @@ package com.pflager.redbook;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
 class Test_com_pflager_redbook_alpha extends ImageCompareJNA {
 
 	@Test
-	void test() {
+	void test() throws Throwable {
 		assertTrue(CaptureCImage("alpha"));
-		//alpha alphaObject = new alpha();
-		/*
-		 * new Thread(() -> { String argv[] = new String[0]; alphaObject.main(0, argv);
-		 * alphaObject.glutMainLoop(); }).start();
-		 */
-		
-		alpha alphaObject = new alpha();
-		Thread thread = new Thread() {
-			public void run() {
-				String argv[] = new String[0];
-				alphaObject.main(0, argv);
-				alphaObject.glutMainLoop();
-			}
-		};
-		thread.start();
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		RunNewProcess(alpha.class.getName());
 		assertTrue(CompareImageSec("alpha"));
-		//alphaObject.glutLeaveMainLoop();
+		 super.finalize( );  
 	}
 
 }
