@@ -36,25 +36,33 @@ public class ImageCompareJNA extends JFrame {
 	public String javaBin;
 	public String classpath;
 	private Process process;
-
-	public ImageCompareJNA() throws HeadlessException {
-		javaHome = System.getProperty("java.home");
-		javaBin = javaHome + File.separator + "bin" + File.separator + "java";
-		classpath = System.getProperty("java.class.path");
-	}
-
-	protected void finalize() throws Throwable {
-		process.destroy();
-	}
-
+	private File FirstFile;
+	private File SecondFile;
 	private static final long serialVersionUID = 1L;
 	BufferedImage image;
 	private String ImageName;
 	private String fileformat = "jpg";
 	private HWND hWnd;
+
 	private double MaxWaitTime = 10000; // Milliseconds
 	Process PS = null;
 	private static String AppWindowName;
+
+	public ImageCompareJNA() throws HeadlessException {
+		javaHome = System.getProperty("java.home");
+		javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+		classpath = System.getProperty("java.class.path");
+		FirstFile = null;
+		SecondFile = null;
+	}
+
+	protected void finalize() throws Throwable {
+		process.destroy();
+		if (FirstFile != null)
+			FirstFile.delete();
+		if (SecondFile != null)
+			FirstFile.delete();
+	}
 
 	public boolean capture(String ExportPath) {
 
@@ -140,6 +148,10 @@ public class ImageCompareJNA extends JFrame {
 			hWnd = User32.INSTANCE.FindWindow(null, CFileName);
 			if (hWnd == null) {
 				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+				if (hWnd == null) {
+					hWnd = User32.INSTANCE.FindWindow(null, CFileName + ".c");
+					System.out.println("AppWindowName" + AppWindowName);
+				}
 			}
 			double waitTime = 0;
 			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
@@ -174,10 +186,11 @@ public class ImageCompareJNA extends JFrame {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
 			Thread.sleep(4000);
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
-			System.out.println("Windowname" + WindowName);
 			if (hWnd == null) {
 				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
-				System.out.println("AppWindowName" + AppWindowName);
+				if (hWnd == null) {
+					hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".c");
+				}
 			}
 			if (hWnd != null) {
 				ImageName = WindowName + "CImage";
@@ -185,6 +198,9 @@ public class ImageCompareJNA extends JFrame {
 					PS.destroy(); // Ending C executable process
 					return true;
 				}
+			} else {
+				PS.destroy(); // Ending C executable process
+				return false;
 			}
 		}
 		return false;
@@ -199,6 +215,7 @@ public class ImageCompareJNA extends JFrame {
 	public boolean CompareImage(String WindowName) {
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+
 		User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			if (ExecuteEXE(WindowName)) {// Running c application with window name
@@ -206,8 +223,8 @@ public class ImageCompareJNA extends JFrame {
 				ImageName = WindowName + "CImage";
 				if (capture("redbook-1.1-src/src/")) { // Capturing c application window
 					PS.destroy(); // Ending C executable process
-					File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
-					File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+					FirstFile = new File("redbook-1.1-src/src/" + WindowName);
+					SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
 					if (IdenticalImage(FirstFile, SecondFile)) {
 						FirstFile.delete();
 						SecondFile.delete();
@@ -226,16 +243,21 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public boolean CompareImageSec(String WindowName) throws InterruptedException {
-		
 		System.out.println("CompareImageSec");
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+		if (hWnd == null) {
+			hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
+		}
 		double waitTime = 0;
 		while ((hWnd == null) && (waitTime < MaxWaitTime)) {
 			waitTime = waitTime + 1000;
 			try {
 				Thread.sleep(1000);
 				hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+				if (hWnd == null) {
+					hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
+				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
