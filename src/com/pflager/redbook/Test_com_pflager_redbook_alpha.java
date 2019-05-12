@@ -14,7 +14,7 @@ class Test_com_pflager_redbook_alpha extends ImageCompareJNA {
 		assertTrue(CaptureCImage("alpha"));
 		RunNewProcess(alpha.class.getName());
 		assertTrue(CompareImageSec("alpha"));
-		 super.finalize( );  
+		super.finalize();
 	}
 
 }
