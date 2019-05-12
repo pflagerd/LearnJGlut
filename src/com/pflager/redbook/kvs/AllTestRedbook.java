@@ -19,7 +19,6 @@ import org.junit.runner.RunWith;
 	Test_com_pflager_redbook_colormatf.class,
 	Test_com_pflager_redbook_cube.class,
 	Test_com_pflager_redbook_double_.class,
-	Test_com_pflager_redbook_example2_7.class,
 	Test_com_pflager_redbook_fog.class,
 	Test_com_pflager_redbook_fogindex.class,
 	Test_com_pflager_redbook_hello.class,
@@ -36,8 +35,6 @@ import org.junit.runner.RunWith;
 	Test_com_pflager_redbook_smooth.class,
 	Test_com_pflager_redbook_smooth4_1.class,
 	Test_com_pflager_redbook_teapots.class,
-	Test_com_pflager_redbook_template2D.class,
-	Test_com_pflager_redbook_template3D.class,
 	Test_com_pflager_redbook_unproject.class,
 	Test_com_pflager_redbook_varray.class,
 	})

@@ -8,9 +8,9 @@ class Test_com_pflager_redbook_alpha6_1 extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("alpha6_1"));
+		assertTrue(CaptureCImage("alpha"));
 		RunNewProcess(alpha6_1.class.getName());
-		assertTrue(CompareImageSec("alpha6_1"));
+		assertTrue(CompareImageSec("alpha"));
 		super.finalize();
 	}
 
