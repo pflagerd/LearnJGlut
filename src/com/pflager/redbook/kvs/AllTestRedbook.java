@@ -8,14 +8,20 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitPlatform.class)
 @SuiteDisplayName("JGlut AllTests Suite")
 @SelectClasses({
+	Test_com_pflager_redbook_aargb.class,
 	Test_com_pflager_redbook_alpha.class,
-	Test_com_pflager_redbook_bezsurf.class,
+	Test_com_pflager_redbook_alpha3D.class,
+	Test_com_pflager_redbook_alpha6_1.class,
 	Test_com_pflager_redbook_bezcurve.class,
+	Test_com_pflager_redbook_bezsurf.class,
 	Test_com_pflager_redbook_clip.class,
 	Test_com_pflager_redbook_colormat.class,
+	Test_com_pflager_redbook_colormatf.class,
 	Test_com_pflager_redbook_cube.class,
 	Test_com_pflager_redbook_double_.class,
 	Test_com_pflager_redbook_example2_7.class,
+	Test_com_pflager_redbook_fog.class,
+	Test_com_pflager_redbook_fogindex.class,
 	Test_com_pflager_redbook_hello.class,
 	Test_com_pflager_redbook_light.class,
 	Test_com_pflager_redbook_lines.class,
