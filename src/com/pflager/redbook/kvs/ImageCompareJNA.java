@@ -31,21 +31,21 @@ import com.sun.jna.platform.win32.WinGDI.BITMAPINFO;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
 import com.sun.jna.platform.win32.WinUser;
 
-public class ImageCompareJNA  extends JFrame   {
- public String javaHome;
- public String javaBin;
- public String classpath;
- private Process process;
-	public ImageCompareJNA() throws HeadlessException {
-		 javaHome = System.getProperty("java.home");
-		 javaBin = javaHome + File.separator + "bin" + File.separator + "java";
-		 classpath = System.getProperty("java.class.path");
-	}
-	 protected void finalize( ) throws Throwable   
-	  {
-		 process.destroy();
-	  }
+public class ImageCompareJNA extends JFrame {
+	public String javaHome;
+	public String javaBin;
+	public String classpath;
+	private Process process;
 
+	public ImageCompareJNA() throws HeadlessException {
+		javaHome = System.getProperty("java.home");
+		javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+		classpath = System.getProperty("java.class.path");
+	}
+
+	protected void finalize() throws Throwable {
+		process.destroy();
+	}
 
 	private static final long serialVersionUID = 1L;
 	BufferedImage image;
@@ -146,7 +146,7 @@ public class ImageCompareJNA  extends JFrame   {
 				waitTime = waitTime + 100;
 				try {
 					Thread.sleep(100);
-					System.out.println("Wait time" +  waitTime);
+					System.out.println("Wait time" + waitTime);
 					hWnd = User32.INSTANCE.FindWindow(null, CFileName);
 					if (hWnd == null) {
 						hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
@@ -174,10 +174,10 @@ public class ImageCompareJNA  extends JFrame   {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
 			Thread.sleep(2000);
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
-			System.out.println("Windowname" +  WindowName);
+			System.out.println("Windowname" + WindowName);
 			if (hWnd == null) {
 				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
-				System.out.println("AppWindowName" +  AppWindowName);
+				System.out.println("AppWindowName" + AppWindowName);
 			}
 			if (hWnd != null) {
 				ImageName = WindowName + "CImage";
@@ -224,42 +224,18 @@ public class ImageCompareJNA  extends JFrame   {
 		}
 		return false;
 	}
-	
-	
-	/*
-	 * public static void CreateJavaImage(String WindowName) { JavaCompiler compiler
-	 * = ToolProvider.getSystemJavaCompiler(); DiagnosticCollector<JavaFileObject>
-	 * diagnostics = new DiagnosticCollector<>(); StandardJavaFileManager
-	 * fileManager = compiler.getStandardFileManager(diagnostics, null, null);
-	 * Iterable<? extends JavaFileObject> compilationUnits =
-	 * fileManager.getJavaFileObjectsFromStrings(Arrays.asList( WindowName +
-	 * ".java")); JavaCompiler.CompilationTask task = compiler.getTask(null,
-	 * fileManager, diagnostics, null,null, compilationUnits); boolean success =
-	 * task.call(); try { fileManager.close(); } catch (IOException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * }
-	 */
 
-
-	/*
-	 * public static void main(String args[]) { CreateJavaImage("hello");
-	 * 
-	 * 
-	 * }
-	 */
-
-	public boolean CompareImageSec(String WindowName) {
+	public boolean CompareImageSec(String WindowName) throws InterruptedException {
+		Thread.sleep(2000);
 		System.out.println("CompareImageSec");
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
-
 		double waitTime = 0;
 		while ((hWnd == null) && (waitTime < MaxWaitTime)) {
 			waitTime = waitTime + 1000;
 			try {
 				Thread.sleep(1000);
-				hWnd =User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+				hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -274,23 +250,23 @@ public class ImageCompareJNA  extends JFrame   {
 				FirstFile.delete();
 				SecondFile.delete();
 				System.out.println("Identical Image");
-				//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
+				// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 				return true;
 			} else {
 				FirstFile.delete();
 				SecondFile.delete();
 				System.out.println("Different Image");
-				//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
+				// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 				return false;
 			}
 		}
-		//User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
+		// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		return false;
 	}
-public void RunNewProcess(String classname ) throws IOException {
-	ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classpath, classname);
-	 process = builder.inheritIO().start();
-}
-	
-	
+
+	public void RunNewProcess(String classname) throws IOException {
+		ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classpath, classname);
+		process = builder.inheritIO().start();
+	}
+
 }
