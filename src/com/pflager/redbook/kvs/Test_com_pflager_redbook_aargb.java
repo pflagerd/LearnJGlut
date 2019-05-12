@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_aargb extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("aargb"));
 		RunNewProcess(aargb.class.getName());
-		assertTrue(CompareImageSec("aargb"));
+		boolean CompareImage = CompareImageSec("aargb");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

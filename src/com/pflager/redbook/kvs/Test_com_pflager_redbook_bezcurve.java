@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_bezcurve extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("bezcurve"));
 		RunNewProcess(bezcurve.class.getName());
-		assertTrue(CompareImageSec("bezcurve"));
+		boolean CompareImage = CompareImageSec("bezcurve");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

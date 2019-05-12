@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_teapots extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("teapots"));
 		RunNewProcess(teapots.class.getName());
-		assertTrue(CompareImageSec("teapots"));
+		boolean CompareImage = CompareImageSec("teapots");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_unproject extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("unproject"));
 		RunNewProcess(unproject.class.getName());
-		assertTrue(CompareImageSec("unproject"));
+		boolean CompareImage = CompareImageSec("unproject");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

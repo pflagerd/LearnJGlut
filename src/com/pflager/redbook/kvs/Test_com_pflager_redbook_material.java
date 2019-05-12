@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_material extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("material"));
 		RunNewProcess(material.class.getName());
-		assertTrue(CompareImageSec("material"));
+		boolean CompareImage = CompareImageSec("material");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

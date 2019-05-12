@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_clip extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("clip"));
 		RunNewProcess(clip.class.getName());
-		assertTrue(CompareImageSec("clip"));
+		boolean CompareImage = CompareImageSec("clip");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

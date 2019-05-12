@@ -12,8 +12,9 @@ class Test_com_pflager_redbook_cube extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("cube"));
 		RunNewProcess(cube.class.getName());
-		assertTrue(CompareImageSec("cube"));
+		boolean CompareImage = CompareImageSec("cube");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }

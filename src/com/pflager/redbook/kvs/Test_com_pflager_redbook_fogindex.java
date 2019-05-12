@@ -10,8 +10,9 @@ class Test_com_pflager_redbook_fogindex extends ImageCompareJNA {
 	void test() throws Throwable {
 		assertTrue(CaptureCImage("fogindex"));
 		RunNewProcess(fogindex.class.getName());
-		assertTrue(CompareImageSec("fogindex"));
+		boolean CompareImage = CompareImageSec("fogindex");
 		super.finalize();
+		assertTrue(CompareImage);
 	}
 
 }
