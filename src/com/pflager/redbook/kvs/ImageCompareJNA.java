@@ -184,7 +184,7 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean CaptureCImage(String WindowName) throws InterruptedException {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
-			Thread.sleep(4000);
+			Thread.sleep(8000);
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
 			if (hWnd == null) {
 				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
@@ -263,7 +263,7 @@ public class ImageCompareJNA extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		Thread.sleep(4000);
+		Thread.sleep(8000);
 		// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
