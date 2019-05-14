@@ -4,7 +4,14 @@ import com.pflager.glut;
 
 public class PositionVsTimeGraph extends glut {
 
-	public void display() {
+	void renderBitmapString(float x, float y, int font, String string){
+	    glRasterPos2f(x, y);
+	    for (char c : string.toCharArray()) {
+	        glutBitmapCharacter(font, c);
+	    }
+	} 
+	
+	void display() {
 		/* clear all pixels */
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -13,11 +20,14 @@ public class PositionVsTimeGraph extends glut {
 		 * 0.75, 0.0)
 		 */
 		glColor3f(1.0, 1.0, 1.0);
+		
+		renderBitmapString(-0.9, 0, GLUT_BITMAP_HELVETICA_12, "A confused dragonfly flies backward and forward in a straight line.");
+		
 		glBegin(GL_POLYGON);
-		glVertex3f(0.25, 0.25, 0.0);
-		glVertex3f(0.75, 0.25, 0.0);
-		glVertex3f(0.75, 0.75, 0.0);
-		glVertex3f(0.25, 0.75, 0.0);
+			glVertex3f(0.25, 0.25, 0.0);
+			glVertex3f(0.75, 0.25, 0.0);
+			glVertex3f(0.75, 0.75, 0.0);
+			glVertex3f(0.25, 0.75, 0.0);
 		glEnd();
 
 		/*
@@ -28,7 +38,7 @@ public class PositionVsTimeGraph extends glut {
 
 	void init() {
 		/* select clearing color */
-		glClearColor(0.0, 0.0, 0.0, 0.0);
+		glClearColor(1.0, 1.0, 1.0, 1.0);
 
 		/* initialize viewing values */
 		glMatrixMode(GL_PROJECTION);
@@ -36,7 +46,7 @@ public class PositionVsTimeGraph extends glut {
 		glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
 	}
 
-	public int main(int argc, String[] argv) {
+	int main(int argc, String[] argv) {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 		glutInitWindowSize(874, 729);
