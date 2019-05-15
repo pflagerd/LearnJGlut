@@ -21,7 +21,7 @@ public class PositionVsTimeGraph extends glut {
 		 */
 		glColor3f(1.0, 1.0, 1.0);
 		
-		renderBitmapString(-0.9, 0, GLUT_BITMAP_HELVETICA_12, "A confused dragonfly flies backward and forward in a straight line.");
+		//renderBitmapString(-0.9, 0, GLUT_BITMAP_HELVETICA_12, "A confused dragonfly flies backward and forward in a straight line.");
 		
 		glBegin(GL_POLYGON);
 			glVertex3f(0.25, 0.25, 0.0);
