@@ -15,7 +15,6 @@ public class teapots extends glut{
 	{
 	   double ambient[] = {0.0, 0.0, 0.0, 1.0};
 	   double diffuse[] = {1.0, 1.0, 1.0, 1.0};
-	   double specular[] = {1.0, 1.0, 1.0, 1.0};
 	   double position[] = {0.0, 3.0, 3.0, 0.0};
 
 	   double lmodel_ambient[] = {0.2, 0.2, 0.2, 1.0};
@@ -32,7 +31,7 @@ public class teapots extends glut{
 	   glEnable(GL_LIGHT0);
 	   glEnable(GL_AUTO_NORMAL);
 	   glEnable(GL_NORMALIZE);
-	   glEnable(GL_DEPTH_TEST); 
+	   glEnable(GL_DEPTH_TEST);
 	/*  be efficient--make teapot display list  */
 	   teapotList = glGenLists(1);
 	   glNewList (teapotList, GL_COMPILE);
@@ -41,7 +40,7 @@ public class teapots extends glut{
 	}
 
 	/*
-	 * Move object into position.  Use 3rd through 12th 
+	 * Move object into position.  Use 3rd through 12th
 	 * parameters to specify the material property.  Draw a teapot.
 	 */
 	void renderTeapot(float x, float y,
@@ -149,7 +148,7 @@ public class teapots extends glut{
 	}
 
 	/*
-	 * Main Loop 
+	 * Main Loop
 	 */
 	public int main(int argc, String[] argv)
 	{
@@ -165,7 +164,7 @@ public class teapots extends glut{
 	   glutMainLoop();
 	   return 0;
 	}
-	
+
 	public static void main(String[] args) {
 		System.exit(new teapots().main(args.length, args));
 	}
