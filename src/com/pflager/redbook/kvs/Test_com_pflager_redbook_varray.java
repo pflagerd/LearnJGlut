@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.pflager.redbook.varray;
 
+@SuppressWarnings("serial")
 class Test_com_pflager_redbook_varray extends ImageCompareJNA {
 
 	@Test

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.pflager.redbook.aargb;
 
+@SuppressWarnings("serial")
 class Test_com_pflager_redbook_aargb extends ImageCompareJNA {
 
 	@Test

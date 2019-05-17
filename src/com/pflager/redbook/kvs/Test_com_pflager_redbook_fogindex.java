@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("serial")
 class Test_com_pflager_redbook_fogindex extends ImageCompareJNA {
 
 	@Test
