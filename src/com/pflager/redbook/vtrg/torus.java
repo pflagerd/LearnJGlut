@@ -7,7 +7,7 @@ public class torus extends glut{
 	int theTorus;
 	
 	
-	void torus(int numc, int numt)
+	void torus_(int numc, int numt)
 	{
 	   int i, j, k;
 	   double s, t, x, y, z, twopi;
@@ -35,7 +35,7 @@ public class torus extends glut{
 	{
 	   theTorus = glGenLists (1);
 	   glNewList(theTorus, GL_COMPILE);
-	   torus(8, 25);
+	   torus_(8, 25);
 	   glEndList();
 
 	   glShadeModel(GL_FLAT);
