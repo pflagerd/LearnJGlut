@@ -66,7 +66,7 @@ public class image extends glut {
 		for (i = 0; i < checkImageHeight; i++) {
 			for (j = 0; j < checkImageWidth; j++) {
 				c = (((i & 0x8) == 0 ? 1 : 0) ^ ((j & 0x8) == 0 ? 1 : 0)) * 255;
-		         System.out.printf("c == %x\n", c);
+				System.out.printf("c == %x\n", c);
 				checkImage[i * checkImageWidth * 3 + j * 3 + 0] = (byte) c;
 				checkImage[i * checkImageWidth * 3 + j * 3 + 1] = (byte) c;
 				checkImage[i * checkImageWidth * 3 + j * 3 + 2] = (byte) c;
@@ -84,7 +84,7 @@ public class image extends glut {
 	void display() {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glRasterPos2i(0, 0);
-		glDrawPixels(checkImageWidth, checkImageHeight, GL_RGB, GL_UNSIGNED_BYTE, (byte[])checkImage);
+		glDrawPixels(checkImageWidth, checkImageHeight, GL_RGB, GL_UNSIGNED_BYTE, (byte[]) checkImage);
 		glFlush();
 	}
 
