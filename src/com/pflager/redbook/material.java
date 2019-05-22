@@ -8,7 +8,6 @@ public class material extends glut{
 	{
 	   double ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 	   double diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-	   double specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	   double position[] = { 0.0, 3.0, 2.0, 0.0 };
 	   double lmodel_ambient[] = { 0.4, 0.4, 0.4, 1.0 };
 	   double local_view[] = { 0.0 };
@@ -26,7 +25,7 @@ public class material extends glut{
 	   glEnable(GL_LIGHTING);
 	   glEnable(GL_LIGHT0);
 	}
-	
+
 	void display()
 	{
 		double no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -42,7 +41,7 @@ public class material extends glut{
 	   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/*  draw sphere in first row, first column
-	 *  diffuse reflection only; no ambient or specular  
+	 *  diffuse reflection only; no ambient or specular
 	 */
 	   glPushMatrix();
 	   glTranslatef (-3.75, 3.0, 0.0);
@@ -94,7 +93,7 @@ public class material extends glut{
 	   glPopMatrix();
 
 	/*  draw sphere in second row, first column
-	 *  ambient and diffuse reflection; no specular  
+	 *  ambient and diffuse reflection; no specular
 	 */
 	   glPushMatrix();
 	   glTranslatef (-3.75, 0.0, 0.0);
@@ -146,7 +145,7 @@ public class material extends glut{
 	   glPopMatrix();
 
 	/*  draw sphere in third row, first column
-	 *  colored ambient and diffuse reflection; no specular  
+	 *  colored ambient and diffuse reflection; no specular
 	 */
 	   glPushMatrix();
 	   glTranslatef (-3.75, -3.0, 0.0);
@@ -232,7 +231,7 @@ public class material extends glut{
 	   glutDisplayFunc(this::display);
 	   glutKeyboardFunc (this::keyboard);
 	   glutMainLoop();
-	   return 0; 
+	   return 0;
 	}
 
 	public static void main(String[] args) {

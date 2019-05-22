@@ -30,9 +30,6 @@ public class polyoff extends glut {
 	}
 
 	void display() {
-		double mat_ambient[] = { 0.8, 0.8, 0.8, 1.0 };
-		double mat_diffuse[] = { 1.0, 0.0, 0.5, 1.0 };
-		double mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 		double gray[] = { 0.8, 0.8, 0.8, 1.0 };
 		double black[] = { 0.0, 0.0, 0.0, 1.0 };
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

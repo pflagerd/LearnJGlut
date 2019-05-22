@@ -5,19 +5,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.tools.DiagnosticCollector;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
-
-import jna.extra.GDI32Extra;
-import jna.extra.User32Extra;
-import jna.extra.WinGDIExtra;
 
 import com.sun.jna.Memory;
 import com.sun.jna.platform.win32.GDI32;
@@ -30,6 +20,10 @@ import com.sun.jna.platform.win32.WinGDI;
 import com.sun.jna.platform.win32.WinGDI.BITMAPINFO;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
 import com.sun.jna.platform.win32.WinUser;
+
+import jna.extra.GDI32Extra;
+import jna.extra.User32Extra;
+import jna.extra.WinGDIExtra;
 
 public class ImageCompareJNA extends JFrame {
 	public String javaHome;
@@ -207,7 +201,7 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param WindowName Name Name of the active Jglut window, this also used for
 	 *                   running the C program
 	 * @return Returns true if the image are identical
