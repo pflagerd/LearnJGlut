@@ -6,19 +6,21 @@ public class image extends glut {
 
 	final int checkImageWidth = 64;
 	final int checkImageHeight = 64;
-	byte checkImage[][][] = new byte[checkImageHeight][checkImageWidth][3];
 	static double zoomFactor = 1.0;
 	static int height;
 
+	byte[] checkImage = new byte[checkImageHeight * checkImageWidth * 4];
+
 	void makeCheckImage() {
 		int i, j, c;
+
 		for (i = 0; i < checkImageHeight; i++) {
 			for (j = 0; j < checkImageWidth; j++) {
-				c =  ((((i +  0x8) == 0) ^ ((j +  0x8)) == 0)) ;
-				c = c* 255;
-				checkImage[i][j][0] = (byte) c;
-				checkImage[i][j][1] = (byte) c;
-				checkImage[i][j][2] = (byte) c;
+				c = (((i & 0x8) == 0 ? 1 : 0) ^ ((j & 0x8) == 0 ? 1 : 0)) * 255;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) c;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 1] = (byte) c;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 2] = (byte) c;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 3] = (byte) 255;
 			}
 		}
 	}
@@ -30,13 +32,7 @@ public class image extends glut {
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	}
 
-	void display() {
-		{
-			glClear(GL_COLOR_BUFFER_BIT);
-			glRasterPos2i(0, 0);
-			glDrawPixels(checkImageWidth, checkImageHeight, GL_RGB, GL_UNSIGNED_BYTE, checkImage);
-			glFlush();
-	}
+
 
 	void reshape(int w, int h) {
 		glViewport(0, 0, w, h);
@@ -95,7 +91,7 @@ public class image extends glut {
 		init();
 		glutReshapeFunc(this::reshape);
 		glutKeyboardFunc(this::keyboard);
-		glutDisplayFunc(this::display);
+	//	glutDisplayFunc(this::display);
 		glutMouseFunc(this::mouse);
 		glutMainLoop();
 		return 0;
