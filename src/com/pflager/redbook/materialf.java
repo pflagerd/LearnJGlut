@@ -7,7 +7,6 @@ public class materialf extends glut {
 	void init() {
 		float ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-		float specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float position[] = { 0.0f, 3.0f, 2.0f, 0.0f };
 		float lmodel_ambient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
 		float local_view[] = { 0.0f };

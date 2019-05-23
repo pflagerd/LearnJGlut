@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.6/commons-io-2.6-test-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.6/commons-io-2.6-tests.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.6/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/jna-platform.jar"/>
+	<classpathentry kind="lib" path="lib/jna.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
