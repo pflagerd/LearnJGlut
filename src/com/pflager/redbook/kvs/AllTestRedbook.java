@@ -33,6 +33,7 @@ import org.junit.runner.RunWith;
 	Test_com_pflager_redbook_teapots.class,
 	Test_com_pflager_redbook_unproject.class,
 	Test_com_pflager_redbook_varray.class,
+	Test_com_pflager_redbook_drawf.class,
 	})
 public class AllTestRedbook {
 }

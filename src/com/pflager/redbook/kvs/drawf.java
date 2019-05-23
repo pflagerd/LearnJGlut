@@ -4,33 +4,31 @@ import com.pflager.glut;
 
 public class drawf extends glut {
 
-	byte rasters[] = new byte[] {
-			(byte)0xc0, (byte)0x00, (byte)0xc0, (byte)0x00, (byte)0xc0,(byte) 0x00,(byte) 0xc0, (byte)0x00,(byte) 0xc0,(byte) 0x00,
-			(byte)0xff,(byte) 0x00,(byte) 0xff,(byte) 0x00,(byte) 0xc0,(byte) 0x00,(byte) 0xc0,(byte) 0x00,(byte) 0xc0, (byte)0x00,
-			(byte)0xff, (byte)0xc0, (byte)0xff, (byte)0xc0};
-	
+	byte rasters[] = new byte[] { (byte) 0xc0, (byte) 0x00, (byte) 0xc0, (byte) 0x00, (byte) 0xc0, (byte) 0x00,
+			(byte) 0xc0, (byte) 0x00, (byte) 0xc0, (byte) 0x00, (byte) 0xff, (byte) 0x00, (byte) 0xff, (byte) 0x00,
+			(byte) 0xc0, (byte) 0x00, (byte) 0xc0, (byte) 0x00, (byte) 0xc0, (byte) 0x00, (byte) 0xff, (byte) 0xc0,
+			(byte) 0xff, (byte) 0xc0 };
+
 	void init() {
-		glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
-		glClearColor (0.0, 0.0, 0.0, 0.0);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
 	}
-
-
 
 	void display() {
 		glClear(GL_COLOR_BUFFER_BIT);
-		glColor3f (1.0, 1.0, 1.0);
-		glRasterPos2i (20, 20);
-		glBitmap (10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
-		glBitmap (10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
-		glBitmap (10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos2i(20, 20);
+		glBitmap(10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
+		glBitmap(10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
+		glBitmap(10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
 		glFlush();
 	}
 
 	void reshape(int w, int h) {
-		glViewport(0, 0, w,  h);
+		glViewport(0, 0, w, h);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho (0, w, 0, h, -1.0, 1.0);
+		glOrtho(0, w, 0, h, -1.0, 1.0);
 		glMatrixMode(GL_MODELVIEW);
 	}
 
