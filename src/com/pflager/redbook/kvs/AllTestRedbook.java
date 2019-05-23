@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 	Test_com_pflager_redbook_fog.class,
 	Test_com_pflager_redbook_fogindex.class,
 	Test_com_pflager_redbook_hello.class,
+	Test_com_pflager_redbook_image.class,
 	Test_com_pflager_redbook_light.class,
 	Test_com_pflager_redbook_lines.class,
 	Test_com_pflager_redbook_material.class,
