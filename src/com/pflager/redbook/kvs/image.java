@@ -32,7 +32,12 @@ public class image extends glut {
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	}
 
-
+	void display() {
+		glClear(GL_COLOR_BUFFER_BIT);
+		glRasterPos2i(0, 0);
+		glDrawPixels(checkImageWidth, checkImageHeight, GL_RGB, GL_UNSIGNED_BYTE, checkImage);
+		glFlush();
+	}
 
 	void reshape(int w, int h) {
 		glViewport(0, 0, w, h);
@@ -91,7 +96,7 @@ public class image extends glut {
 		init();
 		glutReshapeFunc(this::reshape);
 		glutKeyboardFunc(this::keyboard);
-	//	glutDisplayFunc(this::display);
+		glutDisplayFunc(this::display);
 		glutMouseFunc(this::mouse);
 		glutMainLoop();
 		return 0;
