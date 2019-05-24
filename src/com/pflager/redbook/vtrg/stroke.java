@@ -96,11 +96,11 @@ public class stroke extends glut {
 	void printStrokedString(String s) {
 		int len = s.length();
 		int chars[] = new int[len];
-		for (int chr = 0; chr < len; chr++) {
-			glCallList(((byte) s.charAt(chr) + 1));
+		//for (int chr = 0; chr < len; chr++) {
+		//	glCallList(((byte) s.charAt(chr) + 1));
 			// chars[chr] = (((byte) s.charAt(chr) + 1) );
-		}
-		// glCallLists(len, GL_INT , chars);
+		//}
+		glCallLists(len, GL_INT , chars);
 	}
 
 	void display() {
