@@ -100,7 +100,8 @@ public class stroke extends glut {
 		//	glCallList(((byte) s.charAt(chr) + 1));
 			// chars[chr] = (((byte) s.charAt(chr) + 1) );
 		//}
-		glCallLists(len, GL_INT , chars);
+		//glCallLists(len, GL_INT , chars);
+		glCallLists(s.length(), GL_UNSIGNED_BYTE,  s.toString().getBytes());
 	}
 
 	void display() {
