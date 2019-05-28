@@ -1,6 +1,7 @@
 package com.pflager.redbook.vtrg;
 
 import com.pflager.glut;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 public class checker extends glut{
 
@@ -9,6 +10,7 @@ public class checker extends glut{
 	 static int checkImageHeight=64;
 	 static byte checkImage[]= new byte[checkImageHeight*checkImageWidth*4];
 	 static int texName;
+	 
 	void makeCheckImage()
 	{
 		 int i, j, c;
