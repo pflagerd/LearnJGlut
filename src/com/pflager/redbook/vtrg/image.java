@@ -37,7 +37,7 @@ public class image extends glut{
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glRasterPos2i(0, 0);
-		glDrawPixels(checkImageWidth, checkImageHeight, GL_RGB,GL_UNSIGNED_BYTE, checkImage);
+		glDrawPixels(checkImageWidth, checkImageHeight, GL_RGBA,GL_UNSIGNED_BYTE, checkImage);
 		glFlush();
 	}
 	void reshape(int w, int h)
