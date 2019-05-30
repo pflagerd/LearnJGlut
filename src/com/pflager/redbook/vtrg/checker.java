@@ -1,7 +1,6 @@
 package com.pflager.redbook.vtrg;
 
 import com.pflager.glut;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 public class checker extends glut{
 
@@ -9,7 +8,7 @@ public class checker extends glut{
 	 static int checkImageWidth=64;
 	 static int checkImageHeight=64;
 	 static byte checkImage[]= new byte[checkImageHeight*checkImageWidth*4];
-	 static int texName;
+	 static int texName[]=new int[1];
 	 
 	void makeCheckImage()
 	{
@@ -35,8 +34,8 @@ public class checker extends glut{
 		//glDepthFunc(GL_LESS);
 		makeCheckImage();
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1,new int[] {texName});
-		glBindTexture(GL_TEXTURE_2D, texName);
+		glGenTextures(1,texName);
+		glBindTexture(GL_TEXTURE_2D, texName[0]);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_NEAREST);
@@ -49,7 +48,7 @@ public class checker extends glut{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texName);
+		glBindTexture(GL_TEXTURE_2D, texName[0]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0, 0.0); glVertex3f(-2.0, -1.0, 0.0);
 		glTexCoord2f(0.0, 1.0); glVertex3f(-2.0, 1.0, 0.0);
