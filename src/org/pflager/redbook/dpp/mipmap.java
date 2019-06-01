@@ -60,10 +60,10 @@ public class mipmap extends glut {
 
 		for (i = 0; i < 32; i++) {
 			for (j = 0; j < 32; j++) {
-				mipmapImage32[i * 32 * 4 + j * 32 * 4 + 0] = (byte)255;
-				mipmapImage32[i * 32 * 4 + j * 32 * 4 + 1] = (byte)255;
-				mipmapImage32[i * 32 * 4 + j * 32 * 4 + 2] = 0;
-				mipmapImage32[i * 32 * 4 + j * 32 * 4 + 3] = (byte)255;
+				mipmapImage32[i * 32 * 4 + j * 4 + 0] = (byte)255;
+				mipmapImage32[i * 32 * 4 + j * 4 + 1] = (byte)255;
+				mipmapImage32[i * 32 * 4 + j * 4 + 2] = 0;
+				mipmapImage32[i * 32 * 4 + j * 4 + 3] = (byte)255;
 			}
 		}
 		for (i = 0; i < 16; i++) {
@@ -166,7 +166,7 @@ public class mipmap extends glut {
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 		glutInitWindowSize(500, 500);
 		glutInitWindowPosition(50, 50);
-		glutCreateWindow(argv[0]);
+		glutCreateWindow("mipmap");
 		init();
 		glutDisplayFunc(this::display);
 		glutReshapeFunc(this::reshape);
