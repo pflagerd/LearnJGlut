@@ -66,19 +66,19 @@ public class texsub extends glut {
 		for (i = 0; i < checkImageHeight; i++) {
 			for (j = 0; j < checkImageWidth; j++) {
 				c = ((((i & 0x8) == 0 ? 1 : 0) ^ ((j & 0x8) == 0 ? 1 : 0))) * 255;
-				checkImage[i * checkImageWidth * 4 + j * checkImageWidth + 0] = (byte) c;
-				checkImage[i * checkImageWidth * 4 + j * checkImageWidth + 1] = (byte) c;
-				checkImage[i * checkImageWidth * 4 + j * checkImageWidth + 2] = (byte) c;
-				checkImage[i * checkImageWidth * 4 + j * checkImageWidth + 3] = (byte) 255;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) c;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 1] = (byte) c;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 2] = (byte) c;
+				checkImage[i * checkImageWidth * 4 + j * 4 + 3] = (byte) 255;
 			}
 		}
 		for (i = 0; i < subImageHeight; i++) {
 			for (j = 0; j < subImageWidth; j++) {
 				c = ((((i & 0x4) == 0 ? 1 : 0) ^ ((j & 0x4) == 0 ? 1 : 0))) * 255;
-				subImage[i * subImageHeight * 4 + j * subImageWidth * 4 + 0] = (byte) c;
-				subImage[i * subImageHeight * 4 + j * subImageWidth * 4 + 1] = (byte) 0;
-				subImage[i * subImageHeight * 4 + j * subImageWidth * 4 + 2] = (byte) 0;
-				subImage[i * subImageHeight * 4 + j * subImageWidth * 4 + 3] = (byte) 255;
+				subImage[i * subImageHeight * 4 + j * 4 + 0] = (byte) c;
+				subImage[i * subImageHeight * 4 + j * 4 + 1] = (byte) 0;
+				subImage[i * subImageHeight * 4 + j * 4 + 2] = (byte) 0;
+				subImage[i * subImageHeight * 4 + j * 4 + 3] = (byte) 255;
 			}
 		}
 	}
@@ -166,7 +166,7 @@ public class texsub extends glut {
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 		glutInitWindowSize(250, 250);
 		glutInitWindowPosition(100, 100);
-		glutCreateWindow(argv[0]);
+		glutCreateWindow("texsub");
 		init();
 		glutDisplayFunc(this::display);
 		glutReshapeFunc(this::reshape);
