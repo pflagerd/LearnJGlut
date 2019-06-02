@@ -161,7 +161,7 @@ public class texgen extends glut {
 
 		glPushMatrix();
 		glRotatef(45.0, 0.0, 0.0, 1.0);
-//   glBindTexture(GL_TEXTURE_1D, texName);
+		//   glBindTexture(GL_TEXTURE_1D, texName);
 		glutSolidTeapot(2.0);
 		glPopMatrix();
 		glFlush();
@@ -222,7 +222,7 @@ public class texgen extends glut {
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 		glutInitWindowSize(256, 256);
 		glutInitWindowPosition(100, 100);
-		glutCreateWindow(argv[0]);
+		glutCreateWindow("texgen");
 		init();
 		glutDisplayFunc(this::display);
 		glutReshapeFunc(this::reshape);
