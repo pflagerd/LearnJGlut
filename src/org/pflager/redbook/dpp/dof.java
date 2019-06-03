@@ -132,7 +132,6 @@ public class dof extends glut {
 	void init() {
 		double ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 		double diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-		double specular[] = { 1.0, 1.0, 1.0, 1.0 };
 		double position[] = { 0.0, 3.0, 3.0, 0.0 };
 
 		double lmodel_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
