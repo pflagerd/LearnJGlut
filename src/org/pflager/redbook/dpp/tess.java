@@ -97,7 +97,8 @@ public class tess extends glut {
 	 */
 	void combineCallback(double coords[3],
 	                     double *vertex_data[4],
-	                     GLfloat weight[4], double **dataOut )
+	                     double weight[4],
+	                     double **dataOut )
 	{
 	   double *vertex;
 	   int i;
