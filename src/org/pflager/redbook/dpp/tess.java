@@ -56,82 +56,58 @@ public class tess extends glut {
 
 	int startList;
 
-	void display () {
-	   glClear(GL_COLOR_BUFFER_BIT);
-	   glColor3f(1.0, 1.0, 1.0);
-	   glCallList(startList);
-	   glCallList(startList + 1);
-	   glFlush();
+	void display() {
+		glClear(GL_COLOR_BUFFER_BIT);
+		glColor3f(1.0, 1.0, 1.0);
+		glCallList(startList);
+		glCallList(startList + 1);
+		glFlush();
 	}
 
-	void beginCallback(int which)
-	{
-	   glBegin(which);
+	void beginCallback(int which) {
+		glBegin(which);
 	}
 
-	void errorCallback(int errorCode)
-	{
-	   System.err.printf("Tessellation Error: %s\n", gluErrorString(errorCode));
-	   System.exit(0);
+	void errorCallback(int errorCode) {
+		System.err.printf("Tessellation Error: %s\n", gluErrorString(errorCode));
+		System.exit(0);
 	}
 
-	void endCallback()
-	{
-	   glEnd();
+	void endCallback() {
+		glEnd();
 	}
 
-	void vertexCallback(double[] /* 3 */ vertex, double[] /* 3 */ color)
-	{
-	   glVertex3dv(vertex);
-	   glColor3dv(color);
+	void vertexCallback(double[] /* 3 */ vertex, double[] /* 3 */ color) {
+		glVertex3dv(vertex);
+		glColor3dv(color);
 	}
 
-	/*  combineCallback is used to create a new vertex when edges
-	 *  intersect.  coordinate location is trivial to calculate,
-	 *  but weight[4] may be used to average color, normal, or texture
-	 *  coordinate data.  In this program, color is weighted.
+	/*
+	 * combineCallback is used to create a new vertex when edges intersect. coordinate location is trivial to calculate, but weight[4] may be used to average color, normal, or texture coordinate data. In this program, color is weighted.
 	 */
 
-	void combineCallback(double coords[] /* 3 */,
-	                     double vertex_data[][] /* 4 x 4 */,
-	                     double weight[] /* 4 */,
-	                     double[] vertex_out /* 6 */ )
-	{
-	   int i;
+	void combineCallback(double coords[] /* 3 */, double vertex_data[][] /* 4 x 4 */, double weight[] /* 4 */, double[] vertex_out /* 6 */ ) {
+		int i;
 
-	   vertex_out[0] = coords[0];
-	   vertex_out[1] = coords[1];
-	   vertex_out[2] = coords[2];
-	   for (i = 3; i < 7; i++)
-		   vertex_out[i] = weight[0] * vertex_data[0][i]
-	                  + weight[1] * vertex_data[1][i]
-	                  + weight[2] * vertex_data[2][i]
-	                  + weight[3] * vertex_data[3][i];
+		vertex_out[0] = coords[0];
+		vertex_out[1] = coords[1];
+		vertex_out[2] = coords[2];
+		for (i = 3; i < 7; i++)
+			vertex_out[i] = weight[0] * vertex_data[0][i] + weight[1] * vertex_data[1][i] + weight[2] * vertex_data[2][i] + weight[3] * vertex_data[3][i];
 	}
 
-	void init ()
-	{
-	   double[][] rect = new double[][] {
-			{50.0, 50.0, 0.0},
-			{200.0, 50.0, 0.0},
-			{200.0, 200.0, 0.0},
-			{50.0, 200.0, 0.0}};
-	   double[][] tri = new double[][] {
-			 {75.0, 75.0, 0.0},
-             {125.0, 175.0, 0.0},
-             {175.0, 75.0, 0.0}};
-	   double[][] star = new double[][] {
-		  {250.0, 50.0, 0.0, 1.0, 0.0, 1.0},
-          {325.0, 200.0, 0.0, 1.0, 1.0, 0.0},
-          {400.0, 50.0, 0.0, 0.0, 1.0, 1.0},
-          {250.0, 150.0, 0.0, 1.0, 0.0, 0.0},
-          {400.0, 150.0, 0.0, 0.0, 1.0, 0.0}};
+	GLUtesselator tobj;
 
-	   glClearColor(0.0, 0.0, 0.0, 0.0);
+	void init() {
+		double[][] rect = new double[][] { { 50.0, 50.0, 0.0 }, { 200.0, 50.0, 0.0 }, { 200.0, 200.0, 0.0 }, { 50.0, 200.0, 0.0 } };
+		double[][] tri = new double[][] { { 75.0, 75.0, 0.0 }, { 125.0, 175.0, 0.0 }, { 175.0, 75.0, 0.0 } };
+		double[][] star = new double[][] { { 250.0, 50.0, 0.0, 1.0, 0.0, 1.0 }, { 325.0, 200.0, 0.0, 1.0, 1.0, 0.0 }, { 400.0, 50.0, 0.0, 0.0, 1.0, 1.0 }, { 250.0, 150.0, 0.0, 1.0, 0.0, 0.0 }, { 400.0, 150.0, 0.0, 0.0, 1.0, 0.0 } };
 
-	   startList = glGenLists(2);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
 
-	   GLUtesselator tobj = gluNewTess();
+		startList = glGenLists(2);
+
+		tobj = gluNewTess();
 //	   gluTessCallback(tobj, GLU_TESS_VERTEX,
 //			   (_GLUfuncptr)glVertex3dv);
 //	   gluTessCallback(tobj, GLU_TESS_BEGIN,
@@ -190,35 +166,33 @@ public class tess extends glut {
 //	   gluDeleteTess(tobj);
 	}
 
-	void reshape (int w, int h)
-	{
-	   glViewport(0, 0, w, h);
-	   glMatrixMode(GL_PROJECTION);
-	   glLoadIdentity();
-	   gluOrtho2D(0.0, (double) w, 0.0, (double) h);
+	void reshape(int w, int h) {
+		glViewport(0, 0, w, h);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluOrtho2D(0.0, (double) w, 0.0, (double) h);
 	}
 
-	void keyboard(char key, int x, int y)
-	{
-	   switch (key) {
-	      case 27:
-	         System.exit(0);
-	         break;
-	   }
+	void keyboard(char key, int x, int y) {
+		switch (key) {
+		case 27:
+			gluDeleteTess(tobj);
+			System.exit(0);
+			break;
+		}
 	}
 
-	public int main(int argc, String[] argv)
-	{
-	   glutInit(argc, argv);
-	   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	   glutInitWindowSize(500, 500);
-	   glutCreateWindow("tess");
-	   init();
-	   glutDisplayFunc(this::display);
-	   glutReshapeFunc(this::reshape);
-	   glutKeyboardFunc(this::keyboard);
-	   glutMainLoop();
-	   return 0;
+	public int main(int argc, String[] argv) {
+		glutInit(argc, argv);
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+		glutInitWindowSize(500, 500);
+		glutCreateWindow("tess");
+		init();
+		glutDisplayFunc(this::display);
+		glutReshapeFunc(this::reshape);
+		glutKeyboardFunc(this::keyboard);
+		glutMainLoop();
+		return 0;
 	}
 
 	public static void main(String[] args) {
