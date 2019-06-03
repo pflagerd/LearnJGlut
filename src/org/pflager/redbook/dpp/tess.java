@@ -71,8 +71,7 @@ public class tess extends glut {
 
 	void errorCallback(int errorCode)
 	{
-	   String estring = gluErrorString(errorCode);
-	   System.err.printf("Tessellation Error: %s\n", estring);
+	   System.err.printf("Tessellation Error: %s\n", gluErrorString(errorCode));
 	   System.exit(0);
 	}
 
@@ -81,13 +80,10 @@ public class tess extends glut {
 	   glEnd();
 	}
 
-	void vertexCallback(GLvoid *vertex)
+	void vertexCallback(double[] /* 3 */ vertex, double[] /* 3 */ color)
 	{
-	   const double *pointer;
-
-	   pointer = (double *) vertex;
-	   glColor3dv(pointer+3);
 	   glVertex3dv(vertex);
+	   glColor3dv(color);
 	}
 
 	/*  combineCallback is used to create a new vertex when edges
@@ -95,25 +91,22 @@ public class tess extends glut {
 	 *  but weight[4] may be used to average color, normal, or texture
 	 *  coordinate data.  In this program, color is weighted.
 	 */
-	void combineCallback(double coords[3],
-	                     double *vertex_data[4],
-	                     double weight[4],
-	                     double **dataOut )
+
+	void combineCallback(double coords[] /* 3 */,
+	                     double vertex_data[][] /* 4 x 4 */,
+	                     double weight[] /* 4 */,
+	                     double[] vertex_out /* 6 */ )
 	{
-	   double *vertex;
 	   int i;
 
-	   vertex = (double *) malloc(6 * sizeof(double));
-
-	   vertex[0] = coords[0];
-	   vertex[1] = coords[1];
-	   vertex[2] = coords[2];
+	   vertex_out[0] = coords[0];
+	   vertex_out[1] = coords[1];
+	   vertex_out[2] = coords[2];
 	   for (i = 3; i < 7; i++)
-	      vertex[i] = weight[0] * vertex_data[0][i]
+		   vertex_out[i] = weight[0] * vertex_data[0][i]
 	                  + weight[1] * vertex_data[1][i]
 	                  + weight[2] * vertex_data[2][i]
 	                  + weight[3] * vertex_data[3][i];
-	   *dataOut = vertex;
 	}
 
 	void init ()
@@ -139,62 +132,62 @@ public class tess extends glut {
 	   startList = glGenLists(2);
 
 	   GLUtesselator tobj = gluNewTess();
-	   gluTessCallback(tobj, GLU_TESS_VERTEX,
-			   (_GLUfuncptr)glVertex3dv);
-	   gluTessCallback(tobj, GLU_TESS_BEGIN,
-			   (_GLUfuncptr)beginCallback);
-	   gluTessCallback(tobj, GLU_TESS_END,
-			   (_GLUfuncptr)endCallback);
-	   gluTessCallback(tobj, GLU_TESS_ERROR,
-			   (_GLUfuncptr)errorCallback);
-
-	   /*  rectangle with triangular hole inside  */
-	   glNewList(startList, GL_COMPILE);
-	   glShadeModel(GL_FLAT);
-	   gluTessBeginPolygon(tobj, null);
-	      gluTessBeginContour(tobj);
-	         gluTessVertex(tobj, rect[0], rect[0]);
-	         gluTessVertex(tobj, rect[1], rect[1]);
-	         gluTessVertex(tobj, rect[2], rect[2]);
-	         gluTessVertex(tobj, rect[3], rect[3]);
-	      gluTessEndContour(tobj);
-	      gluTessBeginContour(tobj);
-	         gluTessVertex(tobj, tri[0], tri[0]);
-	         gluTessVertex(tobj, tri[1], tri[1]);
-	         gluTessVertex(tobj, tri[2], tri[2]);
-	      gluTessEndContour(tobj);
-	   gluTessEndPolygon(tobj);
-	   glEndList();
-
-	   gluTessCallback(tobj, GLU_TESS_VERTEX,
-			   (_GLUfuncptr)vertexCallback);
-	   gluTessCallback(tobj, GLU_TESS_BEGIN,
-			   (_GLUfuncptr)beginCallback);
-	   gluTessCallback(tobj, GLU_TESS_END,
-			   (_GLUfuncptr)endCallback);
-	   gluTessCallback(tobj, GLU_TESS_ERROR,
-			   (_GLUfuncptr)errorCallback);
-	   gluTessCallback(tobj, GLU_TESS_COMBINE,
-			   (_GLUfuncptr)combineCallback);
-
-	   /*  smooth shaded, self-intersecting star  */
-	   glNewList(startList + 1, GL_COMPILE);
-	   glShadeModel(GL_SMOOTH);
-	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
-	                   GLU_TESS_WINDING_POSITIVE);
-	   gluTessBeginPolygon(tobj, null); {
-	      gluTessBeginContour(tobj); {
-	         gluTessVertex(tobj, star[0], star[0]);
-	         gluTessVertex(tobj, star[1], star[1]);
-	         gluTessVertex(tobj, star[2], star[2]);
-	         gluTessVertex(tobj, star[3], star[3]);
-	         gluTessVertex(tobj, star[4], star[4]);
-	      }
-	      gluTessEndContour(tobj);
-	   }
-	   gluTessEndPolygon(tobj);
-	   glEndList();
-	   gluDeleteTess(tobj);
+//	   gluTessCallback(tobj, GLU_TESS_VERTEX,
+//			   (_GLUfuncptr)glVertex3dv);
+//	   gluTessCallback(tobj, GLU_TESS_BEGIN,
+//			   (_GLUfuncptr)beginCallback);
+//	   gluTessCallback(tobj, GLU_TESS_END,
+//			   (_GLUfuncptr)endCallback);
+//	   gluTessCallback(tobj, GLU_TESS_ERROR,
+//			   (_GLUfuncptr)errorCallback);
+//
+//	   /*  rectangle with triangular hole inside  */
+//	   glNewList(startList, GL_COMPILE);
+//	   glShadeModel(GL_FLAT);
+//	   gluTessBeginPolygon(tobj, null);
+//	      gluTessBeginContour(tobj);
+//	         gluTessVertex(tobj, rect[0], rect[0]);
+//	         gluTessVertex(tobj, rect[1], rect[1]);
+//	         gluTessVertex(tobj, rect[2], rect[2]);
+//	         gluTessVertex(tobj, rect[3], rect[3]);
+//	      gluTessEndContour(tobj);
+//	      gluTessBeginContour(tobj);
+//	         gluTessVertex(tobj, tri[0], tri[0]);
+//	         gluTessVertex(tobj, tri[1], tri[1]);
+//	         gluTessVertex(tobj, tri[2], tri[2]);
+//	      gluTessEndContour(tobj);
+//	   gluTessEndPolygon(tobj);
+//	   glEndList();
+//
+//	   gluTessCallback(tobj, GLU_TESS_VERTEX,
+//			   (_GLUfuncptr)vertexCallback);
+//	   gluTessCallback(tobj, GLU_TESS_BEGIN,
+//			   (_GLUfuncptr)beginCallback);
+//	   gluTessCallback(tobj, GLU_TESS_END,
+//			   (_GLUfuncptr)endCallback);
+//	   gluTessCallback(tobj, GLU_TESS_ERROR,
+//			   (_GLUfuncptr)errorCallback);
+//	   gluTessCallback(tobj, GLU_TESS_COMBINE,
+//			   (_GLUfuncptr)combineCallback);
+//
+//	   /*  smooth shaded, self-intersecting star  */
+//	   glNewList(startList + 1, GL_COMPILE);
+//	   glShadeModel(GL_SMOOTH);
+//	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
+//	                   GLU_TESS_WINDING_POSITIVE);
+//	   gluTessBeginPolygon(tobj, null); {
+//	      gluTessBeginContour(tobj); {
+//	         gluTessVertex(tobj, star[0], star[0]);
+//	         gluTessVertex(tobj, star[1], star[1]);
+//	         gluTessVertex(tobj, star[2], star[2]);
+//	         gluTessVertex(tobj, star[3], star[3]);
+//	         gluTessVertex(tobj, star[4], star[4]);
+//	      }
+//	      gluTessEndContour(tobj);
+//	   }
+//	   gluTessEndPolygon(tobj);
+//	   glEndList();
+//	   gluDeleteTess(tobj);
 	}
 
 	void reshape (int w, int h)
