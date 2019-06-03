@@ -117,7 +117,6 @@ public class tess extends glut {
 
 	void init ()
 	{
-	   GLUtesselator *tobj;
 	   double[][] rect = new double[][] {
 			{50.0, 50.0, 0.0},
 			{200.0, 50.0, 0.0},
@@ -138,7 +137,7 @@ public class tess extends glut {
 
 	   startList = glGenLists(2);
 
-	   tobj = gluNewTess();
+	   GLUtesselator tobj = gluNewTess();
 	   gluTessCallback(tobj, GLU_TESS_VERTEX,
 			   (_GLUfuncptr)glVertex3dv);
 	   gluTessCallback(tobj, GLU_TESS_BEGIN,
@@ -151,7 +150,7 @@ public class tess extends glut {
 	   /*  rectangle with triangular hole inside  */
 	   glNewList(startList, GL_COMPILE);
 	   glShadeModel(GL_FLAT);
-	   gluTessBeginPolygon(tobj, NULL);
+	   gluTessBeginPolygon(tobj, null);
 	      gluTessBeginContour(tobj);
 	         gluTessVertex(tobj, rect[0], rect[0]);
 	         gluTessVertex(tobj, rect[1], rect[1]);
@@ -182,14 +181,16 @@ public class tess extends glut {
 	   glShadeModel(GL_SMOOTH);
 	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
 	                   GLU_TESS_WINDING_POSITIVE);
-	   gluTessBeginPolygon(tobj, NULL);
-	      gluTessBeginContour(tobj);
+	   gluTessBeginPolygon(tobj, null); {
+	      gluTessBeginContour(tobj); {
 	         gluTessVertex(tobj, star[0], star[0]);
 	         gluTessVertex(tobj, star[1], star[1]);
 	         gluTessVertex(tobj, star[2], star[2]);
 	         gluTessVertex(tobj, star[3], star[3]);
 	         gluTessVertex(tobj, star[4], star[4]);
+	      }
 	      gluTessEndContour(tobj);
+	   }
 	   gluTessEndPolygon(tobj);
 	   glEndList();
 	   gluDeleteTess(tobj);
