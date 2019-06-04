@@ -64,16 +64,16 @@ public class tess extends glut {
 		glFlush();
 	}
 
-	void beginCallback(int which) {
+	void begin(int which) {
 		glBegin(which);
 	}
 
-	void errorCallback(int errorCode) {
+	void error(int errorCode) {
 		System.err.printf("Tessellation Error: %s\n", gluErrorString(errorCode));
 		System.exit(0);
 	}
 
-	void endCallback() {
+	void end() {
 		glEnd();
 	}
 
@@ -110,16 +110,13 @@ public class tess extends glut {
 		tobj = gluNewTess();
 //	   gluTessCallback(tobj, GLU_TESS_VERTEX,
 //			   (_GLUfuncptr)glVertex3dv);
-//	   gluTessCallback(tobj, GLU_TESS_BEGIN,
-//			   (_GLUfuncptr)beginCallback);
-//	   gluTessCallback(tobj, GLU_TESS_END,
-//			   (_GLUfuncptr)endCallback);
-//	   gluTessCallback(tobj, GLU_TESS_ERROR,
-//			   (_GLUfuncptr)errorCallback);
+//	gluTessCallback(tobj, GLU_TESS_BEGIN, (BeginFunc)this::begin);
+//	gluTessCallback(tobj, GLU_TESS_END, this::end);
+	gluTessCallback(tobj, GLU_TESS_ERROR, (ErrorFunc)this::error);
 //
-//	   /*  rectangle with triangular hole inside  */
-//	   glNewList(startList, GL_COMPILE);
-//	   glShadeModel(GL_FLAT);
+	/*  rectangle with triangular hole inside  */
+	glNewList(startList, GL_COMPILE);
+	glShadeModel(GL_FLAT);
 //	   gluTessBeginPolygon(tobj, null);
 //	      gluTessBeginContour(tobj);
 //	         gluTessVertex(tobj, rect[0], rect[0]);
@@ -134,21 +131,20 @@ public class tess extends glut {
 //	      gluTessEndContour(tobj);
 //	   gluTessEndPolygon(tobj);
 //	   glEndList();
-//
+
 //	   gluTessCallback(tobj, GLU_TESS_VERTEX,
 //			   (_GLUfuncptr)vertexCallback);
-//	   gluTessCallback(tobj, GLU_TESS_BEGIN,
-//			   (_GLUfuncptr)beginCallback);
+//	gluTessCallback(tobj, GLU_TESS_BEGIN, (BeginFunc)this::begin);
 //	   gluTessCallback(tobj, GLU_TESS_END,
 //			   (_GLUfuncptr)endCallback);
 //	   gluTessCallback(tobj, GLU_TESS_ERROR,
 //			   (_GLUfuncptr)errorCallback);
 //	   gluTessCallback(tobj, GLU_TESS_COMBINE,
 //			   (_GLUfuncptr)combineCallback);
-//
-//	   /*  smooth shaded, self-intersecting star  */
-//	   glNewList(startList + 1, GL_COMPILE);
-//	   glShadeModel(GL_SMOOTH);
+
+	/*  smooth shaded, self-intersecting star  */
+	glNewList(startList + 1, GL_COMPILE);
+	glShadeModel(GL_SMOOTH);
 //	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
 //	                   GLU_TESS_WINDING_POSITIVE);
 //	   gluTessBeginPolygon(tobj, null); {
@@ -162,8 +158,8 @@ public class tess extends glut {
 //	      gluTessEndContour(tobj);
 //	   }
 //	   gluTessEndPolygon(tobj);
-//	   glEndList();
-//	   gluDeleteTess(tobj);
+	glEndList();
+	gluDeleteTess(tobj);
 	}
 
 	void reshape(int w, int h) {
@@ -176,7 +172,6 @@ public class tess extends glut {
 	void keyboard(char key, int x, int y) {
 		switch (key) {
 		case 27:
-			gluDeleteTess(tobj);
 			System.exit(0);
 			break;
 		}
