@@ -37,32 +37,48 @@ package org.pflager.redbook.dpp;
  * OpenGL(R) is a registered trademark of Silicon Graphics, Inc.
  */
 
-/*  checker.c
+/*  texsub.c
  *  This program texture maps a checkerboard image onto
- *  two rectangles.
- *
- *  If running this program on OpenGL 1.0, texture objects are
- *  not used.
+ *  two rectangles.  This program clamps the texture, if
+ *  the texture coordinates fall outside 0.0 and 1.0.
+ *  If the s key is pressed, a texture subimage is used to
+ *  alter the original texture.  If the r key is pressed,
+ *  the original texture is restored.
  */
 import com.pflager.glut;
 
-public class checker extends glut {
-	/* Create checkerboard texture */
+public class texsub extends glut {
+
+	/* Create checkerboard textures */
 	final int checkImageWidth = 64;
 	final int checkImageHeight = 64;
+	final int subImageWidth = 16;
+	final int subImageHeight = 16;
 
 	byte[] checkImage = new byte[checkImageHeight * checkImageWidth * 4];
+	byte[] subImage = new byte[subImageHeight * subImageWidth * 4];
 
-	void makeCheckImage() {
+	int[] texName = new int[1];
+
+	void makeCheckImages() {
 		int i, j, c;
 
 		for (i = 0; i < checkImageHeight; i++) {
 			for (j = 0; j < checkImageWidth; j++) {
-				c = (((i & 0x8) == 0 ? 1 : 0) ^ ((j & 0x8) == 0 ? 1 : 0)) * 255;
+				c = ((((i & 0x8) == 0 ? 1 : 0) ^ ((j & 0x8) == 0 ? 1 : 0))) * 255;
 				checkImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) c;
 				checkImage[i * checkImageWidth * 4 + j * 4 + 1] = (byte) c;
 				checkImage[i * checkImageWidth * 4 + j * 4 + 2] = (byte) c;
 				checkImage[i * checkImageWidth * 4 + j * 4 + 3] = (byte) 255;
+			}
+		}
+		for (i = 0; i < subImageHeight; i++) {
+			for (j = 0; j < subImageWidth; j++) {
+				c = ((((i & 0x4) == 0 ? 1 : 0) ^ ((j & 0x4) == 0 ? 1 : 0))) * 255;
+				subImage[i * subImageHeight * 4 + j * 4 + 0] = (byte) c;
+				subImage[i * subImageHeight * 4 + j * 4 + 1] = (byte) 0;
+				subImage[i * subImageHeight * 4 + j * 4 + 2] = (byte) 0;
+				subImage[i * subImageHeight * 4 + j * 4 + 3] = (byte) 255;
 			}
 		}
 	}
@@ -72,21 +88,24 @@ public class checker extends glut {
 		glShadeModel(GL_FLAT);
 		glEnable(GL_DEPTH_TEST);
 
-		makeCheckImage();
+		makeCheckImages();
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		glGenTextures(1, texName);
+		glBindTexture(GL_TEXTURE_2D, texName[0]);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, 4, checkImageWidth, checkImageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 	}
 
 	void display() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-
+		glBindTexture(GL_TEXTURE_2D, texName[0]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0, 0.0);
 		glVertex3f(-2.0, -1.0, 0.0);
@@ -122,6 +141,18 @@ public class checker extends glut {
 
 	void keyboard(char key, int x, int y) {
 		switch (key) {
+		case 's':
+		case 'S':
+			glBindTexture(GL_TEXTURE_2D, texName[0]);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 12, 44, subImageWidth, subImageHeight, GL_RGBA, GL_UNSIGNED_BYTE, subImage);
+			glutPostRedisplay();
+			break;
+		case 'r':
+		case 'R':
+			glBindTexture(GL_TEXTURE_2D, texName[0]);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkImageWidth, checkImageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+			glutPostRedisplay();
+			break;
 		case 27:
 			System.exit(0);
 			break;
@@ -135,7 +166,7 @@ public class checker extends glut {
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 		glutInitWindowSize(250, 250);
 		glutInitWindowPosition(100, 100);
-		glutCreateWindow("checker");
+		glutCreateWindow("texsub");
 		init();
 		glutDisplayFunc(this::display);
 		glutReshapeFunc(this::reshape);
@@ -145,7 +176,7 @@ public class checker extends glut {
 	}
 
 	public static void main(String[] args) {
-		System.exit(new checker().main(args.length, args));
+		System.exit(new texsub().main(args.length, args));
 	}
 
 }
