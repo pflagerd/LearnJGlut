@@ -8,32 +8,27 @@ public class stencil extends glut {
 	final  int BLUEMAT = 2;
 
 	void init() {
+		
 		float yellow_diffuse[] = new float [] { 0.7f, 0.7f, 0.0f, 1.0f };
 		float yellow_specular[] = new float [] { 1.0f, 1.0f, 1.0f, 1.0f };
-
 		float blue_diffuse[] = new float [] { 0.1f, 0.1f, 0.7f, 1.0f };
 		float blue_specular[] = new float [] { 0.1f, 1.0f, 1.0f, 1.0f };
-
 		float position_one[] = new float [] { 1.0f, 1.0f, 1.0f, 0.0f };
-
+		
 		glNewList(YELLOWMAT, GL_COMPILE);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, yellow_diffuse);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, yellow_specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, 64.0);
 		glEndList();
-
 		glNewList(BLUEMAT, GL_COMPILE);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, blue_diffuse);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, blue_specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, 45.0);
 		glEndList();
-
 		glLightfv(GL_LIGHT0, GL_POSITION, position_one);
-
 		glEnable(GL_LIGHT0);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_DEPTH_TEST);
-
 		glClearStencil(0x0);
 		glEnable(GL_STENCIL_TEST);
 	}
