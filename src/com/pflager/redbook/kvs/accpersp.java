@@ -147,9 +147,8 @@ public class accpersp extends glut {
 		glClear(GL_ACCUM_BUFFER_BIT);
 		for (jitter = 0; jitter < ACSIZE; jitter++) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-			accPerspective(50.0, (double) viewport[2] / (double) viewport[3], 1.0, 15.0, j8[jitter].x, j8[jitter].y,
-					0.0, 0.0, 1.0);
+			//accPerspective(50.0, (double) viewport[2] / (double) viewport[3], 1.0, 15.0, j8[jitter].x, j8[jitter].y,0.0, 0.0, 1.0);
+			accPerspective(50.0, (double) viewport[2] / (double) viewport[3], 1.0, 15.0, 0, 0,0.0, 0.0, 1.0);
 			displayObjects();
 			glAccum(GL_ACCUM, 1.0 / ACSIZE);
 		}
