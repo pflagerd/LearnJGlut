@@ -1,6 +1,10 @@
-#double rect[4][3] = {50.0, 50.0, 0.0,
-#s/\([a-zA-Z]\+\)[ 	]\+\([a-zA-Z_0-9]\+\)\(\[.*\]\) = \(.*\)/\1\[\]\[\] \2 = new \1\[\]\[\] \4/g
+#The following will fix 3D initializers
+s/\([a-zA-Z]\+\)[ 	]\+\([a-zA-Z_0-9]\+\)\[.\]\[.\]\[.\]/\1\[\]\[\]\[\] \2 /
 
+#s/\#define[ 	]\+\([a-zA-Z]\+\)[ 	]\+\([a-zA-Z]\+\)/final int \1 = \2\;/
+s/#define[ 	]\+\([a-zA-Z]\+\)[ 	]\+\([0-9a-fA-FxX]\+\)/final int \1 = \2;/
+
+s/unsigned char/char/g
 s/GLfloat/double/g
 s/GLint/int/g
 s/GLuint/int/g
