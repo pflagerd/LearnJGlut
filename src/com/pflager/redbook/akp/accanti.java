@@ -131,7 +131,7 @@ public class accanti extends glut{
 	   glutInitWindowPosition (100, 100);
 	   glutCreateWindow ("accanti");
 	   init();
-	   glutReshapeFunc(this::reshape);
+	   	   glutReshapeFunc(this::reshape);
 	   glutDisplayFunc(this::display);
 	   glutKeyboardFunc(this::keyboard);
 	   glutMainLoop();
