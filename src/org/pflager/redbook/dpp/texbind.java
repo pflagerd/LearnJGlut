@@ -110,21 +110,6 @@ public class texbind extends glut {
 		}
 	}
 
-	byte[] flatten(byte[][][] in) {
-		byte[] out = new byte[in.length * in[0].length * in[0][0].length];
-
-		int l = 0;
-		for (int i = 0; i < in.length; i++) {
-			for (int j = 0; j < in[0].length; j++) {
-				for (int k = 0; k < in[0][0].length; k++) {
-					out[l++] = in[i][j][k];
-				}
-			}
-		}
-
-		return out;
-	}
-
 	void init() {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glShadeModel(GL_FLAT);
