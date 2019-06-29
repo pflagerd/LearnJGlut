@@ -48,7 +48,7 @@ import com.pflager.glut;
 
 public class surface extends glut {
 
-	double[][][] ctlpoints = new double[4][3][3];
+	double[][][] ctlpoints = new double[4][4][3];
 
 	boolean showPoints = false;
 
