@@ -128,12 +128,12 @@ public class trim extends glut {
 	                   4 * 3, 3, flatten(ctlpoints),
 	                   4, 4, GL_MAP2_VERTEX_3);
 	   gluBeginTrim (theNurb);
-	      gluPwlCurve (theNurb, 5, edgePt, 2, GLU_MAP1_TRIM_2);
+	      gluPwlCurve (theNurb, 5, flatten(edgePt), 2, GLU_MAP1_TRIM_2);
 	   gluEndTrim (theNurb);
 	   gluBeginTrim (theNurb);
 	      gluNurbsCurve (theNurb, 8, curveKnots, 2,
-	                     curvePt, 4, GLU_MAP1_TRIM_2);
-	      gluPwlCurve (theNurb, 3, pwlPt, 2, GLU_MAP1_TRIM_2);
+	                     flatten(curvePt), 4, GLU_MAP1_TRIM_2);
+	      gluPwlCurve (theNurb, 3, flatten(pwlPt), 2, GLU_MAP1_TRIM_2);
 	   gluEndTrim (theNurb);
 	   gluEndSurface(theNurb);
 
@@ -170,7 +170,7 @@ public class trim extends glut {
 	   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	   glutInitWindowSize (500, 500);
 	   glutInitWindowPosition (100, 100);
-	   glutCreateWindow(argv[0]);
+	   glutCreateWindow("trim");
 	   init();
 	   glutReshapeFunc(this::reshape);
 	   glutDisplayFunc(this::display);
