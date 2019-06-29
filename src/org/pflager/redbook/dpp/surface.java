@@ -118,7 +118,7 @@ public class surface extends glut {
 	   gluBeginSurface(theNurb);
 	   gluNurbsSurface(theNurb,
 	                   8, knots, 8, knots,
-	                   4 * 3, 3, ctlpoints,
+	                   4 * 3, 3, flatten(ctlpoints),
 	                   4, 4, GL_MAP2_VERTEX_3);
 	   gluEndSurface(theNurb);
 
@@ -173,7 +173,7 @@ public class surface extends glut {
 	   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	   glutInitWindowSize (500, 500);
 	   glutInitWindowPosition (100, 100);
-	   glutCreateWindow(argv[0]);
+	   glutCreateWindow("surface");
 	   init();
 	   glutReshapeFunc(this::reshape);
 	   glutDisplayFunc(this::display);
