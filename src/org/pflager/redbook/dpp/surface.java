@@ -101,7 +101,7 @@ public class surface extends glut {
 	   theNurb = gluNewNurbsRenderer();
 	   gluNurbsProperty(theNurb, GLU_SAMPLING_TOLERANCE, 25.0);
 	   gluNurbsProperty(theNurb, GLU_DISPLAY_MODE, GLU_FILL);
-	   gluNurbsCallback(theNurb, GLU_ERROR, nurbsError);
+	   gluNurbsCallback(theNurb, GLU_ERROR, this::nurbsError);
 	}
 
 	void display()
