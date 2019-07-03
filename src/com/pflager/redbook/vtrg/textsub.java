@@ -128,5 +128,6 @@ public class textsub extends glut{
 	}
 	public static void main(String[] args) {
 		System.exit(new textsub().main(args.length, args));
+		
 	}
 }
