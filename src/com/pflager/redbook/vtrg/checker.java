@@ -99,5 +99,6 @@ public class checker extends glut{
 	}
 	public static void main(String[] args) {
 		System.exit(new checker().main(args.length, args));
+		
 	}
 }
