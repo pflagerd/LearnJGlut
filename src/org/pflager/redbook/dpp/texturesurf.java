@@ -1,5 +1,3 @@
-package org.pflager.redbook.dpp;
-
 /*
  * Copyright (c) 1993-1997, Silicon Graphics, Inc.
  * ALL RIGHTS RESERVED
@@ -37,87 +35,77 @@ package org.pflager.redbook.dpp;
  * OpenGL(R) is a registered trademark of Silicon Graphics, Inc.
  */
 
-/*  checker.c
- *  This program texture maps a checkerboard image onto
- *  two rectangles.
- *
- *  If running this program on OpenGL 1.0, texture objects are
- *  not used.
+/*  texturesurf.c
+ *  This program uses evaluators to generate a curved
+ *  surface and automatically generated texture coordinates.
  */
+
+package org.pflager.redbook.dpp;
+
 import com.pflager.glut;
 
-public class checker extends glut {
-	/* Create checkerboard texture */
-	final int checkImageWidth = 64;
-	final int checkImageHeight = 64;
+public class texturesurf extends glut {
 
-	byte[] checkImage = new byte[checkImageHeight * checkImageWidth * 4];
+	double[][][] ctrlpoints = { { { -1.5, -1.5, 4.0 }, { -0.5, -1.5, 2.0 }, { 0.5, -1.5, -1.0 }, { 1.5, -1.5, 2.0 } }, { { -1.5, -0.5, 1.0 }, { -0.5, -0.5, 3.0 }, { 0.5, -0.5, 0.0 }, { 1.5, -0.5, -1.0 } }, { { -1.5, 0.5, 4.0 }, { -0.5, 0.5, 0.0 }, { 0.5, 0.5, 3.0 }, { 1.5, 0.5, 4.0 } }, { { -1.5, 1.5, -2.0 }, { -0.5, 1.5, -2.0 }, { 0.5, 1.5, 0.0 }, { 1.5, 1.5, -1.0 } } };
 
-	void makeCheckImage() {
-		int i, j, c;
+	double[][][] texpts = { { { 0.0, 0.0 }, { 0.0, 1.0 } }, { { 1.0, 0.0 }, { 1.0, 1.0 } } };
 
-		for (i = 0; i < checkImageHeight; i++) {
-			for (j = 0; j < checkImageWidth; j++) {
-				c = (((i & 0x8) == 0 ? 1 : 0) ^ ((j & 0x8) == 0 ? 1 : 0)) * 255;
-				checkImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) c;
-				checkImage[i * checkImageWidth * 4 + j * 4 + 1] = (byte) c;
-				checkImage[i * checkImageWidth * 4 + j * 4 + 2] = (byte) c;
-				checkImage[i * checkImageWidth * 4 + j * 4 + 3] = (byte) 255;
+	void display() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glColor3f(1.0, 1.0, 1.0);
+		glEvalMesh2(GL_FILL, 0, 20, 0, 20);
+		glFlush();
+	}
+
+	final int imageWidth = 64;
+	final int imageHeight = 64;
+	byte[] image = new byte[3 * imageWidth * imageHeight];
+
+	void makeImage() {
+		int i, j;
+		double ti, tj;
+
+		for (i = 0; i < imageWidth; i++) {
+			ti = 2.0 * Math.PI * i / imageWidth;
+			for (j = 0; j < imageHeight; j++) {
+				tj = 2.0 * Math.PI * j / imageHeight;
+
+				image[3 * (imageHeight * i + j)] = (byte) (new Double(127.0 * (1.0 + Math.sin(ti))).intValue() & 0xFF);
+				image[3 * (imageHeight * i + j) + 1] = (byte) (new Double(127.0 * (1.0 + Math.cos(2 * tj))).intValue() & 0xFF);
+				image[3 * (imageHeight * i + j) + 2] = (byte) (new Double(127.0 * (1.0 + Math.cos(ti + tj))).intValue() & 0xFF);
 			}
 		}
 	}
 
 	void init() {
-		glClearColor(0.0, 0.0, 0.0, 0.0);
-		glShadeModel(GL_FLAT);
-		glEnable(GL_DEPTH_TEST);
-
-		makeCheckImage();
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
+		glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, ctrlpoints);
+		glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, texpts);
+		glEnable(GL_MAP2_TEXTURE_COORD_2);
+		glEnable(GL_MAP2_VERTEX_3);
+		glMapGrid2f(20, 0.0, 1.0, 20, 0.0, 1.0);
+		makeImage();
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, 4, checkImageWidth, checkImageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
-	}
-
-	void display() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(-2.0, -1.0, 0.0);
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(-2.0, 1.0, 0.0);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(0.0, 1.0, 0.0);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(0.0, -1.0, 0.0);
-
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(1.0, -1.0, 0.0);
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(1.0, 1.0, 0.0);
-		glTexCoord2f(1.0, 1.0);
-		glVertex3f(2.41421, 1.0, -1.41421);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(2.41421, -1.0, -1.41421);
-		glEnd();
-		glFlush();
-		glDisable(GL_TEXTURE_2D);
+		glEnable(GL_DEPTH_TEST);
+		glShadeModel(GL_FLAT);
 	}
 
 	void reshape(int w, int h) {
 		glViewport(0, 0, w, h);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60.0, (double) w / (double) h, 1.0, 30.0);
+		if (w <= h)
+			glOrtho(-4.0, 4.0, -4.0 * (double) h / (double) w, 4.0 * (double) h / (double) w, -4.0, 4.0);
+		else
+			glOrtho(-4.0 * (double) w / (double) h, 4.0 * (double) w / (double) h, -4.0, 4.0, -4.0, 4.0);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glTranslatef(0.0, 0.0, -3.6);
+		glRotatef(85.0, 1.0, 1.0, 1.0);
 	}
 
 	void keyboard(char key, int x, int y) {
@@ -125,17 +113,15 @@ public class checker extends glut {
 		case 27:
 			System.exit(0);
 			break;
-		default:
-			break;
 		}
 	}
 
 	public int main(int argc, String[] argv) {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-		glutInitWindowSize(250, 250);
+		glutInitWindowSize(500, 500);
 		glutInitWindowPosition(100, 100);
-		glutCreateWindow("checker");
+		glutCreateWindow("texturesurf");
 		init();
 		glutDisplayFunc(this::display);
 		glutReshapeFunc(this::reshape);
@@ -145,7 +131,7 @@ public class checker extends glut {
 	}
 
 	public static void main(String[] args) {
-		System.exit(new checker().main(args.length, args));
+		System.exit(new texturesurf().main(args.length, args));
 	}
 
 }

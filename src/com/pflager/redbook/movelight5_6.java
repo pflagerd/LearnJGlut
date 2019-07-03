@@ -2,7 +2,7 @@ package com.pflager.redbook;
 
 import com.pflager.glut;
 
-public class movelight extends glut {
+public class movelight5_6 extends glut {
 	static int spin = 0;
 
 	void init() {
@@ -79,6 +79,6 @@ public class movelight extends glut {
 	}
 
 	public static void main(String[] args) {
-		System.exit(new movelight().main(args.length, args));
+		System.exit(new movelight5_6().main(args.length, args));
 	}
 }
