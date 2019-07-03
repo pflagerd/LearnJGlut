@@ -1,5 +1,4 @@
 package com.pflager.redbook.vtrg;
-
 import com.pflager.glut;
 
 public class stroke extends glut {
