@@ -31,10 +31,10 @@ public class textsub extends glut{
 			for (j = 0; j < subImageWidth; j++) 
 			{
 				c = ((( i&0x4)== 0 ? 1 : 0 )^((j&0x4)==0 ? 1 : 0))*255;
-				subImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) c;
-				subImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) 0;
-				subImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) 0;
-				subImage[i * checkImageWidth * 4 + j * 4 + 0] = (byte) 255;
+				subImage[i * subImageWidth * 4 + j * 4 + 0] = (byte) c;
+				subImage[i * subImageWidth * 4 + j * 4 + 1] = (byte) 0;
+				subImage[i * subImageWidth * 4 + j * 4 + 2] = (byte) 0;
+				subImage[i * subImageWidth * 4 + j * 4 + 3] = (byte) 255;
 			}
 		}
 	}
@@ -118,12 +118,15 @@ public class textsub extends glut{
 	   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	   glutInitWindowSize(250, 250);
 	   glutInitWindowPosition(100, 100);
-	   glutCreateWindow(argv[0]);
+	   glutCreateWindow("textsub");
 	   init();
 	   glutDisplayFunc(this::display);
 	   glutReshapeFunc(this::reshape);
 	   glutKeyboardFunc(this::keyboard);
 	   glutMainLoop();
 	   return 0; 
+	}
+	public static void main(String[] args) {
+		System.exit(new textsub().main(args.length, args));
 	}
 }
