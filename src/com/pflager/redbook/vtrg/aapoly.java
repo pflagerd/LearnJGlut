@@ -92,7 +92,7 @@ public class aapoly extends glut {
 
 	int main(int argc, String[] argv) {
 		glutInit(argc, argv);
-		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_ALPHA | GLUT_DEPTH);
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA | GLUT_DEPTH);
 		glutInitWindowSize(200, 200);
 		glutCreateWindow("aapoly");
 		init();
