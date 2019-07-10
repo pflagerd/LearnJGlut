@@ -78,12 +78,12 @@ public class mipmap extends glut{
 		GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 		GL_NEAREST_MIPMAP_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 32, 32, 0,GL_RGBA, GL_UNSIGNED_BYTE, mipmapImage32);
-		glTexImage2D(GL_TEXTURE_2D, 1, GL_RGBA, 16, 16, 0,GL_RGBA, GL_UNSIGNED_BYTE, mipmapImage16);
-		glTexImage2D(GL_TEXTURE_2D, 2, GL_RGBA, 8, 8, 0,GL_RGBA, GL_UNSIGNED_BYTE, mipmapImage8);
-		glTexImage2D(GL_TEXTURE_2D, 3, GL_RGBA, 4, 4, 0,GL_RGBA, GL_UNSIGNED_BYTE, mipmapImage4);
-		glTexImage2D(GL_TEXTURE_2D, 4, GL_RGBA, 2, 2, 0,GL_RGBA, GL_UNSIGNED_BYTE, mipmapImage2);
-		glTexImage2D(GL_TEXTURE_2D, 5, GL_RGBA, 1, 1, 0,GL_RGBA, GL_UNSIGNED_BYTE, mipmapImage1);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 32, 32, 0,GL_RGBA, GL_UNSIGNED_BYTE,flatten( mipmapImage32));
+		glTexImage2D(GL_TEXTURE_2D, 1, GL_RGBA, 16, 16, 0,GL_RGBA, GL_UNSIGNED_BYTE,flatten( mipmapImage16));
+		glTexImage2D(GL_TEXTURE_2D, 2, GL_RGBA, 8, 8, 0,GL_RGBA, GL_UNSIGNED_BYTE, flatten(mipmapImage8));
+		glTexImage2D(GL_TEXTURE_2D, 3, GL_RGBA, 4, 4, 0,GL_RGBA, GL_UNSIGNED_BYTE,flatten( mipmapImage4));
+		glTexImage2D(GL_TEXTURE_2D, 4, GL_RGBA, 2, 2, 0,GL_RGBA, GL_UNSIGNED_BYTE,flatten( mipmapImage2));
+		glTexImage2D(GL_TEXTURE_2D, 5, GL_RGBA, 1, 1, 0,GL_RGBA, GL_UNSIGNED_BYTE,flatten( mipmapImage1));
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 		glEnable(GL_TEXTURE_2D);
 	}
