@@ -1,7 +1,6 @@
 package com.pflager.redbook.kvs;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
