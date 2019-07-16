@@ -16,6 +16,7 @@ class Test_com_pflager_redbook_alpha extends ImageCompareJNA {
 		boolean CompareImage = CompareImageSec("alpha");
 		super.finalize();
 		assertTrue(CompareImage);
+		
 	}
 
 }
