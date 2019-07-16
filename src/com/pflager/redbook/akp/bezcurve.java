@@ -76,6 +76,6 @@ public class bezcurve extends glut{
 		}
 		
 		public static void main(String[] args) {
-			System.exit(new polyoff().main(args.length, args));
+			System.exit(new bezcurve().main(args.length, args));
 		}
 }
