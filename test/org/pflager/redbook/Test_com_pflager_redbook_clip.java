@@ -18,4 +18,5 @@ class Test_com_pflager_redbook_clip extends ImageCompareJNA {
 		assertTrue(CompareImage);
 	}
 
+	
 }
