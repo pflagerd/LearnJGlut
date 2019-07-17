@@ -177,6 +177,8 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public boolean CaptureCImage(String WindowName) throws InterruptedException {
+		File Tempfile  = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+		if  (Tempfile.exists()== false) {
 		if (ExecuteEXE(WindowName)) {// Running c application with window name
 			Thread.sleep(8000);
 			hWnd = User32.INSTANCE.FindWindow(null, WindowName);
@@ -198,6 +200,8 @@ public class ImageCompareJNA extends JFrame {
 			}
 		}
 		return false;
+	}else return true;
+		
 	}
 
 	/**
@@ -217,16 +221,15 @@ public class ImageCompareJNA extends JFrame {
 				ImageName = WindowName + "CImage";
 				if (capture("redbook-1.1-src/src/")) { // Capturing c application window
 					PS.destroy(); // Ending C executable process
-					FirstFile = new File("redbook-1.1-src/src/" + WindowName);
 					SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
 					if (IdenticalImage(FirstFile, SecondFile)) {
 						FirstFile.delete();
-						SecondFile.delete();
+						//SecondFile.delete();
 						System.out.println("Identical Image");
 						return true;
 					} else {
 						FirstFile.delete();
-						SecondFile.delete();
+						//SecondFile.delete();
 						System.out.println("Different Image");
 						return false;
 					}
@@ -264,13 +267,13 @@ public class ImageCompareJNA extends JFrame {
 			File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
 			if (IdenticalImage(FirstFile, SecondFile)) {
 				FirstFile.delete();
-				SecondFile.delete();
+				//SecondFile.delete();
 				System.out.println("Identical Image");
 				// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 				return true;
 			} else {
 				FirstFile.delete();
-				SecondFile.delete();
+				//SecondFile.delete();
 				System.out.println("Different Image");
 				// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 				return false;

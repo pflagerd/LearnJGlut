@@ -1,5 +1,5 @@
 
-package com.pflager.redbook.kvs;
+package org.pflager.redbook;
 
 import static org.junit.jupiter.api.Assertions.*;
 
