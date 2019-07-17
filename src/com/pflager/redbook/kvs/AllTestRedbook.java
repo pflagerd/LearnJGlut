@@ -40,6 +40,7 @@ import org.junit.runner.RunWith;
 	Test_com_pflager_redbook_accpersp.class,
 	Test_com_pflager_redbook_accanti.class,
 	Test_com_pflager_redbook_texsub.class,
+	Test_com_pflager_redbook_bezmesh.class,
 	})
 public class AllTestRedbook {
 }
