@@ -1,8 +1,6 @@
 package com.pflager.redbook.akp;
 
 import com.pflager.glut;
-import com.pflager.redbook.robot;
-import java.*;
 
 public class dof extends glut{
 
