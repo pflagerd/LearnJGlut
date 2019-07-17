@@ -1,7 +1,6 @@
 package com.pflager.redbook.akp;
 
 import com.pflager.glut;
-import com.pflager.redbook.robot;
 
 public class bezsurf extends glut{
 	
