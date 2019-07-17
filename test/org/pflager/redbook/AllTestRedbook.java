@@ -47,6 +47,7 @@ import com.pflager.redbook.kvs.Test_com_pflager_redbook_varray;
 	Test_com_pflager_redbook_alpha3D.class,
 	Test_com_pflager_redbook_bezcurve.class,
 	Test_com_pflager_redbook_bezsurf.class,
+	
 	Test_com_pflager_redbook_checker.class,
 	Test_com_pflager_redbook_clip.class,
 	Test_com_pflager_redbook_colormat.class,
