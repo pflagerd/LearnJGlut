@@ -11,6 +11,7 @@ public class alpha3D extends glut {
 	static float solidZ = (float) MAXZ;
 	static float transparentZ = (float) MINZ;
 	static int sphereList, cubeList;
+
 	/* Initialize alpha blending function. */
 	void init() {
 		float mat_specular[] = { 1.0f, 1.0f, 1.0f, 0.15f };
@@ -110,7 +111,7 @@ public class alpha3D extends glut {
 	int main(int argc, String[] argv) {
 		glutInit(argc, argv);
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-		glutInitWindowSize(200, 200);
+		glutInitWindowSize(500, 500);
 		glutCreateWindow("alpha3D");
 		init();
 		glutReshapeFunc(this::reshape);

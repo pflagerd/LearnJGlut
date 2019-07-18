@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="lib/jglut.jar"/>
 	<classpathentry kind="lib" path="lib/jna-5.2.0.jar"/>
@@ -13,5 +14,7 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.6/commons-io-2.6-test-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.6/commons-io-2.6-tests.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.6/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/jna-platform.jar"/>
+	<classpathentry kind="lib" path="lib/jna.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

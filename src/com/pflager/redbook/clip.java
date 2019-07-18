@@ -31,7 +31,6 @@ public class clip extends glut{
 	   glRotatef (90.0, 1.0, 0.0, 0.0);
 	   glutWireSphere(1.0, 20, 16);
 	   glPopMatrix();
-
 	   glFlush ();
 	}
 
@@ -62,14 +61,16 @@ public class clip extends glut{
 	   glutInitWindowPosition (100, 100);
 	   glutCreateWindow ("clip");
 	   init ();
-	   glutDisplayFunc(this::display); 
+	   glutDisplayFunc(this::display);
 	   glutReshapeFunc(this::reshape);
 	   glutKeyboardFunc(this::keyboard);
 	   glutMainLoop();
+
 	   return 0;
 	}
 	
 	public static void main(String[] args) {
 		System.exit(new clip().main(args.length, args));
 	}
+	
 }
