@@ -16,25 +16,33 @@ public class aapoly extends glut {
 	}
 
 	void drawCube(double x0, double x1, double y0, double y1, double z0, double z1) {
-		double v[] = new double[24];
-		double c[] = { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0,
-				0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
-		/* indices of front, top, left, bottom, right, back faces */
-		byte[] indices = {  4, 5, 6, 7 ,  2, 3, 7, 6 ,  0, 4, 7, 3 ,  0, 1, 5, 4 , 1, 5, 6, 2 ,  0, 3, 2, 1  };
+		double v[][]=new double[8][3];
+		    double c[][] = {
+		      {0.0, 0.0, 0.0, 1.0}, {1.0, 0.0, 0.0, 1.0},
+		      {0.0, 1.0, 0.0, 1.0}, {1.0, 1.0, 0.0, 1.0},
+		      {0.0, 0.0, 1.0, 1.0}, {1.0, 0.0, 1.0, 1.0},
+		      {0.0, 1.0, 1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}
+		   };
 
-		v[0]= v[9] = v[12] = v[21] = (float) x0;
-		v[3] = v[6] = v[15] = v[18] = (float) x1;
-		v[1] = v[4] = v[13] = v[16] = (float) y0;
-		v[7] = v[10] = v[25] = v[22] = (float) y1;
-		v[2] = v[5] = v[8] = v[11] = (float) z0;
-		v[14] = v[17] = v[20] = v[23] = (float) z1;
+		/*  indices of front, top, left, bottom, right, back faces  */
+		    byte indices[][] = {
+		      {4, 5, 6, 7}, {2, 3, 7, 6}, {0, 4, 7, 3},
+		      {0, 1, 5, 4}, {1, 5, 6, 2}, {0, 3, 2, 1}
+		   };
+
+		   v[0][0] = v[3][0] = v[4][0] = v[7][0] = x0;
+		   v[1][0] = v[2][0] = v[5][0] = v[6][0] = x1;
+		   v[0][1] = v[1][1] = v[4][1] = v[5][1] = y0;
+		   v[2][1] = v[3][1] = v[6][1] = v[7][1] = y1;
+		   v[0][2] = v[1][2] = v[2][2] = v[3][2] = z0;
+		   v[4][2] = v[5][2] = v[6][2] = v[7][2] = z1;
 
 		// #ifdef GL_VERSION_1_1
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
-		glVertexPointer(3, GL_FLOAT, 0, v);
-		glColorPointer(4, GL_FLOAT, 0, c);
-		glDrawElements(GL_QUADS, NFACE * 4, GL_UNSIGNED_BYTE, indices);
+		glVertexPointer(3, GL_FLOAT, 0, flatten(v));
+		glColorPointer(4, GL_FLOAT, 0, flatten(c));
+		glDrawElements(GL_QUADS, NFACE * 4, GL_UNSIGNED_BYTE, flatten(indices));
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		/*
