@@ -43,11 +43,11 @@ import org.pflager.redbook.Test_com_pflager_redbook_varray;
 @SuiteDisplayName("JGlut AllTests Suite")
 @SelectClasses({
 	Test_com_pflager_redbook_aargb.class,
+	Test_com_pflager_redbook_aapoly.class,
 	Test_com_pflager_redbook_alpha.class,
 	Test_com_pflager_redbook_alpha3D.class,
 	Test_com_pflager_redbook_bezcurve.class,
 	Test_com_pflager_redbook_bezsurf.class,
-	
 	Test_com_pflager_redbook_checker.class,
 	Test_com_pflager_redbook_clip.class,
 	Test_com_pflager_redbook_colormat.class,
