@@ -10,7 +10,7 @@ public class polyoff  extends glut{
 	double tdist = 0.0;
 	double polyfactor = 1.0;
 	double polyunits = 1.0;
-	
+
 	void init ()
 	{
 	    double light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -35,12 +35,9 @@ public class polyoff  extends glut{
 	    glLightfv (GL_LIGHT0, GL_POSITION, light_position);
 	    glLightModelfv (GL_LIGHT_MODEL_AMBIENT, global_ambient);
 	}
-	
+
 	void display ()
 	{
-		double mat_ambient[] = { 0.8, 0.8, 0.8, 1.0 };
-		double mat_diffuse[] = { 1.0, 0.0, 0.5, 1.0 };
-		double mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 		double gray[] = { 0.8, 0.8, 0.8, 1.0 };
 		double black[] = { 0.0, 0.0, 0.0, 1.0 };
 
@@ -86,7 +83,7 @@ public class polyoff  extends glut{
 		case GLUT_LEFT_BUTTON:
 		    switch (state) {
 			case GLUT_DOWN:
-			    spinx = (spinx + 5) % 360; 
+			    spinx = (spinx + 5) % 360;
 	                    glutPostRedisplay();
 			    break;
 			default:
@@ -96,7 +93,7 @@ public class polyoff  extends glut{
 		case GLUT_MIDDLE_BUTTON:
 		    switch (state) {
 			case GLUT_DOWN:
-			    spiny = (spiny + 5) % 360; 
+			    spiny = (spiny + 5) % 360;
 	                    glutPostRedisplay();
 			    break;
 			default:
@@ -116,7 +113,7 @@ public class polyoff  extends glut{
 	            break;
 	    }
 	}
-	
+
 	void keyboard ( char key, int x, int y)
 	{
 	   switch (key) {
@@ -156,7 +153,7 @@ public class polyoff  extends glut{
 	         break;
 	   }
 	}
-	
+
 	int main(int argc, String[] argv)
 	{
 	    glutInit(argc, argv);
