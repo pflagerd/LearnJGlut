@@ -243,9 +243,9 @@ public class ImageCompareJNA extends JFrame {
 		}
 		double waitTime = 0;
 		while ((hWnd == null) && (waitTime < MaxWaitTime)) {
-			waitTime = waitTime + 1000;
+			waitTime = waitTime + 500;
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
 				if (hWnd == null) {
 					hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
@@ -255,7 +255,7 @@ public class ImageCompareJNA extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		Thread.sleep(8000);
+		Thread.sleep(3500);
 		// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
