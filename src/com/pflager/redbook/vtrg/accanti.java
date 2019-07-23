@@ -63,39 +63,7 @@ public class accanti extends glut {
 		glPopMatrix ();
 		glPopMatrix ();
 	}
-	void accFrustum(double left, double right, double bottom,double top, double near, double far, double pixdx,double pixdy, double eyedx, double eyedy,double focus)
-	{
-			double xwsize, ywsize;
-			double dx, dy;
-			int viewport[]=new int[4];
-			glGetIntegerv (GL_VIEWPORT, viewport);
-			xwsize = right - left;
-			ywsize = top - bottom;
-			dx = -(pixdx*xwsize/(double) viewport[2] +
-			eyedx*near/focus);
-			dy = -(pixdy*ywsize/(double) viewport[3] +
-			eyedy*near/focus);
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			glFrustum (left + dx, right + dx, bottom + dy, top + dy,
-			near, far);
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-			glTranslatef (-eyedx, -eyedy, 0.0);
-	}
-
-	void accPerspective(double fovy, double aspect,double near, double far, double pixdx, double pixdy,double eyedx, double eyedy, double focus)
-	{
-			double fov2,left,right,bottom,top;
-			fov2 = ((fovy*Math.PI) / 180.0) / 2.0;
-			top = near / (Math.cos(fov2) / Math.sin(fov2));
-			bottom = -top;
-			right = top * aspect;
-			left = -right;
-			accFrustum (left, right, bottom, top, near, far,
-			pixdx, pixdy, eyedx, eyedy, focus);
-	}
-
+	
 	void display()
 	{
 		int viewport[]=new int[4];
@@ -112,8 +80,9 @@ public class accanti extends glut {
 		* This formula converts fractional pixel movement to
 		* world coordinates.
 		*/
-		accPerspective(50.0, (double) viewport[2] / (double) viewport[3], 1.0, 15.0, 0, 0,0.0, 0.0, 1.0);
+		
 		//glTranslatef (j8[jitter]*4.5/viewport[2],j8[jitter]*4.5/viewport[3], 0.0);
+		glTranslatef(0.0, 0.0, 0.0);
 		displayObjects ();
 		glPopMatrix ();
 		glAccum(GL_ACCUM, 1.0/ACSIZE);
