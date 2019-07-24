@@ -18,6 +18,7 @@ import org.pflager.redbook.Test_com_pflager_redbook_clip;
 import org.pflager.redbook.Test_com_pflager_redbook_colormat;
 import org.pflager.redbook.Test_com_pflager_redbook_cube;
 import org.pflager.redbook.Test_com_pflager_redbook_double_;
+import org.pflager.redbook.Test_com_pflager_redbook_dof;
 import org.pflager.redbook.Test_com_pflager_redbook_drawf;
 import org.pflager.redbook.Test_com_pflager_redbook_fog;
 import org.pflager.redbook.Test_com_pflager_redbook_fogindex;
@@ -53,6 +54,7 @@ import org.pflager.redbook.Test_com_pflager_redbook_varray;
 	Test_com_pflager_redbook_colormat.class,
 	Test_com_pflager_redbook_cube.class,
 	Test_com_pflager_redbook_double_.class,
+	Test_com_pflager_redbook_dof.class,
 	Test_com_pflager_redbook_fog.class,
 	Test_com_pflager_redbook_fogindex.class,
 	Test_com_pflager_redbook_hello.class,
