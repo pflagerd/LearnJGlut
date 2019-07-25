@@ -24,7 +24,7 @@
 	</target>
 	
 	<target name="get-jglut">
-		<get src="https://github.com/pflagerd/jglut/releases/download/v0.1.0/jglut.jar" dest="lib/"/>
+		<get src="https://github.com/pflagerd/jglut/releases/download/v0.1.3/jglut.jar" dest="lib/"/>
 	</target>
 	
 </project>
