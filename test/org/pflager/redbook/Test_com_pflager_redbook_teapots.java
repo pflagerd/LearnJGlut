@@ -3,8 +3,7 @@ package org.pflager.redbook;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
-import com.pflager.redbook.teapots;
+import org.pflager.redbook.teapots;
 
 @SuppressWarnings("serial")
 class Test_com_pflager_redbook_teapots extends ImageCompareJNA {
