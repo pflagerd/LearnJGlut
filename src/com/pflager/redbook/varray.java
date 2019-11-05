@@ -110,7 +110,7 @@ public class varray extends glut {
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 		glutInitWindowSize(350, 350);
 		glutInitWindowPosition(100, 100);
-		glutCreateWindow("varray.java");
+		glutCreateWindow("varray");
 		init();
 		glutDisplayFunc(this::display);
 		glutReshapeFunc(this::reshape);
