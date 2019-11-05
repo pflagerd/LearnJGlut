@@ -1,7 +1,6 @@
-package bezsurf;
+package com.pflager.redbook.vtrg;
 
 import com.pflager.glut;
-import com.pflager.redbook.vtrg.aapoly;
 
 public class bezsurf extends glut{
 
