@@ -1,4 +1,4 @@
-package com.pflager;
+package org.pflager;
 
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;

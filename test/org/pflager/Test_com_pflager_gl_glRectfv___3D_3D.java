@@ -1,4 +1,4 @@
-package com.pflager;
+package org.pflager;
 
 import java.io.IOException;
 

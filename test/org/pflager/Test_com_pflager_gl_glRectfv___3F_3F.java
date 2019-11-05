@@ -1,17 +1,17 @@
-package com.pflager;
+package org.pflager;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-class Test_com_pflager_gl_glRectdv extends glutTest {
+class Test_com_pflager_gl_glRectfv___3F_3F extends glutTest {
 
 	@Test
 	void testFullyCoveredCanvas_II_II() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectdv(new double[] {-1, -1}, new double[] {1, 1});
+			glRectfv(new float[] {-1, -1}, new float[] {1, 1});
 
 			glFinish(); // waits for display to settle down.
 
@@ -26,11 +26,11 @@ class Test_com_pflager_gl_glRectdv extends glutTest {
 	}
 
 	@Test
-	void testSquareInTheMiddleOfTheCanvas_DD_DD() throws IOException, InterruptedException {
+	void testSquareInTheMiddleOfTheCanvas_FF_FF() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectdv(new double[] {-0.5, -0.5}, new double[] {0.5, 0.5});
+			glRectfv(new float[] {-0.25f, -0.50f}, new float[] {0.75f, 1.00f});
 
 			glFinish(); // waits for display to settle down.
 
@@ -45,11 +45,11 @@ class Test_com_pflager_gl_glRectdv extends glutTest {
 	}
 
 	@Test
-	void testPartiallyCoveredCanvas_II_FF() throws IOException, InterruptedException {
+	void testPartiallyCoveredCanvas_IF_FI() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectdv(new double[] {0, 0}, new double[] {1f, 1.0f});
+			glRectfv(new float[] {0, 0.0f}, new float[] {-1.0f, 1});
 
 			glFinish(); // waits for display to settle down.
 

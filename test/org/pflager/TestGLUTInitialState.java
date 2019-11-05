@@ -1,6 +1,8 @@
-package com.pflager;
+package org.pflager;
 
 import org.junit.jupiter.api.Test;
+
+import com.pflager.glut;
 
 class TestGLUTInitialState extends glut {
 

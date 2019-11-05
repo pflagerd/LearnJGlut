@@ -1,4 +1,4 @@
-package com.pflager;
+package org.pflager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
