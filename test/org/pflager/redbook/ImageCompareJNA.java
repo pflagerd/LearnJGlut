@@ -3,8 +3,10 @@ package org.pflager.redbook;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -28,7 +30,7 @@ import jna.extra.WinGDIExtra;
 public class ImageCompareJNA extends JFrame {
 	private static String AppWindowName;
 	private static final long serialVersionUID = 1L;
-	
+
 	public static boolean IdenticalImage(File FirstFile, File SecondFile) {
 		try {
 			BufferedImage biA = ImageIO.read(FirstFile);
@@ -52,7 +54,7 @@ public class ImageCompareJNA extends JFrame {
 			return false;
 		}
 	}
-	
+
 	public String classpath;
 	private String fileformat = "jpg";
 	private File FirstFile;
@@ -130,9 +132,43 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public boolean /* succeeded */ captureReferencePng(String WindowName /* aka Window Title */) throws InterruptedException {
-		if (osName.contentEquals("XXX")) {
+		if (osName.contentEquals("Linux")) {
+			try {
+				Thread referenceApplicationThread = new Thread() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+					}
+				};
+				referenceApplicationThread.start();
+
+				Process process = Runtime.getRuntime().exec("xwd -id $(wmctrl -l | grep colormat | cut -d' ' -f 1) -silent | xwdtopnm | pnmtopng > colormat.png");
+
+				StringBuilder output = new StringBuilder();
+
+				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				String line;
+				while ((line = reader.readLine()) != null) {
+					output.append(line + "\n");
+				}
+
+				int exitVal = process.waitFor();
+				if (exitVal == 0) {
+					System.out.println("Success!");
+					System.out.println(output);
+				} else {
+					// abnormal...
+					System.out.println(output);
+				}
+
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+			}
 			return false;
-		} else {
+		} else
+
+		{
 			File Tempfile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
 			if (Tempfile.exists() == false) {
 				if (ExecuteEXE(WindowName)) {// Running c application with window name

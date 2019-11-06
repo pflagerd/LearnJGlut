@@ -3,7 +3,9 @@
         <os family="windows" />
     </condition>
 	
-	<target name="get-dependencies" depends="select-swt, unzip-mingw64, unzip-freeglut, get-jglut"/>
+	<target name="get-dependencies" depends="select-swt, unzip-mingw64, unzip-freeglut, get-jglut">
+		<ant dir="redbook-1.1-src"/>
+	</target>
 
 	<target name="unzip-mingw64" if="isWindows">
 		<unzip src="x86_64-8.1.0-release-posix-seh-rt_v6-rev0.zip" dest="." overwrite="false"/>
