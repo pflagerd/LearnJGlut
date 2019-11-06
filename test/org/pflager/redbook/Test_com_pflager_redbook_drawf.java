@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_drawf extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("drawf"));
+		assertTrue(captureCRedbookReferencePng("drawf"));
 		RunNewProcess(drawf.class.getName());
-		boolean CompareImage = CompareImageSec("drawf");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("drawf");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

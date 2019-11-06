@@ -8,9 +8,9 @@ import org.pflager.redbook.kvs.bezcurve;
 class Test_com_pflager_redbook_bezcurve extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("bezcurve"));
+		assertTrue(captureCRedbookReferencePng("bezcurve"));
 		RunNewProcess(bezcurve.class.getName());
-		boolean CompareImage = CompareImageSec("bezcurve");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("bezcurve");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

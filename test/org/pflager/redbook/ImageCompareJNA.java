@@ -131,7 +131,7 @@ public class ImageCompareJNA extends JFrame {
 		return true;
 	}
 
-	public boolean /* succeeded */ captureRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
+	public boolean /* succeeded */ captureCRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
 		if (osName.contentEquals("Linux")) { // getClass().getName()
 			Thread referenceApplicationThread = new Thread() {
 				@Override
@@ -251,7 +251,7 @@ public class ImageCompareJNA extends JFrame {
 		return false;
 	}
 
-	public boolean CompareImageSec(String WindowName) throws InterruptedException {
+	public boolean captureAndCompareJGlutRedbookWithCRedbook(String WindowName) throws InterruptedException {
 		System.out.println("CompareImageSec");
 		ImageName = WindowName;
 		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window

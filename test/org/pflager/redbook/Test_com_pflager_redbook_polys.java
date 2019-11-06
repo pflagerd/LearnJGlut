@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_polys extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("polys"));
+		assertTrue(captureCRedbookReferencePng("polys"));
 		RunNewProcess(polys.class.getName());
-		boolean CompareImage = CompareImageSec("polys");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("polys");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

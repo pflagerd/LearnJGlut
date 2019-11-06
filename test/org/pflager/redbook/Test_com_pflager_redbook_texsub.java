@@ -10,9 +10,9 @@ import org.pflager.redbook.kvs.texsub;
 
 		@Test
 		void test() throws Throwable {
-			assertTrue(captureRedbookReferencePng("texsub"));
+			assertTrue(captureCRedbookReferencePng("texsub"));
 			RunNewProcess(texsub.class.getName());
-			boolean CompareImage = CompareImageSec("texsub");
+			boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("texsub");
 			super.finalize();
 			assertTrue(CompareImage);
 		}

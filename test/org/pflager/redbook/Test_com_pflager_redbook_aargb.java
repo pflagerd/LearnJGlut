@@ -13,10 +13,10 @@ class Test_com_pflager_redbook_aargb extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
 		if (!Files.exists(Paths.get("artifacts/Test_com_pflager_redbook_aargb.reference.png"))) {
-			assertTrue(captureRedbookReferencePng("aargb"));
+			assertTrue(captureCRedbookReferencePng("aargb"));
 		}
 		RunNewProcess(aargb.class.getName());
-		boolean CompareImage = CompareImageSec("aargb");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("aargb");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

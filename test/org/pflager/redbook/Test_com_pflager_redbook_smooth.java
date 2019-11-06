@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_smooth extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("smooth"));
+		assertTrue(captureCRedbookReferencePng("smooth"));
 		RunNewProcess(smooth.class.getName());
-		boolean CompareImage = CompareImageSec("smooth");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("smooth");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

@@ -10,9 +10,9 @@ public class Test_com_pflager_redbook_texbind extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("texbind"));
+		assertTrue(captureCRedbookReferencePng("texbind"));
 		RunNewProcess(texbind.class.getName());
-		boolean CompareImage = CompareImageSec("texbind");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("texbind");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

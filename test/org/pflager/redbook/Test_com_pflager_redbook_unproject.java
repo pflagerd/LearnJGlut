@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_unproject extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("unproject"));
+		assertTrue(captureCRedbookReferencePng("unproject"));
 		RunNewProcess(unproject.class.getName());
-		boolean CompareImage = CompareImageSec("unproject");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("unproject");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

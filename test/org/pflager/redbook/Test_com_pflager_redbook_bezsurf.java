@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_bezsurf extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("bezsurf"));
+		assertTrue(captureCRedbookReferencePng("bezsurf"));
 		RunNewProcess(bezsurf.class.getName());
-		boolean CompareImage = CompareImageSec("bezsurf");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("bezsurf");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

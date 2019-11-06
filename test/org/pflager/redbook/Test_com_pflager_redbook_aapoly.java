@@ -8,9 +8,9 @@ import org.pflager.redbook.kvs.aapoly;
 public class Test_com_pflager_redbook_aapoly extends ImageCompareJNA  {
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("aapoly"));
+		assertTrue(captureCRedbookReferencePng("aapoly"));
 		RunNewProcess(aapoly.class.getName());
-		boolean CompareImage = CompareImageSec("aapoly");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("aapoly");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

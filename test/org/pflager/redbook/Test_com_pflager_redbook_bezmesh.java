@@ -9,9 +9,9 @@ import org.pflager.redbook.kvs.bezmesh;
 
 		@Test
 		void test() throws Throwable {
-			assertTrue(captureRedbookReferencePng("bezmesh"));
+			assertTrue(captureCRedbookReferencePng("bezmesh"));
 			RunNewProcess(bezmesh.class.getName());
-			boolean CompareImage = CompareImageSec("bezmesh");
+			boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("bezmesh");
 			super.finalize();
 			assertTrue(CompareImage);
 		}

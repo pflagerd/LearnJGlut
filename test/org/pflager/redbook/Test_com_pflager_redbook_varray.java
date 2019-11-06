@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_varray extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("varray"));
+		assertTrue(captureCRedbookReferencePng("varray"));
 		RunNewProcess(varray.class.getName());
-		boolean CompareImage = CompareImageSec("varray");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("varray");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

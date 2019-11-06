@@ -9,9 +9,9 @@ import org.pflager.redbook.kvs.image;
 class Test_com_pflager_redbook_image extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("image"));
+		assertTrue(captureCRedbookReferencePng("image"));
 		RunNewProcess(image.class.getName());
-		boolean CompareImage = CompareImageSec("image");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("image");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

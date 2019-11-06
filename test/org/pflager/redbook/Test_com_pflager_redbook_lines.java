@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_lines extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("lines"));
+		assertTrue(captureCRedbookReferencePng("lines"));
 		RunNewProcess(lines.class.getName());
-		boolean CompareImage = CompareImageSec("lines");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("lines");
 		super.finalize();
 		assertTrue(CompareImage);
 	}

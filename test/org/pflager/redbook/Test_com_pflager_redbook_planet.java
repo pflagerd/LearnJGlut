@@ -10,9 +10,9 @@ class Test_com_pflager_redbook_planet extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureRedbookReferencePng("planet"));
+		assertTrue(captureCRedbookReferencePng("planet"));
 		RunNewProcess(planet.class.getName());
-		boolean CompareImage = CompareImageSec("planet");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("planet");
 		super.finalize();
 		assertTrue(CompareImage);
 	}
