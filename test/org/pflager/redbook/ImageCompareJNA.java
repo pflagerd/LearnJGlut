@@ -81,7 +81,6 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public boolean capture(String ExportPath) {
-
 		if (hWnd == null) {
 			System.out.print("Window not found!");
 			return false;
