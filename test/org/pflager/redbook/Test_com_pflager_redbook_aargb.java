@@ -12,7 +12,7 @@ import org.pflager.redbook.aargb;
 class Test_com_pflager_redbook_aargb extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		if (!Files.exists(Paths.get("artifacts/Test_org_pflager_redbook_aargb.reference.png"))) {
+		if (!Files.exists(Paths.get("artifacts/Test_com_pflager_redbook_aargb.reference.png"))) {
 			assertTrue(captureReferencePng("aargb"));
 		}
 		RunNewProcess(aargb.class.getName());

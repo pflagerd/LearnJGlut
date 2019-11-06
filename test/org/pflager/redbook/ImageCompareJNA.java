@@ -131,13 +131,13 @@ public class ImageCompareJNA extends JFrame {
 		return true;
 	}
 
-	public boolean /* succeeded */ captureReferencePng(String WindowName /* aka Window Title */) throws InterruptedException {
-		if (osName.contentEquals("Linux")) {
+	public boolean /* succeeded */ captureReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
+		if (osName.contentEquals("Linux")) { // getClass().getName()
 			Thread referenceApplicationThread = new Thread() {
 				@Override
 				public void run() {
 					try {
-						process = Runtime.getRuntime().exec("redbook-1.1-src/src/aargb");						
+						process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -145,17 +145,19 @@ public class ImageCompareJNA extends JFrame {
 				}
 			};
 			referenceApplicationThread.start();
-			Thread.sleep(3000);
+			Thread.sleep(500);
 
 			try {
-				process = Runtime.getRuntime().exec("./screenshot.bash aargb");
-				// process = Runtime.getRuntime().exec("bash -c \"xwd -id `wmctrl -l | grep aargb | cut -d' ' -f 1` -silent | xwdtopnm | pnmtopng > aargb.png\"");
+				String testClassName = getClass().getName();
+				testClassName = testClassName.substring(testClassName.lastIndexOf('.') + 1);
+				
+				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash aargb " + testClassName);
 
 				StringBuilder stdoutString = new StringBuilder();
 				StringBuilder stderrString = new StringBuilder();
 
-				BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-				BufferedReader stderrReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+				BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(screenShotProcess.getInputStream()));
+				BufferedReader stderrReader = new BufferedReader(new InputStreamReader(screenShotProcess.getErrorStream()));
 
 				String line;
 				while ((line = stdoutReader.readLine()) != null) {
@@ -165,33 +167,40 @@ public class ImageCompareJNA extends JFrame {
 					stderrString.append(line + "\n");
 				}
 
-				int exitVal = process.waitFor();
+				int exitVal = screenShotProcess.waitFor();
 				if (exitVal == 0) {
-					System.out.println("Success!");
+//					System.out.println("Success!");
+//					System.out.println(stdoutString);
+//					System.err.println(stderrString);
 				} else {
 					// abnormal...
 					System.err.println("Problems!");
+					System.out.println(stdoutString);
+					System.err.println(stderrString);
+					process.destroyForcibly();
+					return false;
 				}
-				System.out.println(stdoutString);
-				System.err.println(stderrString);
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
+				process.destroyForcibly();
+				return false;
 			}
-			return false;
+			process.destroyForcibly();
+			return true;
 		} else {
-			File Tempfile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+			File Tempfile = new File("redbook-1.1-src/src/" + windowName + "CImage");
 			if (Tempfile.exists() == false) {
-				if (ExecuteEXE(WindowName)) {// Running c application with window name
+				if (ExecuteEXE(windowName)) {// Running c application with window name
 					Thread.sleep(8000);
-					hWnd = User32.INSTANCE.FindWindow(null, WindowName);
+					hWnd = User32.INSTANCE.FindWindow(null, windowName);
 					if (hWnd == null) {
 						hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
 						if (hWnd == null) {
-							hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".c");
+							hWnd = User32.INSTANCE.FindWindow(null, windowName + ".c");
 						}
 					}
 					if (hWnd != null) {
-						ImageName = WindowName + "CImage";
+						ImageName = windowName + "CImage";
 						if (capture("redbook-1.1-src/src/")) { // Capturing c application window
 							PS.destroy(); // Ending C executable process
 							return true;
