@@ -145,29 +145,34 @@ public class ImageCompareJNA extends JFrame {
 				}
 			};
 			referenceApplicationThread.start();
-			Thread.sleep(30000);
+			Thread.sleep(3000);
 
 			try {
-				process = Runtime.getRuntime().exec("xwd -id $(wmctrl -l | grep colormat | cut -d' ' -f 1) -silent | xwdtopnm | pnmtopng > colormat.png");
+				process = Runtime.getRuntime().exec("xwd -id $(wmctrl -l | grep aargb | cut -d' ' -f 1) -silent | xwdtopnm | pnmtopng > aargb.png");
 
-				StringBuilder output = new StringBuilder();
+				StringBuilder stdoutString = new StringBuilder();
+				StringBuilder stderrString = new StringBuilder();
 
-				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				BufferedReader stderrReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
 				String line;
-				while ((line = reader.readLine()) != null) {
-					output.append(line + "\n");
+				while ((line = stdoutReader.readLine()) != null) {
+					stdoutString.append(line + "\n");
+				}
+				while ((line = stderrReader.readLine()) != null) {
+					stderrString.append(line + "\n");
 				}
 
 				int exitVal = process.waitFor();
 				if (exitVal == 0) {
 					System.out.println("Success!");
-					System.out.println(output);
 				} else {
 					// abnormal...
-					System.out.println(output);
+					System.err.println("Problems!");
 				}
-
+				System.out.println(stdoutString);
+				System.err.println(stderrString);
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 			}

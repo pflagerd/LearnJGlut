@@ -4,3 +4,6 @@
 /freeglut/
 *.exe
 .directory
+/.eclipse
+/eclipse
+
