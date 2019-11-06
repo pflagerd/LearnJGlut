@@ -67,8 +67,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 				double k = 0;
 				for (double i = 0; i < circle_points; i++) {
 					k = k + 2.8125;
-					glVertex2f((float) (Math.cos(Math.toRadians(k)) * radius),
-							(float) (Math.sin(Math.toRadians(k)) * radius));
+					glVertex2f((float) (Math.cos(Math.toRadians(k)) * radius), (float) (Math.sin(Math.toRadians(k)) * radius));
 				}
 			}
 			glEnd();

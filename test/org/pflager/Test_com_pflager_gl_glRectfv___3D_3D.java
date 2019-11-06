@@ -11,7 +11,7 @@ class Test_com_pflager_gl_glRectfv___3D_3D extends glutTest {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectfv(new double[] {-1, -1}, new double[] {1, 1});
+			glRectfv(new double[] { -1, -1 }, new double[] { 1, 1 });
 
 			glFinish(); // waits for display to settle down.
 
@@ -30,7 +30,7 @@ class Test_com_pflager_gl_glRectfv___3D_3D extends glutTest {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectfv(new double[] {-0.75, -0.75}, new double[] {0.75, 0.75});
+			glRectfv(new double[] { -0.75, -0.75 }, new double[] { 0.75, 0.75 });
 
 			glFinish(); // waits for display to settle down.
 
@@ -49,7 +49,7 @@ class Test_com_pflager_gl_glRectfv___3D_3D extends glutTest {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectfv(new double[] {0f, 0.0}, new double[] {-1.0, 1});
+			glRectfv(new double[] { 0f, 0.0 }, new double[] { -1.0, 1 });
 
 			glFinish(); // waits for display to settle down.
 
