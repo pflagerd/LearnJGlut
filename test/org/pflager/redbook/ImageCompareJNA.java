@@ -133,16 +133,22 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean /* succeeded */ captureReferencePng(String WindowName /* aka Window Title */) throws InterruptedException {
 		if (osName.contentEquals("Linux")) {
-			try {
-				Thread referenceApplicationThread = new Thread() {
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
+			Thread referenceApplicationThread = new Thread() {
+				@Override
+				public void run() {
+					try {
+						process = Runtime.getRuntime().exec("redbook-1.1-src/src/aargb");						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				};
-				referenceApplicationThread.start();
+				}
+			};
+			referenceApplicationThread.start();
+			Thread.sleep(30000);
 
-				Process process = Runtime.getRuntime().exec("xwd -id $(wmctrl -l | grep colormat | cut -d' ' -f 1) -silent | xwdtopnm | pnmtopng > colormat.png");
+			try {
+				process = Runtime.getRuntime().exec("xwd -id $(wmctrl -l | grep colormat | cut -d' ' -f 1) -silent | xwdtopnm | pnmtopng > colormat.png");
 
 				StringBuilder output = new StringBuilder();
 
@@ -166,9 +172,7 @@ public class ImageCompareJNA extends JFrame {
 				e.printStackTrace();
 			}
 			return false;
-		} else
-
-		{
+		} else {
 			File Tempfile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
 			if (Tempfile.exists() == false) {
 				if (ExecuteEXE(WindowName)) {// Running c application with window name
