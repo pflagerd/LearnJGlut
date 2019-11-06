@@ -9,7 +9,7 @@ import org.pflager.redbook.kvs.stencil;
 public class Test_com_pflager_redbook_stencil extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("stencil"));
+		assertTrue(captureReferencePng("stencil"));
 		RunNewProcess(stencil.class.getName());
 		boolean CompareImage = CompareImageSec("stencil");
 		assertTrue(CompareImage);

@@ -10,7 +10,7 @@ class Test_com_pflager_redbook_polys extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("polys"));
+		assertTrue(captureReferencePng("polys"));
 		RunNewProcess(polys.class.getName());
 		boolean CompareImage = CompareImageSec("polys");
 		super.finalize();

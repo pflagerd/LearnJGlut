@@ -10,7 +10,7 @@ class Test_com_pflager_redbook_dof extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("dof"));
+		assertTrue(captureReferencePng("dof"));
 		RunNewProcess(dof.class.getName());
 		boolean CompareImage = CompareImageSec("dof");
 		super.finalize();

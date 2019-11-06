@@ -10,7 +10,7 @@ class Test_com_pflager_redbook_colormat extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("colormat"));
+		assertTrue(captureReferencePng("colormat"));
 		RunNewProcess(colormat.class.getName());
 		boolean CompareImage = CompareImageSec("colormat");
 		super.finalize();

@@ -10,7 +10,7 @@ class Test_com_pflager_redbook_light extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("light"));
+		assertTrue(captureReferencePng("light"));
 		RunNewProcess(light.class.getName());
 		boolean CompareImage = CompareImageSec("light");
 		super.finalize();

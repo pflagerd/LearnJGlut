@@ -9,7 +9,7 @@ import org.pflager.redbook.kvs.checker;
 class Test_com_pflager_redbook_checker extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("checker"));
+		assertTrue(captureReferencePng("checker"));
 		RunNewProcess(checker.class.getName());
 		boolean CompareImage = CompareImageSec("checker");
 		super.finalize();

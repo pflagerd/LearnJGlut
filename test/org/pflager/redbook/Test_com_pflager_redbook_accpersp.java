@@ -8,7 +8,7 @@ import org.pflager.redbook.kvs.accpersp;
 public class Test_com_pflager_redbook_accpersp extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		assertTrue(CaptureCImage("accpersp"));
+		assertTrue(captureReferencePng("accpersp"));
 		RunNewProcess(accpersp.class.getName());
 		boolean CompareImage = CompareImageSec("accpersp");
 		super.finalize();

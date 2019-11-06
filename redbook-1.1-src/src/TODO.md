@@ -3,5 +3,5 @@
 - Consolidate all Unit tests
   - org.pflager.AllTests
   - org.pflager.redbook.AllTestRedbook.java.
-- Change test names from Test_com_pflager_redbook to Test_org_pflager_redbook.
-- Change image names from com.pflager.Test_com_pflager_gl_glRectd to Test_org_pflager_redbook
+- Rename org.pflager.redbook.AllTestRedbook.java to org.pflager.redbook.AllTest.
+

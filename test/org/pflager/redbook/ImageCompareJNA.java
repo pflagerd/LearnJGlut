@@ -26,6 +26,7 @@ import jna.extra.User32Extra;
 import jna.extra.WinGDIExtra;
 
 public class ImageCompareJNA extends JFrame {
+	private String osName;
 	public String javaHome;
 	public String javaBin;
 	public String classpath;
@@ -43,6 +44,7 @@ public class ImageCompareJNA extends JFrame {
 	private static String AppWindowName;
 
 	public ImageCompareJNA() throws HeadlessException {
+		osName = System.getProperty("os.name");
 		javaHome = System.getProperty("java.home");
 		javaBin = javaHome + File.separator + "bin" + File.separator + "java";
 		classpath = System.getProperty("java.class.path");
@@ -170,39 +172,42 @@ public class ImageCompareJNA extends JFrame {
 
 	}
 
-	public boolean CaptureCImage(String WindowName) throws InterruptedException {
-		File Tempfile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
-		if (Tempfile.exists() == false) {
-			if (ExecuteEXE(WindowName)) {// Running c application with window name
-				Thread.sleep(8000);
-				hWnd = User32.INSTANCE.FindWindow(null, WindowName);
-				if (hWnd == null) {
-					hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
-					if (hWnd == null) {
-						hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".c");
-					}
-				}
-				if (hWnd != null) {
-					ImageName = WindowName + "CImage";
-					if (capture("redbook-1.1-src/src/")) { // Capturing c application window
-						PS.destroy(); // Ending C executable process
-						return true;
-					}
-				} else {
-					PS.destroy(); // Ending C executable process
-					return false;
-				}
-			}
+	public boolean /* succeeded */ captureReferencePng(String WindowName /* aka Window Title */) throws InterruptedException {
+		if (osName.contentEquals("XXX")) {
 			return false;
-		} else
-			return true;
-
+		} else {
+			File Tempfile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+			if (Tempfile.exists() == false) {
+				if (ExecuteEXE(WindowName)) {// Running c application with window name
+					Thread.sleep(8000);
+					hWnd = User32.INSTANCE.FindWindow(null, WindowName);
+					if (hWnd == null) {
+						hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+						if (hWnd == null) {
+							hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".c");
+						}
+					}
+					if (hWnd != null) {
+						ImageName = WindowName + "CImage";
+						if (capture("redbook-1.1-src/src/")) { // Capturing c application window
+							PS.destroy(); // Ending C executable process
+							return true;
+						}
+					} else {
+						PS.destroy(); // Ending C executable process
+						return false;
+					}
+				}
+				return false;
+			} else {
+				return true;
+			}
+		}
 	}
 
 	/**
 	 *
-	 * @param WindowName Name Name of the active Jglut window, this also used for
-	 *                   running the C program
+	 * @param WindowName Name Name of the active Jglut window, this also used for running the C program
 	 * @return Returns true if the image are identical
 	 */
 	public boolean CompareImage(String WindowName) {
@@ -256,7 +261,7 @@ public class ImageCompareJNA extends JFrame {
 			}
 		}
 		Thread.sleep(3500);
-		// User32.INSTANCE.PostMessage(hWnd, WinUser.WM_CLOSE, null, null);
+		// User32.INSTANCE.PostMessage(hWnd, WinU'ser.WM_CLOSE, null, null);
 		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
 			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
 			File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
