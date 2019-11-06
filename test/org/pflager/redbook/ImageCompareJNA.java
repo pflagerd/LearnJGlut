@@ -26,22 +26,48 @@ import jna.extra.User32Extra;
 import jna.extra.WinGDIExtra;
 
 public class ImageCompareJNA extends JFrame {
-	private String osName;
-	public String javaHome;
-	public String javaBin;
-	public String classpath;
-	private Process process;
-	private File FirstFile;
-	private File SecondFile;
+	private static String AppWindowName;
 	private static final long serialVersionUID = 1L;
+	
+	public static boolean IdenticalImage(File FirstFile, File SecondFile) {
+		try {
+			BufferedImage biA = ImageIO.read(FirstFile);
+			DataBuffer dbA = biA.getData().getDataBuffer();
+			int sizeA = dbA.getSize();
+			BufferedImage biB = ImageIO.read(SecondFile);
+			DataBuffer dbB = biB.getData().getDataBuffer();
+			int sizeB = dbB.getSize();
+			if (sizeA == sizeB) {
+				for (int i = 0; i < sizeA; i++) {
+					if (dbA.getElem(i) != dbB.getElem(i)) {
+						return false;
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("Failed to compare image files.");
+			return false;
+		}
+	}
+	
+	public String classpath;
+	private String fileformat = "jpg";
+	private File FirstFile;
+	private HWND hWnd;
 	BufferedImage image;
 	private String ImageName;
-	private String fileformat = "jpg";
-	private HWND hWnd;
-
+	public String javaBin;
+	public String javaHome;
 	private double MaxWaitTime = 10000; // Milliseconds
+
+	private String osName;
+	private Process process;
 	Process PS = null;
-	private static String AppWindowName;
+
+	private File SecondFile;
 
 	public ImageCompareJNA() throws HeadlessException {
 		osName = System.getProperty("os.name");
@@ -50,14 +76,6 @@ public class ImageCompareJNA extends JFrame {
 		classpath = System.getProperty("java.class.path");
 		FirstFile = null;
 		SecondFile = null;
-	}
-
-	protected void finalize() throws Throwable {
-		process.destroy();
-		if (FirstFile != null)
-			FirstFile.delete();
-		if (SecondFile != null)
-			FirstFile.delete();
 	}
 
 	public boolean capture(String ExportPath) {
@@ -109,67 +127,6 @@ public class ImageCompareJNA extends JFrame {
 		GDI32.INSTANCE.DeleteObject(hBitmap);
 		User32.INSTANCE.ReleaseDC(hWnd, hdcWindow);
 		return true;
-	}
-
-	public static boolean IdenticalImage(File FirstFile, File SecondFile) {
-		try {
-			BufferedImage biA = ImageIO.read(FirstFile);
-			DataBuffer dbA = biA.getData().getDataBuffer();
-			int sizeA = dbA.getSize();
-			BufferedImage biB = ImageIO.read(SecondFile);
-			DataBuffer dbB = biB.getData().getDataBuffer();
-			int sizeB = dbB.getSize();
-			if (sizeA == sizeB) {
-				for (int i = 0; i < sizeA; i++) {
-					if (dbA.getElem(i) != dbB.getElem(i)) {
-						return false;
-					}
-				}
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("Failed to compare image files.");
-			return false;
-		}
-	}
-
-	private boolean ExecuteEXE(String CFileName) {
-
-		try {
-			PS = new ProcessBuilder("redbook-1.1-src/src/" + CFileName + ".exe").start();
-			AppWindowName = "redbook-1.1-src\\src\\" + CFileName + ".exe";
-			hWnd = null;
-			hWnd = User32.INSTANCE.FindWindow(null, CFileName);
-			if (hWnd == null) {
-				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
-				if (hWnd == null) {
-					hWnd = User32.INSTANCE.FindWindow(null, CFileName + ".c");
-					System.out.println("AppWindowName" + AppWindowName);
-				}
-			}
-			double waitTime = 0;
-			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
-				waitTime = waitTime + 100;
-				try {
-					Thread.sleep(100);
-					// System.out.println("Wait time" + waitTime);
-					hWnd = User32.INSTANCE.FindWindow(null, CFileName);
-					if (hWnd == null) {
-						hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-
 	}
 
 	public boolean /* succeeded */ captureReferencePng(String WindowName /* aka Window Title */) throws InterruptedException {
@@ -278,6 +235,51 @@ public class ImageCompareJNA extends JFrame {
 			}
 		}
 		return false;
+	}
+
+	private boolean ExecuteEXE(String CFileName) {
+
+		try {
+			PS = new ProcessBuilder("redbook-1.1-src/src/" + CFileName + ".exe").start();
+			AppWindowName = "redbook-1.1-src\\src\\" + CFileName + ".exe";
+			hWnd = null;
+			hWnd = User32.INSTANCE.FindWindow(null, CFileName);
+			if (hWnd == null) {
+				hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+				if (hWnd == null) {
+					hWnd = User32.INSTANCE.FindWindow(null, CFileName + ".c");
+					System.out.println("AppWindowName" + AppWindowName);
+				}
+			}
+			double waitTime = 0;
+			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
+				waitTime = waitTime + 100;
+				try {
+					Thread.sleep(100);
+					// System.out.println("Wait time" + waitTime);
+					hWnd = User32.INSTANCE.FindWindow(null, CFileName);
+					if (hWnd == null) {
+						hWnd = User32.INSTANCE.FindWindow(null, AppWindowName);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+
+	protected void finalize() throws Throwable {
+		process.destroy();
+		if (FirstFile != null)
+			FirstFile.delete();
+		if (SecondFile != null)
+			FirstFile.delete();
 	}
 
 	public void RunNewProcess(String classname) throws IOException {
