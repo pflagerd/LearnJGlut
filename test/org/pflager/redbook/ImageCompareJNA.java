@@ -132,7 +132,7 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public boolean /* succeeded */ captureCRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
-		if (osName.contentEquals("Linux")) { // getClass().getName()
+		if (osName.contentEquals("Linux")) {
 			Thread referenceApplicationThread = new Thread() {
 				@Override
 				public void run() {
