@@ -148,7 +148,8 @@ public class ImageCompareJNA extends JFrame {
 			Thread.sleep(3000);
 
 			try {
-				process = Runtime.getRuntime().exec("xwd -id $(wmctrl -l | grep aargb | cut -d' ' -f 1) -silent | xwdtopnm | pnmtopng > aargb.png");
+				process = Runtime.getRuntime().exec("./screenshot.bash aargb");
+				// process = Runtime.getRuntime().exec("bash -c \"xwd -id `wmctrl -l | grep aargb | cut -d' ' -f 1` -silent | xwdtopnm | pnmtopng > aargb.png\"");
 
 				StringBuilder stdoutString = new StringBuilder();
 				StringBuilder stderrString = new StringBuilder();
