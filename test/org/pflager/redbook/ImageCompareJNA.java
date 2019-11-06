@@ -137,7 +137,7 @@ public class ImageCompareJNA extends JFrame {
 				@Override
 				public void run() {
 					try {
-						process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);						
+						process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -150,7 +150,7 @@ public class ImageCompareJNA extends JFrame {
 			try {
 				String testClassName = getClass().getName();
 				testClassName = testClassName.substring(testClassName.lastIndexOf('.') + 1);
-				
+
 				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash aargb " + testClassName);
 
 				StringBuilder stdoutString = new StringBuilder();
@@ -168,11 +168,7 @@ public class ImageCompareJNA extends JFrame {
 				}
 
 				int exitVal = screenShotProcess.waitFor();
-				if (exitVal == 0) {
-//					System.out.println("Success!");
-//					System.out.println(stdoutString);
-//					System.err.println(stderrString);
-				} else {
+				if (exitVal != 0) {
 					// abnormal...
 					System.err.println("Problems!");
 					System.out.println(stdoutString);
@@ -252,41 +248,43 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public boolean captureAndCompareJGlutRedbookWithCRedbook(String WindowName) throws InterruptedException {
-		System.out.println("CompareImageSec");
-		ImageName = WindowName;
-		hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
-		if (hWnd == null) {
-			hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
-		}
-		double waitTime = 0;
-		while ((hWnd == null) && (waitTime < MaxWaitTime)) {
-			waitTime = waitTime + 500;
-			try {
-				Thread.sleep(500);
-				hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
-				if (hWnd == null) {
-					hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
-				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if (osName.contentEquals("Linux")) { // getClass().getName()
+		} else {
+			ImageName = WindowName;
+			hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+			if (hWnd == null) {
+				hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
 			}
-		}
-		Thread.sleep(3500);
-		// User32.INSTANCE.PostMessage(hWnd, WinU'ser.WM_CLOSE, null, null);
-		if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
-			File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
-			File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
-			if (IdenticalImage(FirstFile, SecondFile)) {
-				FirstFile.delete();
-				// SecondFile.delete();
-				System.out.println("Identical Image");
-				return true;
-			} else {
-				FirstFile.delete();
-				// SecondFile.delete();
-				System.out.println("Different Image");
-				return false;
+			double waitTime = 0;
+			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
+				waitTime = waitTime + 500;
+				try {
+					Thread.sleep(500);
+					hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+					if (hWnd == null) {
+						hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			Thread.sleep(3500);
+			// User32.INSTANCE.PostMessage(hWnd, WinU'ser.WM_CLOSE, null, null);
+			if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
+				File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
+				File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
+				if (IdenticalImage(FirstFile, SecondFile)) {
+					FirstFile.delete();
+					// SecondFile.delete();
+					System.out.println("Identical Image");
+					return true;
+				} else {
+					FirstFile.delete();
+					// SecondFile.delete();
+					System.out.println("Different Image");
+					return false;
+				}
 			}
 		}
 		return false;
@@ -338,8 +336,7 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	public void RunNewProcess(String classname) throws IOException {
-		ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classpath, classname);
-		process = builder.inheritIO().start();
+		process = new ProcessBuilder(javaBin, "-cp", classpath, classname).inheritIO().start();
 	}
 
 }
