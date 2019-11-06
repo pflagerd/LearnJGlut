@@ -31,7 +31,7 @@ public class ImageCompareJNA extends JFrame {
 	private static String AppWindowName;
 	private static final long serialVersionUID = 1L;
 
-	public static boolean IdenticalImage(File FirstFile, File SecondFile) {
+	public static boolean compareImages(File FirstFile, File SecondFile) {
 		try {
 			BufferedImage biA = ImageIO.read(FirstFile);
 			DataBuffer dbA = biA.getData().getDataBuffer();
@@ -133,6 +133,7 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean /* succeeded */ captureCRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
 		if (osName.contentEquals("Linux")) {
+			/* DPP: TODO: 191106081105Z: Maybe I don't need the thread */
 			Thread referenceApplicationThread = new Thread() {
 				@Override
 				public void run() {
@@ -230,7 +231,7 @@ public class ImageCompareJNA extends JFrame {
 				if (capture("redbook-1.1-src/src/")) { // Capturing c application window
 					PS.destroy(); // Ending C executable process
 					SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
-					if (IdenticalImage(FirstFile, SecondFile)) {
+					if (compareImages(FirstFile, SecondFile)) {
 						FirstFile.delete();
 						// SecondFile.delete();
 						System.out.println("Identical Image");
@@ -247,22 +248,61 @@ public class ImageCompareJNA extends JFrame {
 		return false;
 	}
 
-	public boolean captureAndCompareJGlutRedbookWithCRedbook(String WindowName) throws InterruptedException {
-		if (osName.contentEquals("Linux")) { // getClass().getName()
+	public boolean /* matches */ captureAndCompareJGlutRedbookWithCRedbook(String windowName /* aka Window Title */) throws InterruptedException, IOException {
+		if (osName.contentEquals("Linux")) {
+			process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);
+			Thread.sleep(500);
+
+			try {
+				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash aargb tmp");
+
+				StringBuilder stdoutString = new StringBuilder();
+				StringBuilder stderrString = new StringBuilder();
+
+				BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(screenShotProcess.getInputStream()));
+				BufferedReader stderrReader = new BufferedReader(new InputStreamReader(screenShotProcess.getErrorStream()));
+
+				String line;
+				while ((line = stdoutReader.readLine()) != null) {
+					stdoutString.append(line + "\n");
+				}
+				while ((line = stderrReader.readLine()) != null) {
+					stderrString.append(line + "\n");
+				}
+
+				int exitVal = screenShotProcess.waitFor();
+				if (exitVal != 0) {
+					// abnormal...
+					System.err.println("Problems!");
+					System.out.println(stdoutString);
+					System.err.println(stderrString);
+					process.destroyForcibly();
+					return false;
+				}
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+				process.destroyForcibly();
+				return false;
+			}
+			process.destroyForcibly();
+			
+			// TODO: DPP: 191106081105Z: perform comparison here
+			
+			return true;
 		} else {
-			ImageName = WindowName;
-			hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+			ImageName = windowName;
+			hWnd = User32.INSTANCE.FindWindow(null, windowName);// finding jglut window
 			if (hWnd == null) {
-				hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
+				hWnd = User32.INSTANCE.FindWindow(null, windowName + ".java");
 			}
 			double waitTime = 0;
 			while ((hWnd == null) && (waitTime < MaxWaitTime)) {
 				waitTime = waitTime + 500;
 				try {
 					Thread.sleep(500);
-					hWnd = User32.INSTANCE.FindWindow(null, WindowName);// finding jglut window
+					hWnd = User32.INSTANCE.FindWindow(null, windowName);// finding jglut window
 					if (hWnd == null) {
-						hWnd = User32.INSTANCE.FindWindow(null, WindowName + ".java");
+						hWnd = User32.INSTANCE.FindWindow(null, windowName + ".java");
 					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -272,9 +312,9 @@ public class ImageCompareJNA extends JFrame {
 			Thread.sleep(3500);
 			// User32.INSTANCE.PostMessage(hWnd, WinU'ser.WM_CLOSE, null, null);
 			if (capture("redbook-1.1-src/src/")) { // Capturing jglut window
-				File FirstFile = new File("redbook-1.1-src/src/" + WindowName);
-				File SecondFile = new File("redbook-1.1-src/src/" + WindowName + "CImage");
-				if (IdenticalImage(FirstFile, SecondFile)) {
+				File FirstFile = new File("redbook-1.1-src/src/" + windowName);
+				File SecondFile = new File("redbook-1.1-src/src/" + windowName + "CImage");
+				if (compareImages(FirstFile, SecondFile)) {
 					FirstFile.delete();
 					// SecondFile.delete();
 					System.out.println("Identical Image");
