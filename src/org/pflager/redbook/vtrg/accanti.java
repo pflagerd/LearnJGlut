@@ -68,8 +68,6 @@ public class accanti extends glut {
 	{
 		int viewport[]=new int[4];
 		int jitter;
-		int j8[]= {};
-		int x=0,y=0;
 		glGetIntegerv (GL_VIEWPORT, viewport);
 		glClear(GL_ACCUM_BUFFER_BIT);
 		for (jitter = 0; jitter < ACSIZE; jitter++) {
