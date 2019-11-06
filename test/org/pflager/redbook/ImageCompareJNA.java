@@ -131,7 +131,7 @@ public class ImageCompareJNA extends JFrame {
 		return true;
 	}
 
-	public boolean /* succeeded */ captureReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
+	public boolean /* succeeded */ captureRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
 		if (osName.contentEquals("Linux")) { // getClass().getName()
 			Thread referenceApplicationThread = new Thread() {
 				@Override

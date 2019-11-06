@@ -10,7 +10,7 @@ class Test_com_pflager_redbook_movelight extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureReferencePng("movelight"));
+		assertTrue(captureRedbookReferencePng("movelight"));
 		RunNewProcess(movelight.class.getName());
 		boolean CompareImage = CompareImageSec("movelight");
 		super.finalize();

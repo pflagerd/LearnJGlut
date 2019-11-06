@@ -11,7 +11,7 @@ class Test_com_pflager_redbook_accanti extends ImageCompareJNA {
 
 	@Test
 	void test() throws Throwable {
-		assertTrue(captureReferencePng("accanti"));
+		assertTrue(captureRedbookReferencePng("accanti"));
 		RunNewProcess(accanti.class.getName());
 		boolean CompareImage = CompareImageSec("accanti");
 		super.finalize();
