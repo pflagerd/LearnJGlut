@@ -1,18 +1,26 @@
 package org.pflager.redbook;
-	import static org.junit.jupiter.api.Assertions.*;
 
-	import org.junit.jupiter.api.Test;
-import org.pflager.redbook.kvs.bezmesh;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-	@SuppressWarnings("serial")
-	public class Test_com_pflager_redbook_bezmesh  extends ImageCompareJNA {
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-		@Test
-		void test() throws Throwable {
-			assertTrue(captureCRedbookReferencePng("bezmesh"));
-			RunNewProcess(bezmesh.class.getName());
-			boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("bezmesh");
-			super.finalize();
-			assertTrue(CompareImage);
+import org.junit.jupiter.api.Test;
+
+@SuppressWarnings("serial")
+public class Test_com_pflager_redbook_bezmesh extends ImageCompareJNA {
+	@Test
+	void test() throws Throwable {
+		String testClassName = getClass().getName();
+		testClassName = testClassName.substring(testClassName.lastIndexOf('.') + 1);
+		String programName = testClassName.substring(testClassName.lastIndexOf("_") + 1);
+
+		if (!Files.exists(Paths.get("artifacts/" + testClassName + ".reference.png"))) {
+			assertTrue(captureCRedbookReferencePng(programName));
 		}
+		RunNewProcess(bezmesh.class.getName());
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook(programName);
+		super.finalize();
+		assertTrue(CompareImage);
+	}
 }

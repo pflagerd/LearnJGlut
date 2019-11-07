@@ -12,11 +12,15 @@ import org.pflager.redbook.aargb;
 class Test_com_pflager_redbook_aargb extends ImageCompareJNA {
 	@Test
 	void test() throws Throwable {
-		if (!Files.exists(Paths.get("artifacts/Test_com_pflager_redbook_aargb.reference.png"))) {
-			assertTrue(captureCRedbookReferencePng("aargb"));
+		String testClassName = getClass().getName();
+		testClassName = testClassName.substring(testClassName.lastIndexOf('.') + 1);
+		String programName = testClassName.substring(testClassName.lastIndexOf("_") + 1);
+		
+		if (!Files.exists(Paths.get("artifacts/" + testClassName + ".reference.png"))) {
+			assertTrue(captureCRedbookReferencePng(programName));
 		}
 		RunNewProcess(aargb.class.getName());
-		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook("aargb");
+		boolean CompareImage = captureAndCompareJGlutRedbookWithCRedbook(programName);
 		super.finalize();
 		assertTrue(CompareImage);
 	}
