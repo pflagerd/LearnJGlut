@@ -80,5 +80,5 @@ import org.pflager.redbook.Test_com_pflager_redbook_varray;
 	Test_com_pflager_redbook_bezmesh.class,
 	Test_com_pflager_redbook_texbind.class,
 	})
-public class AllTest {
+public class AllTests {
 }
