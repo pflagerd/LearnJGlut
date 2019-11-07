@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -130,28 +132,16 @@ public class ImageCompareJNA extends JFrame {
 		return true;
 	}
 
-	public boolean /* succeeded */ captureCRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException {
+	public boolean /* succeeded */ captureCRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException, IOException {
 		if (osName.contentEquals("Linux")) {
-			/* DPP: TODO: 191106081105Z: Maybe I don't need the thread */
-			Thread referenceApplicationThread = new Thread() {
-				@Override
-				public void run() {
-					try {
-						process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			};
-			referenceApplicationThread.start();
+			process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);
 			Thread.sleep(500);
 
 			try {
 				String testClassName = getClass().getName();
 				testClassName = testClassName.substring(testClassName.lastIndexOf('.') + 1);
 
-				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash aargb " + testClassName);
+				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash " + windowName + " " + testClassName + ".reference.png");
 
 				StringBuilder stdoutString = new StringBuilder();
 				StringBuilder stderrString = new StringBuilder();
@@ -249,11 +239,10 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean /* matches */ captureAndCompareJGlutRedbookWithCRedbook(String windowName /* aka Window Title */) throws InterruptedException, IOException {
 		if (osName.contentEquals("Linux")) {
-			process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);
 			Thread.sleep(500);
 
 			try {
-				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash aargb tmp");
+				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash " + windowName + " " + windowName + ".png");
 
 				StringBuilder stdoutString = new StringBuilder();
 				StringBuilder stderrString = new StringBuilder();
@@ -284,10 +273,15 @@ public class ImageCompareJNA extends JFrame {
 				return false;
 			}
 			process.destroyForcibly();
-			
-			// TODO: DPP: 191106081105Z: perform comparison here
-			
-			return true;
+
+			String testClassName = getClass().getName();
+			testClassName = testClassName.substring(testClassName.lastIndexOf('.') + 1);
+
+			boolean success = compareImages(new File("artifacts/" + windowName + ".png"), new File("artifacts/" + testClassName + ".reference.png"));
+
+			Files.delete(Paths.get("artifacts/" + windowName + ".png"));
+
+			return success;
 		} else {
 			ImageName = windowName;
 			hWnd = User32.INSTANCE.FindWindow(null, windowName);// finding jglut window
@@ -304,7 +298,6 @@ public class ImageCompareJNA extends JFrame {
 						hWnd = User32.INSTANCE.FindWindow(null, windowName + ".java");
 					}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -330,7 +323,6 @@ public class ImageCompareJNA extends JFrame {
 	}
 
 	private boolean ExecuteEXE(String CFileName) {
-
 		try {
 			PS = new ProcessBuilder("redbook-1.1-src/src/" + CFileName + ".exe").start();
 			AppWindowName = "redbook-1.1-src\\src\\" + CFileName + ".exe";
