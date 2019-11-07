@@ -135,7 +135,7 @@ public class ImageCompareJNA extends JFrame {
 	public boolean /* succeeded */ captureCRedbookReferencePng(String windowName /* aka Window Title */) throws InterruptedException, IOException {
 		if (osName.contentEquals("Linux")) {
 			process = Runtime.getRuntime().exec("redbook-1.1-src/src/" + windowName);
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
 			try {
 				String testClassName = getClass().getName();
@@ -239,7 +239,7 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean /* matches */ captureAndCompareJGlutRedbookWithCRedbook(String windowName /* aka Window Title */) throws InterruptedException, IOException {
 		if (osName.contentEquals("Linux")) {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 
 			try {
 				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash " + windowName + " " + windowName + ".png");

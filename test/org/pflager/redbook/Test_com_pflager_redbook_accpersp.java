@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
-import org.pflager.redbook.kvs.accpersp;
 
 @SuppressWarnings("serial")
 public class Test_com_pflager_redbook_accpersp extends ImageCompareJNA {
