@@ -158,6 +158,7 @@ public class ImageCompareJNA extends JFrame {
 				}
 
 				int exitVal = screenShotProcess.waitFor();
+				System.err.println(stderrString);
 				if (exitVal != 0) {
 					// abnormal...
 					System.err.println("Problems!");
@@ -239,7 +240,7 @@ public class ImageCompareJNA extends JFrame {
 
 	public boolean /* matches */ captureAndCompareJGlutRedbookWithCRedbook(String windowName /* aka Window Title */) throws InterruptedException, IOException {
 		if (osName.contentEquals("Linux")) {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 
 			try {
 				Process screenShotProcess = Runtime.getRuntime().exec("./screenshot.bash " + windowName + " " + windowName + ".png");
