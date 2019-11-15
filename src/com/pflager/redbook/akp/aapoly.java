@@ -4,6 +4,7 @@ package com.pflager.redbook.akp;
 
 import com.pflager.glut;
 
+
 public class aapoly extends glut {
 	boolean polySmooth = true;
 	int NFACE = 6;
