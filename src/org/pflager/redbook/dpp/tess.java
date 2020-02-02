@@ -50,6 +50,8 @@
  */
 package org.pflager.redbook.dpp;
 
+import java.util.Arrays;
+
 import com.pflager.glut;
 
 public class tess extends glut {
@@ -99,7 +101,12 @@ public class tess extends glut {
 	GLUtesselator tobj;
 
 	public void vertex(Object vertex_data) {
-		glVertex3dv((double[])vertex_data);
+		if (vertex_data instanceof double[]) {
+			System.out.println(Arrays.toString((double[])vertex_data));
+			glVertex3dv((double[])vertex_data);
+		} else {
+			System.out.println(vertex_data);
+		}
 	}
 
 	void init() {
