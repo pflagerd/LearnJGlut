@@ -79,11 +79,6 @@ public class tess extends glut {
 		glEnd();
 	}
 
-	void vertexCallback(double[] /* 3 */ vertex, double[] /* 3 */ color) {
-		glVertex3dv(vertex);
-		glColor3dv(color);
-	}
-
 	/*
 	 * combineCallback is used to create a new vertex when edges intersect. coordinate location is trivial to calculate, but weight[4] may be used to average color, normal, or texture coordinate data. In this program, color is weighted.
 	 */
@@ -100,10 +95,10 @@ public class tess extends glut {
 
 	GLUtesselator tobj;
 
-	public void vertex(Object vertex_data) {
+	void vertex(Object vertex_data) {
 		if (vertex_data instanceof double[]) {
-			System.out.println(Arrays.toString((double[])vertex_data));
-			glVertex3dv((double[])vertex_data);
+			System.out.println(Arrays.toString((double[]) vertex_data));
+			glVertex3dv((double[]) vertex_data);
 		} else {
 			System.out.println(vertex_data);
 		}
@@ -112,6 +107,7 @@ public class tess extends glut {
 	void init() {
 		double[][] rect = new double[][] { { 50.0, 50.0, 0.0 }, { 200.0, 50.0, 0.0 }, { 200.0, 200.0, 0.0 }, { 50.0, 200.0, 0.0 } };
 		double[][] tri = new double[][] { { 75.0, 75.0, 0.0 }, { 125.0, 175.0, 0.0 }, { 175.0, 75.0, 0.0 } };
+		double[][] star = { { 250.0, 50.0, 0.0, 1.0, 0.0, 1.0 }, { 325.0, 200.0, 0.0, 1.0, 1.0, 0.0 }, { 400.0, 50.0, 0.0, 0.0, 1.0, 1.0 }, { 250.0, 150.0, 0.0, 1.0, 0.0, 0.0 }, { 400.0, 150.0, 0.0, 0.0, 1.0, 0.0 } };
 
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 
@@ -127,46 +123,66 @@ public class tess extends glut {
 		glNewList(startList, GL_COMPILE);
 		glShadeModel(GL_FLAT);
 		gluTessBeginPolygon(tobj, null);
-	      gluTessBeginContour(tobj);
-	         gluTessVertex(tobj, rect[0], rect[0]);
-	         gluTessVertex(tobj, rect[1], rect[1]);
-	         gluTessVertex(tobj, rect[2], rect[2]);
-	         gluTessVertex(tobj, rect[3], rect[3]);
-	      gluTessEndContour(tobj);
-	      gluTessBeginContour(tobj);
-	         gluTessVertex(tobj, tri[0], tri[0]);
-	         gluTessVertex(tobj, tri[1], tri[1]);
-	         gluTessVertex(tobj, tri[2], tri[2]);
-	      gluTessEndContour(tobj);
+		gluTessBeginContour(tobj);
+		gluTessVertex(tobj, rect[0], rect[0]);
+		gluTessVertex(tobj, rect[1], rect[1]);
+		gluTessVertex(tobj, rect[2], rect[2]);
+		gluTessVertex(tobj, rect[3], rect[3]);
+		gluTessEndContour(tobj);
+		gluTessBeginContour(tobj);
+		gluTessVertex(tobj, tri[0], tri[0]);
+		gluTessVertex(tobj, tri[1], tri[1]);
+		gluTessVertex(tobj, tri[2], tri[2]);
+		gluTessEndContour(tobj);
 		gluTessEndPolygon(tobj);
 		glEndList();
 
-////	   gluTessCallback(tobj, GLU_TESS_VERTEX,
-////			   (_GLUfuncptr)vertexCallback);
-//		gluTessCallback(tobj, GLU_TESS_BEGIN, (BeginFunc) this::begin);
-//		gluTessCallback(tobj, GLU_TESS_END, (EndFunc) this::end);
-//		gluTessCallback(tobj, GLU_TESS_ERROR, (ErrorFunc) this::error);
-////	   gluTessCallback(tobj, GLU_TESS_COMBINE,
-////			   (_GLUfuncptr)combineCallback);
-//
-//		/* smooth shaded, self-intersecting star */
-//		glNewList(startList + 1, GL_COMPILE);
-//		glShadeModel(GL_SMOOTH);
-////	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
-////	                   GLU_TESS_WINDING_POSITIVE);
-//		gluTessBeginPolygon(tobj, null);
-//		{
-//	      gluTessBeginContour(tobj); {
-//	         gluTessVertex(tobj, star[0], star[0]);
-//	         gluTessVertex(tobj, star[1], star[1]);
-//	         gluTessVertex(tobj, star[2], star[2]);
-//	         gluTessVertex(tobj, star[3], star[3]);
-//	         gluTessVertex(tobj, star[4], star[4]);
-//	      }
-//	      gluTessEndContour(tobj);
-//		}
-//		gluTessEndPolygon(tobj);
-//		glEndList();
+		gluTessCallback(tobj, GLU_TESS_VERTEX, (VertexFunc) (Object vertex_data) -> { 
+			if (vertex_data instanceof double[]) {
+				System.out.println(Arrays.toString((double[]) vertex_data));
+				double[] vertex = new double[3];
+				System.arraycopy(vertex_data, 0, vertex, 0, 3);
+				double[] color = new double[3];
+				System.arraycopy(vertex_data, 3, color, 0, 3);
+				
+				glVertex3dv(vertex);
+				glColor3dv(color);
+			} else {
+				System.out.println(vertex_data);
+			}
+		});
+		gluTessCallback(tobj, GLU_TESS_BEGIN, (BeginFunc) this::begin);
+		gluTessCallback(tobj, GLU_TESS_END, (EndFunc) this::end);
+		gluTessCallback(tobj, GLU_TESS_ERROR, (ErrorFunc) this::error);
+		gluTessCallback(tobj, GLU_TESS_COMBINE, (CombineFunc) (double coords[] /* 3 */, Object vertex_data[] /* 4 */, double weight[] /* 4 */, Object out) -> {
+			double[][] vertices_in = (double[][])vertex_data;
+			double[] vertices_out = new double[6];
+			vertices_out[0] = coords[0];
+			vertices_out[1] = coords[1];
+			vertices_out[2] = coords[2];
+			for (int i = 3; i < 7; i++)
+				vertices_out[i] = weight[0] * vertices_in[0][i] + weight[1] * vertices_in[1][i] + weight[2] * vertices_in[2][i] + weight[3] * vertices_in[3][i];
+			out = vertices_out;
+		});
+
+		/* smooth shaded, self-intersecting star */
+		glNewList(startList + 1, GL_COMPILE);
+		glShadeModel(GL_SMOOTH);
+//	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
+//	                   GLU_TESS_WINDING_POSITIVE);
+		gluTessBeginPolygon(tobj, null);
+		{
+	      gluTessBeginContour(tobj); {
+	         gluTessVertex(tobj, star[0], star[0]);
+	         gluTessVertex(tobj, star[1], star[1]);
+	         gluTessVertex(tobj, star[2], star[2]);
+	         gluTessVertex(tobj, star[3], star[3]);
+	         gluTessVertex(tobj, star[4], star[4]);
+	      }
+	      gluTessEndContour(tobj);
+		}
+		gluTessEndPolygon(tobj);
+		glEndList();
 		gluDeleteTess(tobj);
 	}
 
