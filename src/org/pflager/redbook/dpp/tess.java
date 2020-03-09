@@ -114,6 +114,8 @@ public class tess extends glut {
 		startList = glGenLists(2);
 
 		tobj = gluNewTess();
+		
+		/* RECTANGLE with TRIANGLE CUTOUT */
 		gluTessCallback(tobj, GLU_TESS_VERTEX, (VertexFunc) this::vertex);
 		gluTessCallback(tobj, GLU_TESS_BEGIN, (BeginFunc) this::begin);
 		gluTessCallback(tobj, GLU_TESS_END, (EndFunc) this::end);
@@ -137,6 +139,8 @@ public class tess extends glut {
 		gluTessEndPolygon(tobj);
 		glEndList();
 
+		
+		/* STAR */
 		gluTessCallback(tobj, GLU_TESS_VERTEX, (VertexFunc) (Object vertex_data) -> { 
 			if (vertex_data instanceof double[]) {
 				System.out.println(Arrays.toString((double[]) vertex_data));
@@ -154,22 +158,21 @@ public class tess extends glut {
 		gluTessCallback(tobj, GLU_TESS_BEGIN, (BeginFunc) this::begin);
 		gluTessCallback(tobj, GLU_TESS_END, (EndFunc) this::end);
 		gluTessCallback(tobj, GLU_TESS_ERROR, (ErrorFunc) this::error);
-		gluTessCallback(tobj, GLU_TESS_COMBINE, (CombineFunc) (double coords[] /* 3 */, Object vertex_data[] /* 4 */, double weight[] /* 4 */, Object out) -> {
-			double[][] vertices_in = (double[][])vertex_data;
-			double[] vertices_out = new double[6];
-			vertices_out[0] = coords[0];
-			vertices_out[1] = coords[1];
-			vertices_out[2] = coords[2];
-			for (int i = 3; i < 7; i++)
-				vertices_out[i] = weight[0] * vertices_in[0][i] + weight[1] * vertices_in[1][i] + weight[2] * vertices_in[2][i] + weight[3] * vertices_in[3][i];
-			out = vertices_out;
-		});
+//		gluTessCallback(tobj, GLU_TESS_COMBINE, (CombineFunc) (double coords[] /* 3 */, Object vertex_data[] /* 4 */, double weight[] /* 4 */, Object out) -> {
+//			double[][] vertices_in = (double[][])vertex_data;
+//			double[] vertices_out = (double[])out;
+//			vertices_out[0] = coords[0];
+//			vertices_out[1] = coords[1];
+//			vertices_out[2] = coords[2];
+//			for (int i = 3; i < 7; i++)
+//				vertices_out[i] = weight[0] * vertices_in[0][i] + weight[1] * vertices_in[1][i] + weight[2] * vertices_in[2][i] + weight[3] * vertices_in[3][i];
+//			//out = vertices_out;
+//		});
 
 		/* smooth shaded, self-intersecting star */
 		glNewList(startList + 1, GL_COMPILE);
 		glShadeModel(GL_SMOOTH);
-//	   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
-//	                   GLU_TESS_WINDING_POSITIVE);
+//		gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_POSITIVE);
 		gluTessBeginPolygon(tobj, null);
 		{
 	      gluTessBeginContour(tobj); {
