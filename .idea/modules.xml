@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LearnJGlut.iml" filepath="$PROJECT_DIR$/LearnJGlut.iml" />
+      <module fileurl="file://$PROJECT_DIR$/redbook-1.1-src/redbook-1.1-src.iml" filepath="$PROJECT_DIR$/redbook-1.1-src/redbook-1.1-src.iml" />
+      <module fileurl="file://$PROJECT_DIR$/references/references.iml" filepath="$PROJECT_DIR$/references/references.iml" />
+    </modules>
+  </component>
+</project>

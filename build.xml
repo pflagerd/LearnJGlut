@@ -2,7 +2,9 @@
     <condition property="isWindows">
         <os family="windows" />
     </condition>
-	
+
+	<setproxy proxyhost="wp-ewa-proxy.web.boeing.com" proxyport="31060"/>
+
 	<target name="get-dependencies" depends="select-swt, unzip-mingw64, unzip-freeglut, get-jglut">
 		<ant dir="redbook-1.1-src"/>
 	</target>
