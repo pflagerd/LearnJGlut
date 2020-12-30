@@ -1,12 +1,11 @@
 package org.pflager.redbook;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
-import org.pflager.redbook.aargb;
 
 @SuppressWarnings("serial")
 class Test_com_pflager_redbook_aargb extends ImageCompareJNA {
