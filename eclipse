@@ -1,0 +1,3 @@
+#!/bin/bash
+cd eclipse4learnjglut
+./eclipse >> eclipse4learnjglut.log 2>&1 &

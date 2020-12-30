@@ -3,7 +3,6 @@
 /freeglut/
 *.exe
 .directory
-/.eclipse
-/eclipse
+/eclipse4learnjglut
 /.metadata/
 /RemoteSystemsTempFiles/
