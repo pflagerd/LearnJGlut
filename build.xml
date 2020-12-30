@@ -5,11 +5,12 @@
 
 	<setproxy proxyhost="wp-ewa-proxy.web.boeing.com" proxyport="31060"/>
 
-	<target name="get-dependencies" depends="select-swt, unzip-mingw64, unzip-freeglut, get-jglut">
+	<target name="get-dependencies" depends="select-swt, get-and-unzip-mingw64, unzip-freeglut, get-jglut">
 		<ant dir="redbook-1.1-src"/>
 	</target>
 
-	<target name="unzip-mingw64" if="isWindows">
+	<target name="get-and-unzip-mingw64" if="isWindows">
+		<get src="https://github.com/pflagerd/learnjglut/releases/download/0.1.0/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.zip" usetimestamp="true"/>
 		<unzip src="x86_64-8.1.0-release-posix-seh-rt_v6-rev0.zip" dest="." overwrite="false"/>
 	</target>	
 	
