@@ -6,9 +6,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteDisplayName("JGlut Redbook AllTests Suite")
+@SuiteDisplayName("LearnJGlut AllTests Suite")
 @SuiteClasses({
-	org.pflager.gl.AllTests.class,
 	org.pflager.redbook.AllTests.class
 })
 public class AllTests {}
