@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class Test_com_pflager_gl_glRectfv___3D_3D extends glutTest {
 
 	@Test
-	void testFullyCoveredCanvas_II_II() throws IOException, InterruptedException {
+	void testFullyFilledCanvas_II_II() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -45,7 +45,7 @@ class Test_com_pflager_gl_glRectfv___3D_3D extends glutTest {
 	}
 
 	@Test
-	void testPartiallyCoveredCanvas_FD_DI() throws IOException, InterruptedException {
+	void testPartiallyFilledCanvas_FD_DI() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 

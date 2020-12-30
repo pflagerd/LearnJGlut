@@ -8,7 +8,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 	final float PI = (float) 3.1415926535898;
 
 	@Test
-	void testFullyCoveredCanvasWithNinePointsCircle_DD() throws IOException, InterruptedException {
+	void testFullyFilledCanvasWithNinePointsCircle_DD() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
@@ -33,7 +33,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 	}
 
 	@Test
-	void testFullyCoveredCanvasWithNinePointsCircle_FD() throws IOException, InterruptedException {
+	void testFullyFilledCanvasWithNinePointsCircle_FD() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
@@ -58,7 +58,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 	}
 
 	@Test
-	void testFullyCoveredCanvasWithNinePointsCircle_FF() throws IOException, InterruptedException {
+	void testFullyFilledCanvasWithNinePointsCircle_FF() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
@@ -83,7 +83,7 @@ class Test_com_pflager_gl_glVertex2f__DD extends glutTest {
 	}
 
 	@Test
-	void testFullyCoveredCanvasWithNineLineLoopCircle_DD() throws IOException, InterruptedException {
+	void testFullyFilledCanvasWithNineLineLoopCircle_DD() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int circle_points = 128;
