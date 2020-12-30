@@ -1,3 +1,11 @@
 #!/bin/bash
-cd eclipse4learnjglut
-./eclipse >> eclipse4learnjglut.log 2>&1 &
+directoryName=$(dirname $(realpath $0))
+if ! [ -d $directoryName/eclipse4learnjglut-linux ]; then
+	cd $directoryname
+	wget https://github.com/pflagerd/learnjglut/releases/download/0.1.0/eclipse4learnjglut-linux.tar.gz
+	tar xzf eclipse4learnjglut-linux.tar.gz
+	rm eclipse4learnjglut-linux.tar.gz	
+fi
+
+cd $directoryName/eclipse4learnjglut-linux
+./eclipse >> $directoryName/eclipse4learnjglut-linux/eclipse4learnjglut-linux.log 2>&1 &

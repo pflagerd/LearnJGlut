@@ -3,6 +3,7 @@
 /freeglut/
 *.exe
 .directory
-/eclipse4learnjglut
+/eclipse4learnjglut-linux
+/eclipse4learnjglut-linux.tar.gz
 /.metadata/
 /RemoteSystemsTempFiles/
