@@ -31,7 +31,11 @@ public class glutTest extends glut {
 		thread.start();
 		thread.join();
 		System.out.println(thisFullyQualifiedMethodName);
-		assertTrue(FileUtils.contentEquals(new File("artifacts/tmp.png"), new File("artifacts/" + thisFullyQualifiedMethodName + ".png")));
+		if (new File("artifacts/" + thisFullyQualifiedMethodName + ".png").exists()) {
+			assertTrue(FileUtils.contentEquals(new File("artifacts/tmp.png"), new File("artifacts/" + thisFullyQualifiedMethodName + ".png")));
+		} else {
+			new File("artifacts/tmp.png").renameTo(new File("artifacts/" + thisFullyQualifiedMethodName + ".png"));
+		}
 	}
 
 }
