@@ -70,9 +70,9 @@ public class texturesurf extends glut {
 			for (j = 0; j < imageHeight; j++) {
 				tj = 2.0 * Math.PI * j / imageHeight;
 
-				image[3 * (imageHeight * i + j)] = (byte) (new Double(127.0 * (1.0 + Math.sin(ti))).intValue() & 0xFF);
-				image[3 * (imageHeight * i + j) + 1] = (byte) (new Double(127.0 * (1.0 + Math.cos(2 * tj))).intValue() & 0xFF);
-				image[3 * (imageHeight * i + j) + 2] = (byte) (new Double(127.0 * (1.0 + Math.cos(ti + tj))).intValue() & 0xFF);
+				image[3 * (imageHeight * i + j)] = 		(byte) (new Double(127.0 * (1.0 + Math.sin(ti))).intValue() & 0xFF);
+				image[3 * (imageHeight * i + j) + 1] = 	(byte) (new Double(127.0 * (1.0 + Math.cos(2 * tj))).intValue() & 0xFF);
+				image[3 * (imageHeight * i + j) + 2] = 	(byte) (new Double(127.0 * (1.0 + Math.cos(ti + tj))).intValue() & 0xFF);
 			}
 		}
 	}
