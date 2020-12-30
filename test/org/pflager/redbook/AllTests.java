@@ -5,41 +5,6 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.SuiteDisplayName;
 import org.junit.runner.RunWith;
 
-import org.pflager.redbook.Test_com_pflager_redbook_aargb;
-import org.pflager.redbook.Test_com_pflager_redbook_accanti;
-import org.pflager.redbook.Test_com_pflager_redbook_accpersp;
-import org.pflager.redbook.Test_com_pflager_redbook_alpha;
-import org.pflager.redbook.Test_com_pflager_redbook_alpha3D;
-import org.pflager.redbook.Test_com_pflager_redbook_bezcurve;
-import org.pflager.redbook.Test_com_pflager_redbook_bezmesh;
-import org.pflager.redbook.Test_com_pflager_redbook_bezsurf;
-import org.pflager.redbook.Test_com_pflager_redbook_checker;
-import org.pflager.redbook.Test_com_pflager_redbook_clip;
-import org.pflager.redbook.Test_com_pflager_redbook_colormat;
-import org.pflager.redbook.Test_com_pflager_redbook_cube;
-import org.pflager.redbook.Test_com_pflager_redbook_double_;
-import org.pflager.redbook.Test_com_pflager_redbook_dof;
-import org.pflager.redbook.Test_com_pflager_redbook_drawf;
-import org.pflager.redbook.Test_com_pflager_redbook_fog;
-import org.pflager.redbook.Test_com_pflager_redbook_fogindex;
-import org.pflager.redbook.Test_com_pflager_redbook_hello;
-import org.pflager.redbook.Test_com_pflager_redbook_image;
-import org.pflager.redbook.Test_com_pflager_redbook_light;
-import org.pflager.redbook.Test_com_pflager_redbook_lines;
-import org.pflager.redbook.Test_com_pflager_redbook_material;
-import org.pflager.redbook.Test_com_pflager_redbook_model;
-import org.pflager.redbook.Test_com_pflager_redbook_movelight;
-import org.pflager.redbook.Test_com_pflager_redbook_planet;
-import org.pflager.redbook.Test_com_pflager_redbook_polys;
-import org.pflager.redbook.Test_com_pflager_redbook_robot;
-import org.pflager.redbook.Test_com_pflager_redbook_scene;
-import org.pflager.redbook.Test_com_pflager_redbook_smooth;
-import org.pflager.redbook.Test_com_pflager_redbook_stencil;
-import org.pflager.redbook.Test_com_pflager_redbook_teapots;
-import org.pflager.redbook.Test_com_pflager_redbook_texsub;
-import org.pflager.redbook.Test_com_pflager_redbook_unproject;
-import org.pflager.redbook.Test_com_pflager_redbook_varray;
-
 @RunWith(JUnitPlatform.class)
 @SuiteDisplayName("JGlut AllTests Suite")
 @SelectClasses({
@@ -56,7 +21,7 @@ import org.pflager.redbook.Test_com_pflager_redbook_varray;
 	Test_com_pflager_redbook_double_.class,
 	Test_com_pflager_redbook_dof.class,
 	Test_com_pflager_redbook_fog.class,
-	Test_com_pflager_redbook_fogindex.class,
+	Test_com_pflager_redbook_fogindex.class, // seems strange
 	Test_com_pflager_redbook_hello.class,
 	Test_com_pflager_redbook_image.class,
 	Test_com_pflager_redbook_light.class,
@@ -73,7 +38,7 @@ import org.pflager.redbook.Test_com_pflager_redbook_varray;
 	Test_com_pflager_redbook_unproject.class,
 	Test_com_pflager_redbook_varray.class,
 	Test_com_pflager_redbook_drawf.class,
-	Test_com_pflager_redbook_stencil.class,
+	Test_com_pflager_redbook_stencil.class, // behaves oddly.
 	Test_com_pflager_redbook_accpersp.class,
 	Test_com_pflager_redbook_accanti.class,
 	Test_com_pflager_redbook_texsub.class,
