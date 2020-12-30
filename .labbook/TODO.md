@@ -1,7 +1,9 @@
 - Get automated testing working on both Windows and Linux.
-  - Write screen capture utility in JNA for X11.
-- Consolidate all Unit tests
-  - org.pflager.AllTests
-  - org.pflager.redbook.AllTestRedbook.java.
-- Change test names from Test_com_pflager_redbook to Test_org_pflager_redbook.
-- Change image names from com.pflager.Test_com_pflager_gl_glRectd to Test_org_pflager_redbook
+
+  - Write screen capture utility in JNA for X11?
+
+- Write a gitlab runner to test on Linux
+
+- Write a gitlab runner to test on Windows
+
+
