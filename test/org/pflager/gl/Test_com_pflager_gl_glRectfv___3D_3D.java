@@ -1,17 +1,17 @@
-package org.pflager;
+package org.pflager.gl;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-class Test_com_pflager_gl_glRectdv extends glutTest {
+class Test_com_pflager_gl_glRectfv___3D_3D extends glutTest {
 
 	@Test
 	void testFullyFilledCanvas_II_II() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectdv(new double[] { -1, -1 }, new double[] { 1, 1 });
+			glRectfv(new double[] { -1, -1 }, new double[] { 1, 1 });
 
 			glFinish(); // waits for display to settle down.
 
@@ -30,7 +30,7 @@ class Test_com_pflager_gl_glRectdv extends glutTest {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectdv(new double[] { -0.5, -0.5 }, new double[] { 0.5, 0.5 });
+			glRectfv(new double[] { -0.75, -0.75 }, new double[] { 0.75, 0.75 });
 
 			glFinish(); // waits for display to settle down.
 
@@ -45,11 +45,11 @@ class Test_com_pflager_gl_glRectdv extends glutTest {
 	}
 
 	@Test
-	void testPartiallyFilledCanvas_II_FF() throws IOException, InterruptedException {
+	void testPartiallyFilledCanvas_FD_DI() throws IOException, InterruptedException {
 		singleShotDisplayTest(() -> {
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glRectdv(new double[] { 0, 0 }, new double[] { 1f, 1.0f });
+			glRectfv(new double[] { 0f, 0.0 }, new double[] { -1.0, 1 });
 
 			glFinish(); // waits for display to settle down.
 

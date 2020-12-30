@@ -1,4 +1,4 @@
-package org.pflager;
+package org.pflager.gl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

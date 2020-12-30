@@ -1,4 +1,4 @@
-package org.pflager;
+package org.pflager.gl;
 
 import org.junit.jupiter.api.Test;
 

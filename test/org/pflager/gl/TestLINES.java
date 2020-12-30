@@ -1,10 +1,10 @@
-package org.pflager;
+package org.pflager.gl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class TestGLInitialState {
+class TestLINES {
 
 	@Test
 	void test() {

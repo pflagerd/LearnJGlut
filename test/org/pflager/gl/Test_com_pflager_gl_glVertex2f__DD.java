@@ -1,4 +1,4 @@
-package org.pflager;
+package org.pflager.gl;
 
 import java.io.IOException;
 
