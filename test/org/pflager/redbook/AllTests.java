@@ -6,7 +6,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
-@SuiteDisplayName("JGlut AllTests Suite")
+@SuiteDisplayName("JGlut Redbook AllTests Suite")
 @SelectClasses({
 	// Test_com_pflager_redbook_aaindex.class,		// Example 6-4
 	Test_com_pflager_redbook_aapoly.class,			// Example 6-5
